@@ -6,7 +6,7 @@ import { Book } from './books/entities/book.entity';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
-    database: '../app.sqlite',
+    database: './app.sqlite',
     entities: [Book],
     synchronize: process.env.NODE_ENV != 'production',
   }), BooksModule],
