@@ -1,6 +1,4 @@
-import { Comment } from "src/comments/entities/comment.entity";
-import { Post } from "src/posts/entities/post.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -10,9 +8,10 @@ export class User {
     @Column({ unique: true })
     studentId: string
 
-    @OneToMany(() => Post, (post) => post.owner)
-    posts: Post[]
+    @Column({ nullable: false })
+    firstname: string
 
-    @OneToMany(() => Comment, (comment) => comment.owner)
-    comments: Comment[]
+    @Column({ nullable: false })
+    lastname: string
+
 }

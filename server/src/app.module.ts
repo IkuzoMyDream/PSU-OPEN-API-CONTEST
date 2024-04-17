@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BooksModule } from './books/books.module';
-import { Book } from './books/entities/book.entity';
 import { UsersModule } from './users/users.module';
-import { PostsModule } from './posts/posts.module';
-import { CommentsModule } from './comments/comments.module';
+import { User } from './users/entities/user.entity';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
     database: './app.sqlite',
-    entities: [Book],
+    entities: [User],
     synchronize: process.env.NODE_ENV != 'production',
-  }), BooksModule, UsersModule, PostsModule, CommentsModule],
+  }), UsersModule, CoursesModule],
 })
 export class AppModule { }
