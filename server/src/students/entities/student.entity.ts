@@ -1,8 +1,8 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Student {
-    @Column({ unique: true })
+    @PrimaryColumn({ unique: true })
     studentId: string
     titleNameThai: string 
     titleShortEng: string
