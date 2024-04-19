@@ -1,18 +1,25 @@
-import { Entity, Column } from "typeorm"
+import { Entity, Column, PrimaryColumn } from "typeorm"
 
 @Entity()
-export class Enrollments {
-    @Column({ unique: true })
-    registAmount : string
-    registCredit : string
-    registType : string
-    registTypeDesc : string
-    section : string
-    shortNameEng : string
-    statusDescThai : string
-    subjectCode : string
-    subjectId : string
-    subjectNameEng : string
-    subjectNameThai : string
-    withdrawalType : string
+export class Course {
+    @PrimaryColumn({ unique: true, nullable: false })
+    registAmount: string
+
+    @Column({ nullable: false })
+    registCredit: string
+
+    @Column({ nullable: false })
+    registType: string
+
+    @Column({ nullable: false })
+    registTypeDesc: string
+
+    @Column({ nullable: false })
+    section: string
+
+    @Column({ nullable: false })
+    statusDescThai: string
+
+    @Column({ nullable: false })
+    withdrawalType: string
 }
