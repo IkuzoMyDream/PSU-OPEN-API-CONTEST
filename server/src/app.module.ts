@@ -4,7 +4,7 @@ import { StudentsModule } from './students/students.module';
 import { CoursesModule } from './courses/courses.module';
 import { Student } from './students/entities/student.entity';
 import { Course } from './courses/entities/course.entity';
-import { GeneralEducationsModule } from './general_educations/general_educations.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -12,6 +12,6 @@ import { GeneralEducationsModule } from './general_educations/general_educations
     database: './app.sqlite',
     entities: [Student, Course],
     synchronize: process.env.NODE_ENV != 'production',
-  }), StudentsModule, CoursesModule, GeneralEducationsModule,],
+  }), StudentsModule, CoursesModule, CategoriesModule],
 })
 export class AppModule { }
