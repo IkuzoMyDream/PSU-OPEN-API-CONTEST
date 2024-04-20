@@ -7,7 +7,7 @@ import { Course } from './entities/course.entity';
 @Injectable()
 export class CoursesService {
 
-  constructor(@InjectRepository([Course])) {}
+  // constructor(@InjectRepository([Course])) {}
 
   create(createCourseDto: CreateCourseDto) {
     return 'This action adds a new course';

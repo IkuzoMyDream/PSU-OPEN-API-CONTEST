@@ -22,4 +22,5 @@ export class Course {
 
     @Column({ nullable: false })
     subjectTypeDesc: string
+        
 }
