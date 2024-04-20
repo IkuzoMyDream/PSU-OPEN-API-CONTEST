@@ -1,17 +1,20 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Course } from "src/courses/entities/course.entity";
+import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-enum CategoryType{
-    GENERALEDU = "GeneralEdu"
-
-
+enum CategoryType {
+    GENERAL_EDU = "General Education",
+    PROFESSION_EDU = "Profession Education",
+    FREE_ELECTIVE_EDU = "Free Elective Education"
 }
 
-enum GeneralType{
-
+enum GeneralEducationType {
+    REQUIRED = "Required",
+    ELECTIVE = "Elective"
 }
 
-enum professionType{
-
+enum ProfessionEducationType {
+    BASIC_PROFRESSION = "Basic Profession",
+    PROFRESSION = "Profession"
 }
 
 @Entity()
@@ -19,21 +22,23 @@ export class Category {
     @PrimaryGeneratedColumn()
     catagoryId: string
 
-    @Column({type:"simple-enum"})
-    categorytype:CategoryType
+    @Column({ type: "simple-enum", nullable: false })
+    categoryType: CategoryType
 
-    @Column({nullable: true })
-    subjectGroup: string
+    // วิชาทั่วไป
+    @Column({ type: "simple-enum", nullable: true })
+    generalType: GeneralEducationType
 
-    @Column({type:"simple-enum" })
-    generalType: GeneralType
+    @Column({ nullable: true })
+    subjectGroupNumber: string
 
-    @Column({type:"simple-enum"})
-    professionType: professionType
+    @Column({ nullable: true })
+    subjectGroupName: string
 
+    // วิชาชีพ
+    @Column({ type: "simple-enum", nullable: true })
+    professionType: ProfessionEducationType
 
-
-
-
-
+    @OneToMany(() => Course, (course) => course.category)
+    courses: Course[]
 }

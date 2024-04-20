@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Category } from "src/categories/entities/category.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Course {
@@ -20,7 +21,8 @@ export class Course {
     @Column({ nullable: false })
     subjectNameThai: string
 
-    @Column({ nullable: false })
-    subjectTypeDesc: string
-        
+    @ManyToOne(() => Category, (category) => category.courses)
+    category: Category
+
+
 }
