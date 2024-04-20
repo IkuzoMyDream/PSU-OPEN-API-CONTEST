@@ -3,18 +3,21 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CoursesService {
 
-  // constructor(@InjectRepository([Course])) {}
+  constructor(@InjectRepository(Course)
+  private readonly courseRepository: Repository<Course>
+  ) { }
 
-  create(createCourseDto: CreateCourseDto) {
-    return 'This action adds a new course';
+  async create(createCourseDto: CreateCourseDto) {
+    return await 'This action adds a new course';
   }
 
-  findAll() {
-    return `This action returns all courses`;
+  async findAll() {
+    return await this.courseRepository.find({ relations: ["category"] });
   }
 
   findOne(id: number) {

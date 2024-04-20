@@ -24,5 +24,4 @@ export class Course {
     @ManyToOne(() => Category, (category) => category.courses)
     category: Category
 
-
 }
