@@ -8,7 +8,7 @@ function Dashboard() {
   const [studentDetail, setStudentDetail] = useState(null);
   const fectStudentDetail = async () => {
     const result = await axios.get(
-      `https://api-gateway.psu.ac.th/Test/regist/level2/StudentDetailCampus/01/token`,
+      `https://api-gateway.psu.ac.th/Test/regist/SubjectOfferCampus/01/1/2564?facID=15&deptID=202&limit=1000`,
       {
         headers: {
           credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
@@ -16,6 +16,7 @@ function Dashboard() {
         },
       }
     );
+    console.log('result = ',result)
     setStudentDetail(result.data.data[0]);
   };
   useEffect(() => {
