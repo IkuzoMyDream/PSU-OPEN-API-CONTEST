@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useAuth } from "react-oidc-context";
 
 function App() {
+  const auth = useAuth();
+
+  const handleLogin = () => {
+    auth.signinRedirect();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4">Log in</h2>
+        <button
+          onClick={handleLogin}
+          className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          Learn React
-        </a>
-      </header>
+          กดเพื่อยืนยันตัวตน
+        </button>
+      </div>
     </div>
   );
 }
