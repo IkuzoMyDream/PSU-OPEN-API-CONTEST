@@ -9,13 +9,21 @@ import { Category } from './categories/entities/category.entity';
 import { CurriculumStructuresModule } from './curriculum_structures/curriculum_structures.module';
 import { CurriculumStructure } from './curriculum_structures/entities/curriculum_structure.entity';
 import { SubCategoriesModule } from './sub_categories/sub_categories.module';
+import { SubCategory } from './sub_categories/entities/sub_category.entity';
+import { FacultiesModule } from './faculties/faculties.module';
+import { MajorsModule } from './majors/majors.module';
+import { DepartmentsModule } from './departments/departments.module';
+import { Faculty } from './faculties/entities/faculty.entity';
+import { Department } from './departments/entities/department.entity';
+import { Major } from './majors/entities/major.entity';
+import { Enrollment } from './enrollments/entities/enrollment.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
     database: './app.sqlite',
-    entities: [Student, Course, Category, CurriculumStructure],
+    entities: [Student, Enrollment, Faculty, Department, Major, Course, CurriculumStructure, Category, SubCategory],
     synchronize: process.env.NODE_ENV != 'production',
-  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule],
+  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule],
 })
 export class AppModule { }

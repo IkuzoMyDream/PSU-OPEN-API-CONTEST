@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryColumn } from "typeorm"
 
 @Entity()
-export class Course {
+export class Enrollment {
     @PrimaryColumn({ unique: true, nullable: false })
-    registAmount: string
+    studentId: string
 
     @Column({ nullable: false })
     registCredit: string
@@ -12,7 +12,7 @@ export class Course {
     registType: string
 
     @Column({ nullable: false })
-    registTypeDesc: string
+    registTypeDesc: string   
 
     @Column({ nullable: false })
     section: string

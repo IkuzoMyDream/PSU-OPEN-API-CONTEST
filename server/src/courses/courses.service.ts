@@ -13,11 +13,11 @@ export class CoursesService {
   ) { }
 
   async create(createCourseDto: CreateCourseDto) {
-    return await 'This action adds a new course';
+    return  'This action adds a new course';
   }
 
   async findAll() {
-    return await this.courseRepository.find({ relations: ["category", "subCurriculumStructure"] });
+    return await this.courseRepository.find({ relations: ["category", "subCategory"] });
   }
 
   findOne(id: number) {

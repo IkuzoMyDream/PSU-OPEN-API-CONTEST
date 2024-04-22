@@ -1,4 +1,5 @@
 import { Course } from "src/courses/entities/course.entity";
+import { SubCategory } from "src/sub_categories/entities/sub_category.entity";
 import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 enum CategoryType {
@@ -12,11 +13,6 @@ enum GeneralEducationType {
     ELECTIVE = "Elective"
 }
 
-enum ProfessionEducationType {
-    BASIC_PROFRESSION = "Basic Profession",
-    PROFRESSION = "Profession"
-}
-
 @Entity()
 export class Category {
     @PrimaryGeneratedColumn()
@@ -25,7 +21,6 @@ export class Category {
     @Column({ type: "simple-enum", nullable: false })
     categoryType: CategoryType
 
-    // วิชาทั่วไป
     @Column({ type: "simple-enum", nullable: true })
     generalType: GeneralEducationType
 
@@ -35,10 +30,9 @@ export class Category {
     @Column({ nullable: true })
     subjectGroupName: string
 
-    // วิชาชีพ
-    @Column({ type: "simple-enum", nullable: true })
-    professionType: ProfessionEducationType
-
     @OneToMany(() => Course, (course) => course.category)
     courses: Course[]
+
+    @OneToMany(() => SubCategory, (sub_category) => sub_category.categoryId)
+    subCategoryIds: SubCategory[]
 }
