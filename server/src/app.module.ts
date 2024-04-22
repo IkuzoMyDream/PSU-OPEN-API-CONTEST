@@ -6,17 +6,16 @@ import { Student } from './students/entities/student.entity';
 import { Course } from './courses/entities/course.entity';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/entities/category.entity';
-import { CurriculumStructureModule } from './curriculum_structure/curriculum_structure.module';
-import { SubCurriculumStructureModule } from './sub_curriculum_structure/sub_curriculum_structure.module';
-import { CurriculumStructure } from './curriculum_structure/entities/curriculum_structure.entity';
-import { SubCurriculumStructure } from './sub_curriculum_structure/entities/sub_curriculum_structure.entity';
+import { CurriculumStructuresModule } from './curriculum_structures/curriculum_structures.module';
+import { CurriculumStructure } from './curriculum_structures/entities/curriculum_structure.entity';
+import { SubCategoriesModule } from './sub_categories/sub_categories.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
     database: './app.sqlite',
-    entities: [Student, Course, Category, CurriculumStructure, SubCurriculumStructure],
+    entities: [Student, Course, Category, CurriculumStructure],
     synchronize: process.env.NODE_ENV != 'production',
-  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructureModule, SubCurriculumStructureModule],
+  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule],
 })
 export class AppModule { }

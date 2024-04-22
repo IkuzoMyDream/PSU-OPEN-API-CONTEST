@@ -6,11 +6,11 @@ import { CurriculumStructure } from './entities/curriculum_structure.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class CurriculumStructureService {
+export class CurriculumStructuresService {
 
   constructor(
     @InjectRepository(CurriculumStructure)
-    private readonly curriculumStructureRepository: Repository<CurriculumStructure>
+    private readonly corriculumStructureRepository: Repository<CurriculumStructure>
   ) { }
 
   create(createCurriculumStructureDto: CreateCurriculumStructureDto) {
@@ -18,7 +18,7 @@ export class CurriculumStructureService {
   }
 
   async findAll() {
-    return await this.curriculumStructureRepository.find();
+    return await this.corriculumStructureRepository.find();
   }
 
   findOne(id: number) {
