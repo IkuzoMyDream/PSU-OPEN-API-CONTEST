@@ -12,8 +12,4 @@ export class SubCurriculumStructure {
 
     @OneToMany(() => Course, (course) => course.subCurriculumStructure)
     courses: Course[]
-
-    @ManyToOne(() => CurriculumStructure, (curriculumstructure) => curriculumstructure.generalEduSubjGrp1subCurriculumStructures)
-    curriculumStructure: CurriculumStructure
-
 }

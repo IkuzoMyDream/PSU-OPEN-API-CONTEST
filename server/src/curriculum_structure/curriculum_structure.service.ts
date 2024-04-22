@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCurriculumStructureDto } from './dto/create-curriculum_structure.dto';
 import { UpdateCurriculumStructureDto } from './dto/update-curriculum_structure.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CurriculumStructure } from './entities/curriculum_structure.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CurriculumStructureService {
+
+  constructor(
+    @InjectRepository(CurriculumStructure)
+    private readonly curriculumStructureRepository: Repository<CurriculumStructure>
+  ) { }
+
   create(createCurriculumStructureDto: CreateCurriculumStructureDto) {
     return 'This action adds a new curriculumStructure';
   }
 
-  findAll() {
-    return `This action returns all curriculumStructure`;
+  async findAll() {
+    return await this.curriculumStructureRepository.find();
   }
 
   findOne(id: number) {
