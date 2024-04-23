@@ -3,7 +3,7 @@ import { FacultiesService } from './faculties.service';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
 import { UpdateFacultyDto } from './dto/update-faculty.dto';
 
-@Controller('faculties')
+@Controller('local-api')
 export class FacultiesController {
   constructor(private readonly facultiesService: FacultiesService) {}
 
@@ -12,12 +12,12 @@ export class FacultiesController {
     return this.facultiesService.create(createFacultyDto);
   }
 
-  @Get()
+  @Get('faculties')
   findAll() {
     return this.facultiesService.findAll();
   }
 
-  @Get(':id')
+  @Get('faculty/:id')
   findOne(@Param('id') id: string) {
     return this.facultiesService.findOne(+id);
   }

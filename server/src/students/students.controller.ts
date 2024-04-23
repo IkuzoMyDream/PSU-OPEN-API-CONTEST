@@ -3,7 +3,7 @@ import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 
-@Controller('students')
+@Controller('local-api')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
@@ -12,12 +12,12 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
-  @Get()
+  @Get('students')
   findAll() {
     return this.studentsService.findAll();
   }
 
-  @Get(':id')
+  @Get('student/:id')
   findOne(@Param('id') id: string) {
     return this.studentsService.findOne(+id);
   }

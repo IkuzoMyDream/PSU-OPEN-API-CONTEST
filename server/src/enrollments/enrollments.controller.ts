@@ -3,7 +3,7 @@ import { EnrollmentsService } from './enrollments.service';
 import { CreateEnrollmentDto } from './dto/create-enrollment.dto';
 import { UpdateEnrollmentDto } from './dto/update-enrollment.dto';
 
-@Controller('enrollments')
+@Controller('local-api')
 export class EnrollmentsController {
   constructor(private readonly enrollmentsService: EnrollmentsService) {}
 
@@ -12,12 +12,12 @@ export class EnrollmentsController {
     return this.enrollmentsService.create(createEnrollmentDto);
   }
 
-  @Get()
+  @Get('enrollments')
   findAll() {
     return this.enrollmentsService.findAll();
   }
 
-  @Get(':id')
+  @Get('enrollment/:id')
   findOne(@Param('id') id: string) {
     return this.enrollmentsService.findOne(+id);
   }

@@ -3,7 +3,7 @@ import { SubCategoriesService } from './sub_categories.service';
 import { CreateSubCategoryDto } from './dto/create-sub_category.dto';
 import { UpdateSubCategoryDto } from './dto/update-sub_category.dto';
 
-@Controller('sub-categories')
+@Controller('local-api')
 export class SubCategoriesController {
   constructor(private readonly subCategoriesService: SubCategoriesService) {}
 
@@ -12,12 +12,12 @@ export class SubCategoriesController {
     return this.subCategoriesService.create(createSubCategoryDto);
   }
 
-  @Get()
+  @Get('sub-categories')
   findAll() {
     return this.subCategoriesService.findAll();
   }
 
-  @Get(':id')
+  @Get('sub-category/:id')
   findOne(@Param('id') id: string) {
     return this.subCategoriesService.findOne(+id);
   }

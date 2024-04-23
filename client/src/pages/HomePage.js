@@ -29,6 +29,7 @@ function HomePage() {
         }
       );
       setStudentDetail(result.data.data[0]);
+      console.log("studentdetail = ",result.data.data[0])
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +47,7 @@ function HomePage() {
         }
       );
       console.log(result.data.data);
-    } catch (err) {
+    } catch (err) { 
       console.log(err);
     }
   };
@@ -56,17 +57,36 @@ function HomePage() {
       const result = await axios.get(
         "http://localhost:1337/curriculum-structures"
       );
-      console.log(result);
+      console.log("why are you gay ",result);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const fetchStudentData = async () => {
+    try {
+      const result = await axios.get(
+        "http://localhost:1337/students",
+        // {
+        //   headers: {
+        //     // credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
+        //     // token: auth.user.access_token,
+        //   },
+        // }
+      );
+      console.log("gay =  ",result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchStudentDetail();
       fetchStudentEnrollment();
       fetchCurriculumStructure();
+      fetchStudentData();
     }
   }, [auth.user, auth]);
 

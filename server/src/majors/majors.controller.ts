@@ -3,7 +3,7 @@ import { MajorsService } from './majors.service';
 import { CreateMajorDto } from './dto/create-major.dto';
 import { UpdateMajorDto } from './dto/update-major.dto';
 
-@Controller('majors')
+@Controller('local-api')
 export class MajorsController {
   constructor(private readonly majorsService: MajorsService) {}
 
@@ -12,12 +12,12 @@ export class MajorsController {
     return this.majorsService.create(createMajorDto);
   }
 
-  @Get()
+  @Get('majors')
   findAll() {
     return this.majorsService.findAll();
   }
 
-  @Get(':id')
+  @Get('major/:id')
   findOne(@Param('id') id: string) {
     return this.majorsService.findOne(+id);
   }
