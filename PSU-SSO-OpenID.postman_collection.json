@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "b4cfa146-4ec6-4358-a464-7f3aca48b941",
+		"name": "PSU SSO OpenID",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10926729"
+	},
+	"item": [
+		{
+			"name": "PSU SSO OpenID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "HH17r67kSTV7XsfDRcNRMAb8ekTTICXmfWEvmrAVXlEnHuA1uwMdfHAKJEXSpCWVzvduKdES8Mh1VDQOK3kR84CnHZh9UjUt5NVwOdKvNFo5q0V8y9p4Dki7mJv6tw6i",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "QN9QkBfY6Hhx95kMSIXEjp629yEJNREtk7NTHsjr",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "body",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code_with_pkce",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://psusso.psu.ac.th:8443/application/o/token/",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://psusso.psu.ac.th:8443/application/o/authorize/",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "authentik",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://psusso.psu.ac.th:8443/application/o/authorize/",
+					"protocol": "https",
+					"host": [
+						"psusso",
+						"psu",
+						"ac",
+						"th"
+					],
+					"port": "8443",
+					"path": [
+						"application",
+						"o",
+						"authorize",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
