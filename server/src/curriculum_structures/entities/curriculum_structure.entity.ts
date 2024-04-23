@@ -11,6 +11,9 @@ export class CurriculumStructure {
     @Column('simple-json')
     corriculum_structure: string
 
+    @Column({ nullable: true })
+    admitYear: string
+
     @ManyToOne(() => Faculty, (faculty) => faculty.curriculumStructureIds)
     facId: Faculty
 

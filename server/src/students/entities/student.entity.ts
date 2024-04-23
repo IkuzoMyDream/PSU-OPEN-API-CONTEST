@@ -22,6 +22,12 @@ export class Student {
 
     @Column({ nullable: false })
     studSnameEng: string
+    
+    @Column({ nullable: false })
+    admitYear: string
+
+    @Column({ nullable: false })
+    yearStatus: string
 
     @Column({ nullable: false })
     studyLevelName: string
@@ -44,9 +50,4 @@ export class Student {
     @Column({ nullable: false })
     facNameEng: string
 
-    @Column({ nullable: false })
-    yearStatus: string
-    
-    @Column({ nullable: false })
-    admitYear: string
 }
