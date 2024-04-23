@@ -8,7 +8,6 @@ import App from "./App";
 
 const oidcConfig = {
   onSigninCallback: (user) => {
-    console.log(user);
     window.location = "/home";
   },
   authority:
