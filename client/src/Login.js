@@ -1,9 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
+import React from 'react';
+import { useAuth } from "react-oidc-context";
 
-function App() {
+function Loginpage() {
+  const auth = useAuth();
+
+  const handleLogin = () => {
+    auth.signinRedirect();
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -20,4 +23,4 @@ function App() {
   );
 }
 
-export default App;
+export default Loginpage;
