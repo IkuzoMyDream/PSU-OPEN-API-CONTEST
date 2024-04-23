@@ -8,6 +8,11 @@ function HomePage() {
   const auth = useAuth();
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    auth.removeUser();
+    navigate("/");
+  };
+
   const [studentDetail, setStudentDetail] = useState(null);
   const [studentCoursesEnrollment, setStudentCoursesEnrollment] =
     useState(null);
@@ -50,13 +55,7 @@ function HomePage() {
   const fetchCurriculumStructure = async () => {
     try {
       const result = await axios.get(
-        "http://localhost:1337/curriculum-structures",
-        // {
-        //   headers: {
-        //     // credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
-        //     // token: auth.user.access_token,
-        //   },
-        // }
+        "http://localhost:1337/curriculum-structures"
       );
       console.log("why are you gay ",result);
     } catch (err) {
@@ -89,12 +88,17 @@ function HomePage() {
       fetchCurriculumStructure();
       fetchStudentData();
     }
-  }, [auth.user]);
+  }, [auth.user, auth]);
 
   return (
     <>
       <div>{studentDetail ? studentDetail?.studentId : "..."}</div>
-      <EnrollmentCourses />
+      <div>
+        <EnrollmentCourses />
+      </div>
+      <div>
+        <button onClick={handleLogout}>LOGOUT</button>
+      </div>
     </>
   );
 }

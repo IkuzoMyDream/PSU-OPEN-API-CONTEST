@@ -16,7 +16,7 @@ function Dashboard() {
         },
       }
     );
-    console.log('result = ',result)
+    console.log("result = ", result);
     setStudentDetail(result.data.data[0]);
   };
   useEffect(() => {

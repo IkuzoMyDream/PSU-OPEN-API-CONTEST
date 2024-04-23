@@ -17,7 +17,7 @@ import { Faculty } from './faculties/entities/faculty.entity';
 import { Department } from './departments/entities/department.entity';
 import { Major } from './majors/entities/major.entity';
 import { Enrollment } from './enrollments/entities/enrollment.entity';
-import { ApiKeysModule } from './api_keys/api_keys.module';
+import { PsuApiModule } from './psu_api/psu_api.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -25,6 +25,6 @@ import { ApiKeysModule } from './api_keys/api_keys.module';
     database: './app.sqlite',
     entities: [Student, Enrollment, Faculty, Department, Major, Course, CurriculumStructure, Category, SubCategory],
     synchronize: process.env.NODE_ENV != 'production',
-  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule, ApiKeysModule],
+  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule, PsuApiModule],
 })
 export class AppModule { }
