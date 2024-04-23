@@ -24,7 +24,7 @@ export class PsuApiService {
   }
 
   async getRegistData(token: string, eduTerm: string, eduYear: string) {
-    return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/RegistDataCampus/01/token?eduTerm=${eduTerm}&eduYear=${eduYear}&limit=1000`, {
+    return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/RegistDataCampus/01/token?eduTerm=*&eduYear=*&limit=1000`, {
       headers: {
         credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
         token: token

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { localConfig, psuConfig } from "./main";
+import { psuConfig, localConfig } from "./main";
 
 const axPSU = axios.create({
   baseURL: psuConfig.urlPrefix,
