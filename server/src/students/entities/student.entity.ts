@@ -50,4 +50,10 @@ export class Student {
     @Column({ nullable: false })
     facNameEng: string
 
+    @Column({ nullable: false })
+    estScore: string
+
+    @Column({ nullable: false })
+    actHours: string
+
 }
