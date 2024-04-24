@@ -13,10 +13,10 @@ function EnrollmentCourses() {
         headers: {
           credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
           token: auth.user.access_token,
-        },
+        }, 
       }
     );
-    console.log("result = ", result);
+    // console.log("result = ", result);
     setStudentDetail(result.data.data[0]);
   };
   useEffect(() => {
@@ -25,10 +25,10 @@ function EnrollmentCourses() {
     }
   }, [auth.user]);
   //console.log(auth.user.access_token)
-  console.log(studentDetail);
+  // console.log(studentDetail);
   return (
     <div>
-      <h1>Student Detail</h1>
+      {/* <h1>Student Detail</h1> */}
       {studentDetail ? (
         <div>
           <div>

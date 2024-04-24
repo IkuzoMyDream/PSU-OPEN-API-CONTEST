@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-import { AuthProvider } from "react-oidc-context";
 import App from "./App";
+import { AxiosInterceptor } from "./utils/Axios.interceptor";
+import { AuthProvider } from "react-oidc-context";
 
 const oidcConfig = {
   onSigninCallback: (user) => {
@@ -24,7 +25,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider {...oidcConfig}>
-      <App />
+      <AxiosInterceptor>
+        <App />
+      </AxiosInterceptor>
     </AuthProvider>
   </React.StrictMode>
 );

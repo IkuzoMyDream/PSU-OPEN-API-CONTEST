@@ -19,7 +19,7 @@ export class StudentsController {
 
   @Get('student/:id')
   findOne(@Param('id') id: string) {
-    return this.studentsService.findOne(+id);
+    return this.studentsService.findOne(id);
   }
 
   @Patch(':id')

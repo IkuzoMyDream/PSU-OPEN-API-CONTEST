@@ -10,7 +10,7 @@ export class PsuApiService {
   async getSubjectOffer(eduTerm: string, eduYear: string) {
     return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/SubjectOfferCampus/01/${eduTerm}/${eduYear}?limit=1000`, {
       headers: {
-        credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
+        credential: process.env.API_KEY,
       },
     })
       .pipe(
@@ -26,12 +26,12 @@ export class PsuApiService {
   async getRegistData(token: string, eduTerm: string, eduYear: string) {
     return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/RegistDataCampus/01/token?eduTerm=*&eduYear=*&limit=1000`, {
       headers: {
-        credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
+        credential: process.env.API_KEY,
         token: token
       },
     })
       .pipe(
-        map((res) => res.data)
+        map((res) => res.data.data)
       )
       .pipe(
         catchError(() => {
@@ -43,12 +43,12 @@ export class PsuApiService {
   async getStudentDetail(token: string) {
     return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/StudentDetailCampus/01/token`, {
       headers: {
-        credential: "api_key=ZsB/vDqTm8vFOkyI1gYArrN/AGfXhqNT",
+        credential: process.env.API_KEY,
         token: token
       },
     })
       .pipe(
-        map((res) => res.data)
+        map((res) => res.data.data[0])
       )
       .pipe(
         catchError(() => {

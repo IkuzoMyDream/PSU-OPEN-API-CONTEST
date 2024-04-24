@@ -18,13 +18,16 @@ import { Department } from './departments/entities/department.entity';
 import { Major } from './majors/entities/major.entity';
 import { Enrollment } from './enrollments/entities/enrollment.entity';
 import { PsuApiModule } from './psu_api/psu_api.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'sqlite',
-    database: './app.sqlite',
-    entities: [Student, Enrollment, Faculty, Department, Major, Course, CurriculumStructure, Category, SubCategory],
-    synchronize: process.env.NODE_ENV != 'production',
-  }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule, PsuApiModule],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: './app.sqlite',
+      entities: [Student, Enrollment, Faculty, Department, Major, Course, CurriculumStructure, Category, SubCategory],
+      synchronize: process.env.NODE_ENV != 'production',
+    }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule, PsuApiModule],
 })
 export class AppModule { }

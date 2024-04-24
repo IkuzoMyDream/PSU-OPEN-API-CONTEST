@@ -7,7 +7,7 @@ const psuConfig = {
 const localConfig = {
   urlPrefix: "http://localhost:1337/local-api",
   getAllStudents: "/students",
-  getAllCurriculumStructures: "/curriculum-structures"
+  getAllCurriculumStructures: "/curriculum-structures",
 };
 
 export { psuConfig, localConfig };
