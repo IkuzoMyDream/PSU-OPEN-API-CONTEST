@@ -45,10 +45,27 @@ export class PsuApiService {
       headers: {
         credential: process.env.API_KEY,
         token: token
-      },
+      }
     })
       .pipe(
         map((res) => res.data.data[0])
+      )
+      .pipe(
+        catchError(() => {
+          throw new ForbiddenException('API not available');
+        })
+      );
+  }
+
+  async getStudentProfileImage(token: string) {
+    return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/StudentImage/token`, {
+      headers: {
+        credential: process.env.API_KEY,
+        token: token
+      }
+    })
+      .pipe(
+        map((res) => `data:image/png;base64, ${res.data.data[0].pictureBase64}`)
       )
       .pipe(
         catchError(() => {

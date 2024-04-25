@@ -8,24 +8,31 @@ import { axLOCAL, axPSU } from "../utils/config/ax";
 
 function HomePage() {
   const auth = useAuth();
-
   const navigate = useNavigate();
+
+  const [studentDetail, setStudentDetail] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleLogout = () => {
     auth.removeUser();
     navigate("/");
   };
 
-  const [studentDetail, setStudentDetail] = useState(null);
-  const [studentCoursesEnrollment, setStudentCoursesEnrollment] =
-    useState(null);
+  const fetchStudentProfileImage = async () => {
+    try {
+      const response = await axPSU.get(psuConfig.getStudentProfileImage);
+      console.log(response.data);
+      setProfileImage(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchStudentDetail = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentDetail);
 
       setStudentDetail(result.data);
-      console.log("studentdetail = ", result.data);
     } catch (err) {
       console.log(err);
     }
@@ -34,8 +41,6 @@ function HomePage() {
   const fetchStudentEnrollment = async () => {
     try {
       const result = await axPSU.get(psuConfig.getAllRegistData);
-
-      console.log("student enrollment = ", result.data);
     } catch (err) {
       console.log(err);
     }
@@ -50,21 +55,12 @@ function HomePage() {
     }
   };
 
-  const fetchStudentData = async () => {
-    try {
-      const result = await axLOCAL.get(localConfig.getAllStudents);
-      // console.log("student data =  ", result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchStudentDetail();
       fetchStudentEnrollment();
       fetchCurriculumStructure();
-      fetchStudentData();
+      fetchStudentProfileImage();
     }
   }, [auth.user, auth]);
 
@@ -73,6 +69,7 @@ function HomePage() {
       <NavBar />
       <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
         <div className="grid">
+          {profileImage && <img src={profileImage} />}
           <StudentDetail studentDetail={studentDetail} />
         </div>
       </div>
