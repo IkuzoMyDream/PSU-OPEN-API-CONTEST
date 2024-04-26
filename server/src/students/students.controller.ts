@@ -11,7 +11,7 @@ export class StudentsController {
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentsService.create(createStudentDto);
   }
-
+ 
   @Get('students')
   findAll() {
     return this.studentsService.findAll();

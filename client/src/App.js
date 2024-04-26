@@ -6,7 +6,6 @@ import CoursesPage from "./pages/CoursesPage";
 import SubjectDetailPage from "./pages/SubjectDetailPage";
 
 function App() {
-
   return (
     <>
     <Router>

@@ -17,8 +17,8 @@ export class StudentsService {
     return 'This action adds a new student';
   }
 
-  findAll() {
-    return `This action returns all students`;
+  async findAll() {
+    return await this.studentRepository.find() ;
   }
 
   async findOne(id: string) {
