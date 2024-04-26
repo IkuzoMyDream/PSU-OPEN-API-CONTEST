@@ -6,7 +6,7 @@ export class Student {
     studentId: string
 
     @Column({ nullable: false })
-    titleNameThai: string 
+    titleNameThai: string
 
     @Column({ nullable: false })
     titleShortEng: string
@@ -22,7 +22,7 @@ export class Student {
 
     @Column({ nullable: false })
     studSnameEng: string
-    
+
     @Column({ nullable: false })
     admitYear: string
 
@@ -33,11 +33,11 @@ export class Student {
     studyLevelName: string
 
     @Column({ nullable: false })
-    majorNameThai : string
+    majorNameThai: string
 
     @Column({ nullable: false })
-    majorNameEng : string
-    
+    majorNameEng: string
+
     @Column({ nullable: false })
     campusNameThai: string
 

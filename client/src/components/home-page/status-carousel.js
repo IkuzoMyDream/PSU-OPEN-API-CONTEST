@@ -3,9 +3,9 @@ import { Bar, Radar } from "react-chartjs-2";
 
 export default function StatusCarousel() {
   return (
-    <div className="h-auto">
-      <Carousel style={{ border: "solid red" }}>
-        <div  className="h-auto">
+    <div className="h-80">
+      <Carousel style={{ border: "solid red", height: "500px" }}>
+        <div className="h-auto" style={{ border: "solid red" }}>
           <Bar
             data={{
               labels: ["เทอม1", `เทอม2`],
@@ -13,13 +13,13 @@ export default function StatusCarousel() {
             }}
           />
         </div>
-        <div  className="h-auto">
-          <Radar
-            data={{
-              labels: ["เทอม1", `เทอม2`, "df", "dfg", "adf"],
-              datasets: [{ label: "my score", data: [5, 10] }],
-            }}
-          />
+        <div className="h-auto" style={{ border: "solid red", width: "200px" }}>
+            <Radar
+              data={{
+                labels: ["เทอม1", `เทอม2`, "df", "dfg", "adf"],
+                datasets: [{ label: "my score", data: [5, 10] }],
+              }}
+            />
         </div>
       </Carousel>
     </div>
