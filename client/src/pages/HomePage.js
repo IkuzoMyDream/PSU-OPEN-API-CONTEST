@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useNavigate } from "react-router-dom";
@@ -16,8 +18,13 @@ import {
   Tooltip,
   Legend,
   ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
 } from "chart.js";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut, Radar } from "react-chartjs-2";
+import { Carousel } from "flowbite-react";
+import StatusCarousel from "../components/home-page/status-carousel";
 
 ChartJS.register(
   CategoryScale,
@@ -26,7 +33,10 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement
 );
 
 function HomePage() {
@@ -118,37 +128,9 @@ function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Bar
-                  data={{
-                    labels: ["เทอม1", `เทอม2`],
-                    datasets: [{ label: "my score", data: [5, 10] }],
-                  }}
-                />
-              </div>
-              <div>
-                <Doughnut
-                  data={{
-                    labels: ["my score"],
-                    datasets: [
-                      {
-                        label: "my score",
-                        data: [76, 24],
-                      },
-                    ],
-                  }}
-                  options={{
-                    layout: { padding: { bottom: 200 } },
-                    rotation: 270,
-                    circumference: 180,
-                    cutout: "60%",
-                    offset: 100,
-                    maintainAspectRatio: true,
-                    responsive: true,
-                  }}
-                />
-              </div>
+
+            <div className="grid grid-cols-1 gap-3 my-10">
+              <StatusCarousel />
             </div>
           </div>
         </div>
