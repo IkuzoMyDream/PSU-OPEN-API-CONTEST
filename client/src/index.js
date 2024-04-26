@@ -10,6 +10,8 @@ import { AuthProvider } from "react-oidc-context";
 const oidcConfig = {
   onSigninCallback: (user) => {
     window.location = "/home";
+    
+
   },
   authority:
     "http://psusso-test.psu.ac.th/application/o/psuapi-contest-bruteforceapi",
