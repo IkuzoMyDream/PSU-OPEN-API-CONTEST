@@ -21,6 +21,7 @@ import { PsuApiModule } from './psu_api/psu_api.module';
 import { ConfigModule } from '@nestjs/config';
 import { StudentGpaModule } from './student_gpa/student_gpa.module';
 import { StudentGradeModule } from './student_grade/student_grade.module';
+import { EnrollmentsModule } from './enrollments/enrollments.module';
 
 @Module({
   imports: [
@@ -30,6 +31,6 @@ import { StudentGradeModule } from './student_grade/student_grade.module';
       database: './app.sqlite',
       entities: [Student, Enrollment, Faculty, Department, Major, Course, CurriculumStructure, Category, SubCategory],
       synchronize: process.env.NODE_ENV != 'production',
-    }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule, PsuApiModule, StudentGpaModule, StudentGradeModule],
+    }), StudentsModule, CoursesModule, CategoriesModule, CurriculumStructuresModule, SubCategoriesModule, FacultiesModule, MajorsModule, DepartmentsModule, PsuApiModule, StudentGpaModule, StudentGradeModule, EnrollmentsModule],
 })
 export class AppModule { }

@@ -1,18 +1,19 @@
 import { Course } from "src/courses/entities/course.entity"
-import { Entity, Column, PrimaryColumn, OneToOne, ManyToMany, ManyToOne } from "typeorm"
+import { Student } from "src/students/entities/student.entity"
+import { Entity, Column, PrimaryColumn, OneToOne, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity()
 export class Enrollment {
-    @PrimaryColumn({ unique: true, nullable: false })
-    studentId: string
+    @PrimaryGeneratedColumn()
+    enrollmentId: string
 
-    @ManyToOne(() => Course, (course) => course.studentIds)
+    @ManyToOne(() => Student, (student) => student.enrollmentIds)
+    studentId: Student
+
+    @ManyToOne(() => Course, (course) => course.enrollmentIds)
     courseId: Course
 
-    @Column({ nullable: false })
-    registCredit: string
-
-    @Column({ nullable: false })
-    withdrawalType: string
+    @Column({ nullable: true })
+    isLegal: boolean
 
 }

@@ -12,7 +12,7 @@ export class Course {
     @PrimaryColumn({ unique: true, nullable: false })
     courseCode: string
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     credit: string
 
     @Column({ nullable: false })
@@ -43,5 +43,5 @@ export class Course {
     majorId: Major
 
     @OneToMany(() => Enrollment, (enrollment) => enrollment.courseId)
-    studentIds: Student[]
+    enrollmentIds: Student[]
 }

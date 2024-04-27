@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Enrollment } from "src/enrollments/entities/enrollment.entity";
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Student {
@@ -55,5 +56,8 @@ export class Student {
 
     @Column({ nullable: false })
     cumActHour: string
+
+    @OneToMany(() => Enrollment, (enrollment) => enrollment.studentId)
+    enrollmentIds: Enrollment[]
 
 }

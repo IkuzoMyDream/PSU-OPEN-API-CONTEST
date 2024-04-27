@@ -24,6 +24,7 @@ import { Bar, Doughnut, Radar } from "react-chartjs-2";
 import { Card } from "flowbite-react";
 import StudentStatusOverall from "../components/home-page/student-status-overall";
 import StudentStatusChart from "../components/home-page/student-status-chart";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -89,7 +90,7 @@ function HomePage() {
   const fetchLocalStudentDetail = async () => {
     try {
       const result = await axLOCAL.get(`/student/${studentDetail?.studentId}`);
-      console.log(result);
+      // console.log(result);
       setStudentStatusOverall((prevState) => ({
         ...prevState,
         estScore: result.data.estScore,
@@ -103,7 +104,8 @@ function HomePage() {
   const fetchStudentEnrollment = async () => {
     try {
       const result = await axPSU.get(psuConfig.getAllRegistData);
-      // console.log(result)
+
+      console.log(result.data);
     } catch (err) {
       console.log(err);
     }

@@ -12,8 +12,19 @@ export class CoursesService {
   private readonly courseRepository: Repository<Course>
   ) { }
 
-  async create(createCourseDto: CreateCourseDto) {
-    return  'This action adds a new course';
+  async create(courseCode: string, totalCredit: string, shortNameEng: string, courseNameEng: string, courseNameThai: string) {
+    return { courseCode, totalCredit, shortNameEng, courseNameEng, courseNameThai }
+
+    const newCourse = this.courseRepository.create({
+      courseCode: courseCode,
+      totalCredit: totalCredit,
+      shortNameEng: shortNameEng,
+      courseNameEng: courseNameEng,
+      courseNameThai: courseNameThai
+    })
+
+    return await this.courseRepository.save(newCourse)
+
   }
 
   async findAll() {

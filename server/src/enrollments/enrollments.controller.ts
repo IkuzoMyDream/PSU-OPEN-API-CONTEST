@@ -2,14 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { EnrollmentsService } from './enrollments.service';
 import { CreateEnrollmentDto } from './dto/create-enrollment.dto';
 import { UpdateEnrollmentDto } from './dto/update-enrollment.dto';
+import { Student } from 'src/students/entities/student.entity';
+import { Course } from 'src/courses/entities/course.entity';
 
 @Controller('local-api')
 export class EnrollmentsController {
-  constructor(private readonly enrollmentsService: EnrollmentsService) {}
+  constructor(private readonly enrollmentsService: EnrollmentsService) { }
 
-  @Post()
-  create(@Body() createEnrollmentDto: CreateEnrollmentDto) {
-    return this.enrollmentsService.create(createEnrollmentDto);
+  @Post('enrollment')
+  create(@Body('studentId') studentId: Student, @Body('courseId') courseId: Course) {
+    return this.enrollmentsService.create(studentId, courseId);
   }
 
   @Get('enrollments')
