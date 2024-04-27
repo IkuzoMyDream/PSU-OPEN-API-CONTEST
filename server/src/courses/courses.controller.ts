@@ -14,7 +14,7 @@ export class CoursesController {
     @Body('courseNameThai') courseNameThai: string) {
     return this.coursesService.create(courseCode, totalCredit, shortNameEng, courseNameEng, courseNameThai)
   }
-
+ 
   @Get('courses')
   findAll() {
     return this.coursesService.findAll();

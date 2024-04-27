@@ -22,7 +22,7 @@ export class CoursesService {
       courseNameEng: courseNameEng,
       courseNameThai: courseNameThai
     })
-
+ 
     return await this.courseRepository.save(newCourse)
 
   }

@@ -5,6 +5,8 @@ const psuConfig = {
   getStudentProfileImage: "/level2/StudentImage/token",
   getStudentGPA: "/level2/StudentGPA/token",
   getStudentGrade: "/level2/StudentGrade/token",
+
+  getSubjectOffer: "SubjectOffer"
 };
 
 const localConfig = {
@@ -13,7 +15,6 @@ const localConfig = {
   getAllStudents: "/students",
   getAllCurriculumStructures: "/curriculum-structures",
   getAllEnrollments: "/enrollments",
-
 
   // POST
   postCourse: "/course",
