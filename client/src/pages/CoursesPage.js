@@ -23,10 +23,7 @@ function CoursesPage() {
     }
   }, [auth, auth.user]);
 
-  return (
-    <div>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default CoursesPage;

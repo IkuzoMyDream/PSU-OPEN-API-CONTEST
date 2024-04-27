@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Header, Headers, Head } from '@nestjs/common';
 import { PsuApiService } from './psu_api.service';
-import { CreatePsuApiDto } from './dto/create-psu_api.dto';
-import { UpdatePsuApiDto } from './dto/update-psu_api.dto';
+
 
 @Controller('psu-api')
 export class PsuApiController {
@@ -30,12 +29,25 @@ export class PsuApiController {
     return this.psuApiService.getRegistData(token, eduTerm, eduYear)
   }
 
-
   @Get("level2/StudentImage/token")
   async getStudentProfileImage(
     @Headers('token') token: string,
   ) {
     return this.psuApiService.getStudentProfileImage(token)
+  }
+
+  @Get("level2/StudentGPA/token")
+  async getStudentGPA(
+    @Headers('token') token: string
+  ) {
+    return this.psuApiService.getStudentGPA(token)
+  }
+
+  @Get("level2/StudentGrade/token")
+  async getStudentGrade(
+    @Headers('token') token: string
+  ) {
+    return this.psuApiService.getStudentGrade(token)
   }
 
 }

@@ -74,6 +74,40 @@ export class PsuApiService {
       );
   }
 
+  async getStudentGPA(token: string) {
+    return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/StudentGPACampus/01/token?eduTerm=*&eduYear=*&limit=1000`, {
+      headers: {
+        credential: process.env.API_KEY,
+        token: token
+      }
+    })
+      .pipe(
+        map((res) => res.data.data)
+      )
+      .pipe(
+        catchError(() => {
+          throw new ForbiddenException('API not available');
+        })
+      );
+  }
+
+  async getStudentGrade(token: string) {
+    return this.http.get(`https://api-gateway.psu.ac.th/Test/regist/level2/StudentGradeCampus/01/token?eduTerm=*&eduYear=*&limit=1000`, {
+      headers: {
+        credential: process.env.API_KEY,
+        token: token
+      }
+    })
+      .pipe(
+        map((res) => res.data.data)
+      )
+      .pipe(
+        catchError(() => {
+          throw new ForbiddenException('API not available');
+        })
+      );
+  }
+
 }
 
 

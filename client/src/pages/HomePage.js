@@ -1,10 +1,7 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useNavigate } from "react-router-dom";
 import { localConfig, psuConfig } from "../utils/config/main";
-import { NavBar } from "../components/navbar";
 import StudentDetail from "../components/home-page/student-detail";
 import { axLOCAL, axPSU } from "../utils/config/ax";
 
@@ -24,8 +21,9 @@ import {
   Filler,
 } from "chart.js";
 import { Bar, Doughnut, Radar } from "react-chartjs-2";
-import { Card, Carousel, Progress } from "flowbite-react";
-import StatusCarousel from "../components/home-page/status-carousel";
+import { Card } from "flowbite-react";
+import StudentStatusOverall from "../components/home-page/student-status-overall";
+import StudentStatusChart from "../components/home-page/student-status-chart";
 
 ChartJS.register(
   CategoryScale,
@@ -47,11 +45,27 @@ function HomePage() {
 
   const [studentDetail, setStudentDetail] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
+  const [cumGpa, setCumGpa] = useState(null);
 
-  const handleLogout = () => {
-    auth.removeUser();
-    navigate("/");
-  };
+  const [studentStatusOverall, setStudentStatusOverall] = useState({
+    cumGpa: "",
+    estScore: "",
+    cumActHour: "",
+    cumCredit: "",
+  });
+
+  const [studentStatusChart, setStudentStatusChart] = useState({
+    credits: {
+      subjGroup1: "",
+      subjGroup2: "",
+      subjGroup3: "",
+      subjGroup4: "",
+      subjGroup5: "",
+      subjGroup6: "",
+      subjGroup7: "",
+      geEdu: "",
+    },
+  });
 
   const fetchStudentProfileImage = async () => {
     try {
@@ -62,13 +76,25 @@ function HomePage() {
     }
   };
 
-  const fetchStudentDetail = async () => {
+  const fetchPsuStudentDetail = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentDetail);
-      const test = await axLOCAL.get(localConfig.getAllStudents);
-      console.log(test);
-
+      // console.log(result);
       setStudentDetail(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchLocalStudentDetail = async () => {
+    try {
+      const result = await axLOCAL.get(`/student/${studentDetail?.studentId}`);
+      console.log(result);
+      setStudentStatusOverall((prevState) => ({
+        ...prevState,
+        estScore: result.data.estScore,
+        cumActHour: result.data.cumActHour,
+      }));
     } catch (err) {
       console.log(err);
     }
@@ -77,6 +103,7 @@ function HomePage() {
   const fetchStudentEnrollment = async () => {
     try {
       const result = await axPSU.get(psuConfig.getAllRegistData);
+      // console.log(result)
     } catch (err) {
       console.log(err);
     }
@@ -91,14 +118,46 @@ function HomePage() {
     }
   };
 
+  const fetchStudentGPA = async () => {
+    try {
+      const result = await axPSU.get(psuConfig.getStudentGPA);
+      setStudentStatusOverall((prevState) => ({
+        ...prevState,
+        cumGpa: result.data[result.data.length - 1].cumGpa,
+        cumCredit: result.data[result.data.length - 1]?.cumCredit,
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchStudentGrade = async () => {
+    try {
+      const result = await axPSU.get(psuConfig.getStudentGrade);
+      // console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (auth.isAuthenticated) {
-      fetchStudentDetail();
+      fetchPsuStudentDetail();
       fetchStudentEnrollment();
       fetchCurriculumStructure();
       fetchStudentProfileImage();
+      fetchStudentGPA();
+      fetchStudentGrade();
     }
   }, [auth.user, auth]);
+
+  useEffect(() => {
+    fetchLocalStudentDetail();
+  }, [studentDetail]);
+
+  useEffect(() => {
+    // console.log(studentStatusOverall);
+  }, [studentStatusOverall]);
 
   return (
     <>
@@ -109,119 +168,8 @@ function HomePage() {
             <StudentDetail studentDetail={studentDetail} />
           </div>
           <div className="col-span-3">
-            <div className="grid lg:grid-cols-4 md:grid-cols-2  gap-3">
-              <div>
-                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div>เกรด</div>
-                </div>
-              </div>
-              <div>
-                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div>คะแนนอิง</div>
-                </div>
-              </div>
-              <div>
-                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div>ชั่วโมงกิจกรรม</div>
-                </div>
-              </div>
-              <div>
-                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div>หน่วยกิตสะสม</div>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 my-3">
-              <Card>
-                <h1>หน่วยกิตสะสม</h1>
-                <Radar
-                  options={{
-                    color: "#5FBE97",
-                    backgroundColor: "#D2FFEF",
-                    borderColor: "#5FBE97",
-                    fill: true,
-                    scale: {
-                      min: 0,
-                      max: 100,
-                    },
-                  }}
-                  data={{
-                    labels: [
-                      "สาระ1",
-                      "สาระ2",
-                      "สาระ3",
-                      "สาระ4",
-                      "สาระ5",
-                      "สาระ6",
-                      "สาระ7",
-                      "เลือก",
-                      "ชีพพื้นฐาน",
-                      "ชีพ",
-                      "เสรี",
-                    ],
-                    datasets: [
-                      {
-                        label: "my score",
-                        data: [80, 70, 15, 20, 25, 30, 35, 69, 48, 38, 90],
-                        fill: true,
-                      },
-                    ],
-                  }}
-                />
-              </Card>
-              <Card>
-                <h1>คะแนนอิง</h1>
-                <Doughnut
-                  options={{
-                    hover: { mode: null },
-                    plugins: { tooltip: { enabled: false } },
-                  }}
-                  data={{
-                    labels: ["my score"],
-                    datasets: [
-                      {
-                        label: "my score",
-                        data: [76, 24],
-                        backgroundColor: ["#5FBE97", "white"],
-                      },
-                    ],
-                  }}
-                />
-              </Card>
-            </div>
-            <div className="grid grid-cols-2 gap-3 my-3">
-              <Card>
-                <h1>เกรด</h1>
-                <Bar
-                  data={{
-                    labels: ["ปี1 เทอม1", `ปี1 เทอม2`, "ปี2 เทอม1"],
-                    datasets: [
-                      {
-                        label: "my score",
-                        data: [3.46, 3.77, 3.75],
-                        backgroundColor: "#5FBE97",
-                      },
-                    ],
-                  }}
-                />
-              </Card>
-              <Card>
-                <h1>ชั่วโมงกิจกรรม</h1>
-                <Bar
-                  options={{ indexAxis: "y" }}
-                  data={{
-                    labels: ["เสริมสร้างสมรรถนะ", `ตามความสนใจ`],
-                    datasets: [
-                      {
-                        label: "my score",
-                        data: [28, 50],
-                        backgroundColor: ["red", "#5FBE97"],
-                      },
-                    ],
-                  }}
-                />
-              </Card>
-            </div>
+            <StudentStatusOverall studentStatusOverall={studentStatusOverall} />
+            <StudentStatusChart />
           </div>
         </div>
       </div>

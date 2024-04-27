@@ -54,6 +54,6 @@ export class Student {
     estScore: string
 
     @Column({ nullable: false })
-    actHours: string
+    cumActHour: string
 
 }
