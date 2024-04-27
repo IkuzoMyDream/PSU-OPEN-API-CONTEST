@@ -102,7 +102,6 @@ function HomePage() {
 
   return (
     <>
-      <NavBar />
       <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-1">

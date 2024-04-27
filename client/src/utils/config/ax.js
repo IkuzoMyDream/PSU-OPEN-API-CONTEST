@@ -19,7 +19,6 @@ axPSU.interceptors.request.use(
     if (axDATA.token) {
       config.headers["token"] = axDATA.token;
     }
-    console.log("gay = ",config)
     return config;
   },
   async (error) => {
