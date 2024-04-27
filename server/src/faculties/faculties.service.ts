@@ -1,11 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
 import { UpdateFacultyDto } from './dto/update-faculty.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Faculty } from './entities/faculty.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FacultiesService {
-  create(createFacultyDto: CreateFacultyDto) {
-    return 'This action adds a new faculty';
+
+  constructor( 
+    @InjectRepository(Faculty)
+    private readonly facultyRepository: Repository<Faculty>
+  ) { }
+
+  async create(facId: string, facNameThai: string, facNameEng: string) {
+    return { facId, facNameThai, facNameEng }
+
+    const newFaculty = this.facultyRepository.create({
+      facId: facId,
+      facNameThai: facNameThai,
+      facNameEng: facNameEng
+    })
+    return await this.facultyRepository.save(newFaculty);
   }
 
   findAll() {

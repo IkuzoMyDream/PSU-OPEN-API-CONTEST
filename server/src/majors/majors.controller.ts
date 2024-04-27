@@ -2,14 +2,19 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MajorsService } from './majors.service';
 import { CreateMajorDto } from './dto/create-major.dto';
 import { UpdateMajorDto } from './dto/update-major.dto';
+import { Department } from 'src/departments/entities/department.entity';
 
 @Controller('local-api')
 export class MajorsController {
-  constructor(private readonly majorsService: MajorsService) {}
-
-  @Post()
-  create(@Body() createMajorDto: CreateMajorDto) {
-    return this.majorsService.create(createMajorDto);
+  constructor(private readonly majorsService: MajorsService) { }
+ 
+  @Post('major')
+  create(
+    @Body('majorId') majorId: string,
+    @Body('majorNameThai') majorNameThai: string,
+    @Body('majorNameEng') majorNameEng: string,
+    @Body('deptId') deptId: Department,) {
+    return this.majorsService.create(majorId, majorNameThai, majorNameEng, deptId);
   }
 
   @Get('majors')

@@ -142,24 +142,23 @@ function HomePage() {
 
   const fetchPsuCourses = async () => {
     try {
-      const result = await axPSU.get(
-        `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
-      );
-      console.log(result.data.data);
+      // const result = await axPSU.get(
+      //   `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
+      // );
+      // console.log(result.data.data);
+
 
       // await Promise.all(
-      //   result.data.data.map(async (course) => {
-      //     const result = await axLOCAL.post(localConfig.postCourse, {
-      //       courseCode: course.subjectCode,
-      //       totalCredit: course.totalCredit,
-      //       shortNameEng: course.shortNameEng,
-      //       courseNameEng: course.subjectNameEng,
-      //       courseNameThai: course.subjectNameThai,
+      //   majors.map(async (major) => {
+      //     const result = await axLOCAL.post(localConfig.postMajor, {
+      //       majorId: major.majorId,
+      //       majorNameThai: major.majorNameThai,
+      //       majorNameEng: major.majorNameEng,
+      //       deptId: major.deptId,
       //     });
       //     console.log(result);
       //   })
       // );
-
     } catch (err) {
       console.log(err);
     }

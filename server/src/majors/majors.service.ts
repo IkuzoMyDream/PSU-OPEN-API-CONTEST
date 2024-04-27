@@ -1,11 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMajorDto } from './dto/create-major.dto';
 import { UpdateMajorDto } from './dto/update-major.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Major } from './entities/major.entity';
+import { Repository } from 'typeorm';
+import { Department } from 'src/departments/entities/department.entity';
 
 @Injectable()
 export class MajorsService {
-  create(createMajorDto: CreateMajorDto) {
-    return 'This action adds a new major';
+
+  constructor(
+    @InjectRepository(Major)
+    private readonly majorRepository: Repository<Major>
+  ) { }
+
+  async create(majorId: string, majorNameThai: string, majorNameEng: string, deptId: Department) {
+    return { majorId, majorNameThai, majorNameEng, deptId }
+
+    const newMajor = this.majorRepository.create({
+      majorId: majorId,
+      majorNameThai: majorNameThai,
+      majorNameEng: majorNameEng,
+      deptId: deptId
+    })
+    return await this.majorRepository.save(newMajor);
+
   }
 
   findAll() {

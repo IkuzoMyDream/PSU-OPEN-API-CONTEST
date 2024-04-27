@@ -7,7 +7,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Major {
-    @PrimaryColumn()
+    @PrimaryColumn({ unique: true, nullable: false })
     majorId: string
 
     @Column()
@@ -15,9 +15,6 @@ export class Major {
 
     @Column()
     majorNameEng: string
-
-    @ManyToOne(() => Faculty, (faculty) => faculty.majorIds)
-    facId: Faculty
 
     @ManyToOne(() => Department, (department) => department.majorIds)
     deptId: Department

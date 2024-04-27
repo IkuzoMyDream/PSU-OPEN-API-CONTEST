@@ -7,7 +7,7 @@ import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Faculty {
-    @PrimaryColumn()
+    @PrimaryColumn({ unique: true, nullable: false })
     facId: string
 
     @Column()
@@ -18,9 +18,6 @@ export class Faculty {
 
     @OneToMany(() => Department, (department) => department.facId)
     deptIds: Department[]
-
-    @OneToMany(() => Major, (major) => major.facId)
-    majorIds: Major[]
 
     @OneToMany(() => Course, (course) => course.facId)
     courses: Course[]

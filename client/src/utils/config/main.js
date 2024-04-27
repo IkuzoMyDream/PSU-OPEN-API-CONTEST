@@ -18,7 +18,10 @@ const localConfig = {
 
   // POST
   postCourse: "/course",
-  postEnrollment: "/enrollment"
+  postEnrollment: "/enrollment",
+  postFaculty: "/faculty",
+  postDepartment: "/department",
+  postMajor: "/major"
 };
 
 export { psuConfig, localConfig };

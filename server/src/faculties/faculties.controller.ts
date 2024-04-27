@@ -5,11 +5,14 @@ import { UpdateFacultyDto } from './dto/update-faculty.dto';
 
 @Controller('local-api')
 export class FacultiesController {
-  constructor(private readonly facultiesService: FacultiesService) {}
+  constructor(private readonly facultiesService: FacultiesService) { }
 
-  @Post()
-  create(@Body() createFacultyDto: CreateFacultyDto) {
-    return this.facultiesService.create(createFacultyDto);
+  @Post('faculty')
+  create(
+    @Body(`facId`) facId: string,
+    @Body(`facNameThai`) facNameThai: string,
+    @Body(`facNameEng`) facNameEng: string) {
+    return this.facultiesService.create(facId, facNameThai, facNameEng);
   }
 
   @Get('faculties')

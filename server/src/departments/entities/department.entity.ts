@@ -7,7 +7,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Department {
-    @PrimaryColumn()
+    @PrimaryColumn({ unique: true, nullable: false })
     deptId: string
 
     @Column()
