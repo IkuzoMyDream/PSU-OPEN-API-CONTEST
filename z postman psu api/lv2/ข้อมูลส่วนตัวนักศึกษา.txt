@@ -1,0 +1,177 @@
+แสดงข้อมูลส่วนตัวนักศึกษา จากฐานข้อมูลรวมของทั้ง 5 วิทยาเขต
+{
+    "data": [
+        {
+            "studentId": "9910990001",
+            "entMethod": "36",
+            "entMethodDesc": "Admission",
+            "groupId": "A",
+            "admitTerm": "1",
+            "admitYear": "2563",
+            "admitDate": "2020-07-13T00:00:00",
+            "sexCode": "M",
+            "titleId": "01",
+            "titleNameThai": "นาย",
+            "titleShortEng": "MR.",
+            "studNameThai": "นักศึกษา 186",
+            "studSnameThai": "นามสกุล 186",
+            "studNameEng": "NAME 186",
+            "studSnameEng": "SURNAME 186",
+            "studyStatus": "OK",
+            "statusDescThai": "กำลังศึกษา",
+            "stillStudent": "Y",
+            "yearStatus": "3",
+            "nationality": "T",
+            "citizenId": "9999999999999",
+            "majorId": "0650",
+            "majorNameThai": "ทันตแพทยศาสตร์",
+            "majorNameEng": "DENTISTRY",
+            "deptId": "202",
+            "deptNameThai": "คณะทันตแพทยศาสตร์",
+            "deptNameEng": "Faculty of Dentistry",
+            "facId": "15",
+            "facNameThai": "คณะทันตแพทยศาสตร์",
+            "facNameEng": "Faculty of Dentistry",
+            "campusId": "01",
+            "campusNameThai": "วิทยาเขตหาดใหญ่",
+            "campusNameEng": "Prince of Songkla University  Hat Yai Campus",
+            "coursePlanId": "538258C4-C63",
+            "studyLevelId": "06",
+            "studyLevelName": "ปริญญาตรี",
+            "studyTypeId": "01",
+            "studyTypeName": "ภาคปกติ",
+            "studyPlanId": null,
+            "studyPlanName": null,
+            "coursePlanDetail": null,
+            "regularYear": null,
+            "expandYear": null,
+            "courseCategoryId": null,
+            "courseCategoryNameThai": null,
+            "courseCategoryNameEng": null,
+            "degreeId": null,
+            "degreeNameThai": " ",
+            "degreeNameEng": " ",
+            "gradYear": null,
+            "gradDate": null,
+            "honourId": null,
+            "oecDate": null,
+            "birthDate": "1999-08-01T00:00:00",
+            "birthPlaceEng": "AMNAT CHAROEN, THAILAND",
+            "birthPlaceThai": "จังหวัดอำนาจเจริญ  ประเทศไทย",
+            "fieldOfStudyThai": "ทันตแพทยศาสตร์",
+            "fieldOfStudyEng": "DENTISTRY",
+            "subMajorNameThai": null,
+            "subMajorNameEng": null,
+            "minorNameThai": null,
+            "minorNameEng": null,
+            "majorMinorNameThai": "ทันตแพทยศาสตร์ "
+        }
+    ],
+    "paging": {
+        "offsetRecord": 1,
+        "limitRecord": 1,
+        "totalRecord": 1,
+        "pageCount": 1
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+แสดงข้อมูลส่วนตัวนักศึกษา จากฐานข้อมูลของแต่ละวิทยาเขต
+{
+    "data": [
+        {
+            "studentId": "9910990001",
+            "entMethod": "36",
+            "entMethodDesc": "Admission",
+            "groupId": "A",
+            "admitTerm": "1",
+            "admitYear": "2563",
+            "admitDate": "2020-07-13T00:00:00",
+            "sexCode": "M",
+            "titleId": "01",
+            "titleNameThai": "นาย",
+            "titleShortEng": "MR.",
+            "studNameThai": "นักศึกษา 186",
+            "studSnameThai": "นามสกุล 186",
+            "studNameEng": "NAME 186",
+            "studSnameEng": "SURNAME 186",
+            "studyStatus": "OK",
+            "statusDescThai": "กำลังศึกษา",
+            "stillStudent": "Y",
+            "yearStatus": "3",
+            "nationality": "T",
+            "citizenId": "9999999999999",
+            "majorId": "0650",
+            "majorNameThai": "ทันตแพทยศาสตร์",
+            "majorNameEng": "DENTISTRY",
+            "deptId": "202",
+            "deptNameThai": "คณะทันตแพทยศาสตร์",
+            "deptNameEng": "Faculty of Dentistry",
+            "facId": "15",
+            "facNameThai": "คณะทันตแพทยศาสตร์",
+            "facNameEng": "Faculty of Dentistry",
+            "campusId": "01",
+            "campusNameThai": "วิทยาเขตหาดใหญ่",
+            "campusNameEng": "Prince of Songkla University  Hat Yai Campus",
+            "coursePlanId": "538258C4-C63",
+            "studyLevelId": "06",
+            "studyLevelName": "ปริญญาตรี",
+            "studyTypeId": "01",
+            "studyTypeName": "ภาคปกติ",
+            "studyPlanId": null,
+            "studyPlanName": null,
+            "coursePlanDetail": null,
+            "regularYear": null,
+            "expandYear": null,
+            "courseCategoryId": null,
+            "courseCategoryNameThai": null,
+            "courseCategoryNameEng": null,
+            "degreeId": null,
+            "degreeNameThai": " ",
+            "degreeNameEng": " ",
+            "gradYear": null,
+            "gradDate": null,
+            "honourId": null,
+            "oecDate": null,
+            "birthDate": "1999-08-01T00:00:00",
+            "birthPlaceEng": "AMNAT CHAROEN, THAILAND",
+            "birthPlaceThai": "จังหวัดอำนาจเจริญ  ประเทศไทย",
+            "subMajorNameThai": null,
+            "subMajorNameEng": null,
+            "minorNameThai": null,
+            "minorNameEng": null,
+            "phone": "9999999999",
+            "email": "test@psu.ac.th"
+        }
+    ],
+    "paging": {
+        "offsetRecord": 1,
+        "limitRecord": 1,
+        "totalRecord": 1,
+        "pageCount": 1
+    }
+}
