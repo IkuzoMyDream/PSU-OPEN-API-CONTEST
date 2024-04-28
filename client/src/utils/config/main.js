@@ -6,7 +6,7 @@ const psuConfig = {
   getStudentGPA: "/level2/StudentGPA/token",
   getStudentGrade: "/level2/StudentGrade/token",
 
-  getSubjectOffer: "SubjectOffer"
+  getSubjectOffer: "SubjectOffer",
 };
 
 const localConfig = {
@@ -15,13 +15,15 @@ const localConfig = {
   getAllStudents: "/students",
   getAllCurriculumStructures: "/curriculum-structures",
   getAllEnrollments: "/enrollments",
+  getCurriculumStructureByFacDeptMajor: "/curriculum-structure",
+  getCurriculumStructureById: "/curriculum-structure",
 
   // POST
   postCourse: "/course",
   postEnrollment: "/enrollment",
   postFaculty: "/faculty",
   postDepartment: "/department",
-  postMajor: "/major"
+  postMajor: "/major",
 };
 
 export { psuConfig, localConfig };

@@ -1,7 +1,8 @@
 import { Department } from "src/departments/entities/department.entity";
 import { Faculty } from "src/faculties/entities/faculty.entity";
 import { Major } from "src/majors/entities/major.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Student } from "src/students/entities/student.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class CurriculumStructure {
@@ -9,11 +10,11 @@ export class CurriculumStructure {
     curriculumStructureId: string
 
     @Column('simple-json')
-    corriculum_structure: string
+    curriculum_structure: string
 
     @Column({ nullable: true })
-    admitYear: string
-
+    admitYear:  string
+ 
     @ManyToOne(() => Faculty, (faculty) => faculty.curriculumStructureIds)
     facId: Faculty
 
@@ -22,5 +23,8 @@ export class CurriculumStructure {
 
     @ManyToOne(() => Major, (major) => major.curriculumStructureIds)
     majorId: Major
+
+    @OneToMany(() => Student, (student) => student.curriculumStructureId)
+    studentIds: Student[]
 
 }

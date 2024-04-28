@@ -1,7 +1,55 @@
 import { Card } from "flowbite-react";
 import { Bar, Doughnut, Radar } from "react-chartjs-2";
 
+import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler
+);
+
 export default function StudentStatusChart() {
+  const doughnutLabel = {
+    id: "doughnutLabel",
+    afterDatasetsDraw(chart, args, plugins) {
+      const { ctx, data } = chart;
+
+      const centerX = chart.getDatasetMeta(0).data[0].x;
+      const centerY = chart.getDatasetMeta(0).data[0].y;
+
+      // text
+      ctx.save();
+      ctx.font = `bold 90px sans-serit`;
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(`${data.datasets[0].data[0]} %`, centerX, centerY);
+    },
+  };
+
   return (
     <>
       <div className="grid grid-cols-2 gap-3 my-3">
@@ -11,6 +59,12 @@ export default function StudentStatusChart() {
             options={{
               plugins: {
                 legend: { display: false },
+              },
+              scales: {
+                r: {
+                  min: 0,
+                  max: 100,
+                },
               },
             }}
             data={{
@@ -30,7 +84,7 @@ export default function StudentStatusChart() {
               datasets: [
                 {
                   label: "my score",
-                  data: [80, 70, 15, 20, 25, 30, 35, 69, 48, 38, 90],
+                  data: [80, 70, 45, 65, 50, 46, 35, 69, 48, 38, 90],
                   backgroundColor: "rgb(95,190,151, 0.2)",
                   borderColor: "rgb(95,190,151)",
                   pointBackgroundColor: "rgb(95,190,151)",
@@ -51,6 +105,7 @@ export default function StudentStatusChart() {
                 tooltip: { enabled: false },
                 legend: { display: false },
               },
+              cutout: "70%",
             }}
             data={{
               labels: ["my score"],
@@ -62,6 +117,7 @@ export default function StudentStatusChart() {
                 },
               ],
             }}
+            plugins={[doughnutLabel]}
           />
         </Card>
       </div>

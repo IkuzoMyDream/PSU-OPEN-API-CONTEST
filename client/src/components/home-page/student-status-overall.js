@@ -1,4 +1,7 @@
-export default function StudentStatusOverall({ studentStatusOverall }) {
+export default function StudentStatusOverall({
+  studentStatusOverall,
+  curriculumStructure,
+}) {
   return (
     <>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-3">
@@ -8,7 +11,8 @@ export default function StudentStatusOverall({ studentStatusOverall }) {
               หน่วยกิตสะสม{" "}
               {studentStatusOverall.cumCredit
                 ? studentStatusOverall.cumCredit
-                : 0}
+                : 0}{" "}
+              / {curriculumStructure?.totalCredit}
             </div>
           </div>
         </div>
@@ -18,7 +22,8 @@ export default function StudentStatusOverall({ studentStatusOverall }) {
               est-score{" "}
               {studentStatusOverall.estScore
                 ? studentStatusOverall.estScore
-                : 0}
+                : 0}{" "}
+              / 100
             </div>
           </div>
         </div>
@@ -26,7 +31,8 @@ export default function StudentStatusOverall({ studentStatusOverall }) {
           <div class="max-w-sm p-6 bg-gradient-to-r from-green-1 to-green-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="text-white">
               เกรดเฉลี่ย{" "}
-              {studentStatusOverall.cumGpa ? studentStatusOverall.cumGpa : 0}
+              {studentStatusOverall.cumGpa ? studentStatusOverall.cumGpa : 0} /
+              4.00
             </div>
           </div>
         </div>
@@ -36,10 +42,11 @@ export default function StudentStatusOverall({ studentStatusOverall }) {
               ชั่วโมงกิจกรรม{" "}
               {studentStatusOverall.cumActHour
                 ? studentStatusOverall.cumActHour
-                : 0}
+                : 0}{" "}
+              / 100
             </div>
           </div>
-        </div>
+        </div> 
       </div>
     </>
   );

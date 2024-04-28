@@ -6,39 +6,10 @@ import StudentDetail from "../components/home-page/student-detail";
 import { axLOCAL, axPSU } from "../utils/config/ax";
 
 import React from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-} from "chart.js";
-import { Bar, Doughnut, Radar } from "react-chartjs-2";
-import { Card } from "flowbite-react";
+
 import StudentStatusOverall from "../components/home-page/student-status-overall";
 import StudentStatusChart from "../components/home-page/student-status-chart";
-import axios from "axios";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler
-);
 
 function HomePage() {
   const auth = useAuth();
@@ -46,7 +17,6 @@ function HomePage() {
 
   const [studentDetail, setStudentDetail] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
-  const [cumGpa, setCumGpa] = useState(null);
 
   const [studentStatusOverall, setStudentStatusOverall] = useState({
     cumGpa: "",
@@ -68,6 +38,8 @@ function HomePage() {
     },
   });
 
+  const [curriculumStructure, setCurriculumStructure] = useState(null);
+
   const fetchStudentProfileImage = async () => {
     try {
       const response = await axPSU.get(psuConfig.getStudentProfileImage);
@@ -80,7 +52,7 @@ function HomePage() {
   const fetchPsuStudentDetail = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentDetail);
-      // console.log(result);
+      // console.log(result.data);
       setStudentDetail(result.data);
     } catch (err) {
       console.log(err);
@@ -111,8 +83,10 @@ function HomePage() {
 
   const fetchCurriculumStructure = async () => {
     try {
-      const result = await axLOCAL.get(localConfig.getAllCurriculumStructures);
-      // console.log("curriculum structures", result);
+      const result = await axLOCAL.get(
+        `${localConfig.getCurriculumStructureById}/${`1`}`
+      );
+      setCurriculumStructure(result.data.curriculum_structure);
     } catch (err) {
       console.log(err);
     }
@@ -146,8 +120,6 @@ function HomePage() {
       //   `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
       // );
       // console.log(result.data.data);
-
-
       // await Promise.all(
       //   majors.map(async (major) => {
       //     const result = await axLOCAL.post(localConfig.postMajor, {
@@ -180,9 +152,9 @@ function HomePage() {
     fetchLocalStudentDetail();
   }, [studentDetail]);
 
-  useEffect(() => {
-    // console.log(studentStatusOverall);
-  }, [studentStatusOverall]);
+  // useEffect(() => {
+  //   console.log(curriculumStructure);
+  // }, [curriculumStructure]);
 
   return (
     <>
@@ -193,7 +165,10 @@ function HomePage() {
             <StudentDetail studentDetail={studentDetail} />
           </div>
           <div className="col-span-3">
-            <StudentStatusOverall studentStatusOverall={studentStatusOverall} />
+            <StudentStatusOverall
+              studentStatusOverall={studentStatusOverall}
+              curriculumStructure={curriculumStructure}
+            />
             <StudentStatusChart />
           </div>
         </div>
