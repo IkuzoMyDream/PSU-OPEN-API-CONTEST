@@ -1,5 +1,9 @@
+import { CurriculumStructure } from "src/curriculum_structures/entities/curriculum_structure.entity";
+import { Department } from "src/departments/entities/department.entity";
 import { Enrollment } from "src/enrollments/entities/enrollment.entity";
-import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import { Faculty } from "src/faculties/entities/faculty.entity";
+import { Major } from "src/majors/entities/major.entity";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Student {
@@ -34,22 +38,22 @@ export class Student {
     studyLevelName: string
 
     @Column({ nullable: false })
-    majorNameThai: string
-
-    @Column({ nullable: false })
-    majorNameEng: string
-
-    @Column({ nullable: false })
     campusNameThai: string
 
     @Column({ nullable: false })
     campusNameEng: string
 
-    @Column({ nullable: false })
-    facNameThai: string
+    @ManyToOne(() => Faculty, (faculty) => faculty.studentIds)
+    facId: Faculty
 
-    @Column({ nullable: false })
-    facNameEng: string
+    @ManyToOne(() => Department, (department) => department.studentIds)
+    deptId: Department
+
+    @ManyToOne(() => Major, (major) => major.studentIds)
+    majorId: Major
+
+    @ManyToOne(() => CurriculumStructure, (curriculumstructure) => curriculumstructure.studentIds)
+    curriculumStructureId: CurriculumStructure
 
     @Column({ nullable: false })
     estScore: string

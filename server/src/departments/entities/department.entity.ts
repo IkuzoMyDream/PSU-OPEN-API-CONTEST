@@ -2,6 +2,7 @@ import { Course } from "src/courses/entities/course.entity";
 import { CurriculumStructure } from "src/curriculum_structures/entities/curriculum_structure.entity";
 import { Faculty } from "src/faculties/entities/faculty.entity";
 import { Major } from "src/majors/entities/major.entity";
+import { Student } from "src/students/entities/student.entity";
 import { SubCategory } from "src/sub_categories/entities/sub_category.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 
@@ -21,6 +22,9 @@ export class Department {
 
     @OneToMany(() => Major, (major) => major.deptId)
     majorIds: Major[]
+
+    @OneToMany(() => Student, (student) => student.deptId)
+    studentIds: Student[]
 
     @OneToMany(() => Course, (course) => course.deptId)
     courses: Course[]

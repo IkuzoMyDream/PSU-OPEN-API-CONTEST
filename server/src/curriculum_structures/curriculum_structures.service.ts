@@ -21,15 +21,24 @@ export class CurriculumStructuresService {
     return await this.corriculumStructureRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} curriculumStructure`;
+  async getCurriculumStructureByFacDeptMajor(facId: string, deptId: string, majorId: string, admitYear: string) {
+    return await this.corriculumStructureRepository
+      .createQueryBuilder('curriculum_structure')
+      .leftJoin('curriculum_structure.facId', 'facId')
+      .leftJoin('curriculum_structure.deptId', 'deptId')
+      .leftJoin('curriculum_structure.majorId', 'majorId')
+      .where('curriculum_structure.facId = :facId', { facId })
+      .andWhere('curriculum_structure.deptId = :deptId', { deptId })
+      .andWhere('curriculum_structure.majorId = :majorId', { majorId })
+      .andWhere('curriculum_structure.admitYear = :admitYear', { admitYear })
+      .getRawOne()
   }
 
-  update(id: number, updateCurriculumStructureDto: UpdateCurriculumStructureDto) {
-    return `This action updates a #${id} curriculumStructure`;
-  }
+  async findOne(id: string) {
+    return await this.corriculumStructureRepository
+      .findOne({ where: { curriculumStructureId: id } })
+      ;
+  } 
 
-  remove(id: number) {
-    return `This action removes a #${id} curriculumStructure`;
-  }
+
 }
