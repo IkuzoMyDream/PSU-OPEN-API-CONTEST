@@ -1,0 +1,105 @@
+แสดงข้อมูลอาจารย์ที่ปรึกษาของนักศึกษา จากฐานข้อมูลรวมของทั้ง 5 วิทยาเขต
+https://api-gateway.psu.ac.th/Test/regist/level2/StudentAdvisory/token
+{
+    "data": [
+        {
+            "studentId": "9910990001",
+            "titleId": "01",
+            "titleNameThai": "นาย",
+            "studNameThai": "นักศึกษา 186",
+            "studSnameThai": "นามสกุล 186",
+            "campusId": "01",
+            "campusNameThai": "วิทยาเขตหาดใหญ่",
+            "facId": "15",
+            "facNameThai": "คณะทันตแพทยศาสตร์",
+            "deptId": "202",
+            "deptNameThai": "คณะทันตแพทยศาสตร์",
+            "majorId": "0650",
+            "majorNameThai": "ทันตแพทยศาสตร์",
+            "studyLevelId": "06",
+            "studyLevelName": "ปริญญาตรี",
+            "yearStatus": "3",
+            "studyStatus": "OK",
+            "statusDescThai": "กำลังศึกษา",
+            "eduTerm": "1",
+            "eduYear": "2564",
+            "cumGpa": "3.54",
+            "status": "03",
+            "gradeStatusDesc": "Pass",
+            "adviserId": "1234567890010",
+            "lecturerNameThai": "อาจารย์10",
+            "lecturerSnameThai": "สกุลอาจารย์10",
+            "beginDate": "2020-08-19T00:00:00",
+            "endDate": null
+        }
+    ],
+    "paging": {
+        "offsetRecord": 0,
+        "limitRecord": 1,
+        "totalRecord": 1,
+        "pageCount": 1
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+แสดงข้อมูลอาจารย์ที่ปรึกษาของนักศึกษา จากฐานข้อมูลของแต่ละวิทยาเขต
+https://api-gateway.psu.ac.th/Test/regist/level2/StudentAdvisoryCampus/01/token
+{
+    "data": [
+        {
+            "studentId": "9910990001",
+            "titleId": "01",
+            "titleNameThai": "นาย",
+            "studNameThai": "นักศึกษา 186",
+            "studSnameThai": "นามสกุล 186",
+            "campusId": "01",
+            "campusNameThai": "วิทยาเขตหาดใหญ่",
+            "facId": "15",
+            "facNameThai": "คณะทันตแพทยศาสตร์",
+            "deptId": "202",
+            "deptNameThai": "คณะทันตแพทยศาสตร์",
+            "majorId": "0650",
+            "majorNameThai": "ทันตแพทยศาสตร์",
+            "studyLevelId": "06",
+            "studyLevelName": "ปริญญาตรี",
+            "yearStatus": "3",
+            "studyStatus": "OK",
+            "statusDescThai": "กำลังศึกษา",
+            "eduTerm": "1",
+            "eduYear": "2564",
+            "cumGpa": "3.54",
+            "status": "03",
+            "gradeStatusDesc": "Pass",
+            "adviserId": "1234567890010",
+            "lecturerNameThai": "อาจารย์10",
+            "lecturerSnameThai": "สกุลอาจารย์10",
+            "beginDate": "2020-08-19T00:00:00",
+            "endDate": null
+        }
+    ],
+    "paging": {
+        "offsetRecord": 0,
+        "limitRecord": 1,
+        "totalRecord": 1,
+        "pageCount": 1
+    }
+}
