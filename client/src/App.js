@@ -3,20 +3,22 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import CoursesPage from "./pages/CoursesPage";
-import SubjectDetailPage from "./pages/SubjectDetailPage";
+import SubjectDetailPage from "./pages/CourseDetailPage";
 import { NavBar } from "./components/navbar";
+import StudyPlanPage from "./pages/StudyPlanPage";
 
 function App() {
   return (
     <>
-      <NavBar />
       <Router>
+        <NavBar />
         <Routes>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/category" element={<CoursesPage />} />
-          <Route path="/subjectDetail" element={<SubjectDetailPage />} />
+          <Route path="/course" element={<CoursesPage />} />
+          <Route path="/course/:courseCode" element={<SubjectDetailPage />} />
+          <Route path="/my-study-plan" element={<StudyPlanPage />} />
         </Routes>
       </Router>
     </>
