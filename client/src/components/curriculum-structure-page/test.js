@@ -1,5 +1,5 @@
 const curriculum_structure = {
-    "curriculumName": "หลักสูตรทันตแพทยศาสตรบัณฑิต",
+    "curriculumName": "หลักสูตรทันตแพทยศาสตรบัณฑิต หลักสูตรปรับปรุง พ.ศ. 2561",
     "totalCredit": "231",
     "geEduCourse": {
         "requiredEduCourse": {
@@ -162,7 +162,7 @@ const curriculum_structure = {
         "totalCredit": 6,
         "courseCodes": null,
         "groups": null,
-        "desc": null
+        "desc": "นักศึกษาเลือกเรียนรายวิชาที่สนใจที่เปิดสอนในมหาวิทยาลัยสงขลานครินทร์ หรือ มหาวิทยาลัยอื่น ๆ ทั้งในประเทศและต่างประเทศ ตามความสนใจ ซึ่งมีเนื้อหารายวิชาไม่ซํ้าซ้อนหรือใกล้เคียงกับรายวิชาที่เรียนมาแล้ว"
     }
 }
 
