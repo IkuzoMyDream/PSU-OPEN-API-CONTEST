@@ -57,14 +57,21 @@ function CoursesPage() {
   }, [selectedCategories, selectedSubCategories]); 
 
   const handleSearch = () => {
-    const filteredCourses = coursesData.filter(item => item.courseCode.includes(searchCode));
-  
-    if (filteredCourses.length === 0 && searchCode !== "") {
-      setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
+    if (searchCode.length === 7) { 
+      const filteredCourses = coursesData.filter(item => {
+        const pattern = /^\d{3}-\d{3}$/;
+        return pattern.test(item.courseCode) && item.courseCode.includes(searchCode);
+      });  
+      if (filteredCourses.length === 0 && searchCode !== "") {
+        setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
+      } else {
+        setSelectedCourses(filteredCourses);
+      }
     } else {
-      setSelectedCourses(filteredCourses);
+      setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
     }
   };
+  
   
 
   const handleFilterModalClose = () => setShowFilterModal(false);
