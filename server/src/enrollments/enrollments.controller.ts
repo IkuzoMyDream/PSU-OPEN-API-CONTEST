@@ -20,9 +20,11 @@ export class EnrollmentsController {
   }
 
   @Get('enrollment/:id')
-  findOne(@Param('id') id: string) {
-    return this.enrollmentsService.findOne(+id);
+  getStudentEnrollment(@Param('id') id: Student) {
+    return this.enrollmentsService.getStudentEnrollCreditCurriculum(id);
   }
+
+  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEnrollmentDto: UpdateEnrollmentDto) {

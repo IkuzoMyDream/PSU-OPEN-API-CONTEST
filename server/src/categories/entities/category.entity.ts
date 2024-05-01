@@ -16,7 +16,7 @@ enum GeneralEducationType {
 @Entity()
 export class Category {
     @PrimaryGeneratedColumn()
-    catagoryId: string
+    categoryId: string
 
     @Column({ type: "simple-enum", nullable: false })
     categoryType: CategoryType

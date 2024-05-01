@@ -11,6 +11,7 @@ function StudyPlanPage() {
   const [studentDetail, setStudentDetail] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const [curriculumStructure, setCurriculumStructure] = useState(null);
+  const [studentEnroll, setStudentEnroll] = useState(null);
 
   const fetchPsuStudentDetail = async () => {
     try {
@@ -41,6 +42,17 @@ function StudyPlanPage() {
     }
   };
 
+  const fetchStudentEnrollment = async () => {
+    try {
+      const result = await axLOCAL(
+        `${localConfig.getEnrollmentByStudId}/${studentDetail?.studentId}`
+      );
+      setStudentEnroll(result.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchPsuStudentDetail();
@@ -49,8 +61,17 @@ function StudyPlanPage() {
     }
   }, [auth.user, auth]);
 
+  useEffect(() => {
+    if (studentDetail?.studentId) {
+      fetchStudentEnrollment();
+    }
+  }, [studentDetail]);
+
+  useEffect(() => {
+  }, [studentEnroll]); 
+
   return (
-    <div className="x">
+    <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-1">
           {profileImage && <img src={profileImage} />}
@@ -61,7 +82,7 @@ function StudyPlanPage() {
             <p className=" text-2xl">{curriculumStructure?.curriculumName}</p>
           </div>
           <div>
-            <CorriculumStructure curriculumStructure={curriculumStructure} />
+            <CorriculumStructure studentEnroll={studentEnroll} curriculumStructure={curriculumStructure} />
           </div>
         </div>
         <div className=""></div>
