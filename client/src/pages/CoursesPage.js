@@ -25,12 +25,11 @@ function CoursesPage() {
     try {
       const result = await axLOCAL.get(localConfig.getCategories);
       const filterdHeader = result.data.map((item) => ({
-        categoryId: item.catagoryId,
+        categoryId: item.categoryId,
         categoryNameEng: item.categoryType,
         categoryNameThai: item.subjectGroupName,
         subCategory: item.subCategoryIds.length !== 0 ? item.subCategoryIds : null,
       }));
-
       setCategoriesHeader(filterdHeader);
     } catch (err) {
       console.log(err);
@@ -55,7 +54,7 @@ function CoursesPage() {
 
   useEffect(() => {
     showcourse();
-  }, [selectedCategories, selectedSubCategories]); // เพิ่ม selectedSubCategories เป็น dependency ของ useEffect
+  }, [selectedCategories, selectedSubCategories]); 
 
   const handleSearch = () => {
     const filteredCourses = coursesData.filter(item => item.courseCode.includes(searchCode));
@@ -143,6 +142,8 @@ function CoursesPage() {
   console.log("subcate = ",coursesData )
   console.log("seleccate = ",selectedCategories )
   console.log("selectsubcate = ",selectedSubCategories )
+  console.log("categorihe = ",categoriesHeader )
+  
 
   return (
     <div className="grid grid-cols-4  gap-4 p-4">
@@ -194,7 +195,7 @@ function CoursesPage() {
 
 
         <div>
-          {selectedCourses.length === 0 ? (
+          {selectedCourses.length === 0 &&  selectedSubCategories.length === 0 ? (
             <div>
               {coursesData.map((item) => (
                 <div className="border rounded p-2 mb-2" key={item.id}>
