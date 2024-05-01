@@ -18,6 +18,7 @@ const localConfig = {
   getCurriculumStructureByFacDeptMajor: "/curriculum-structure",
   getCurriculumStructureById: "/curriculum-structure",
   getCategories:"/categories",
+  getAllcourses:"/courses",
 
   // POST
   postCourse: "/course",

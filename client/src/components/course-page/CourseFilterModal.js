@@ -36,7 +36,7 @@ function CourseFilterModal({ show, onClose, filters, onFilterChange }) {
                   className="text-lg leading-6 font-medium text-gray-900"
                   id="modal-title"
                 >
-                  เลือกหมวดหมู่เพื่อค้นหา
+                  ตัวกรอง
                 </h3>
                 <div className="mt-4 space-y-4">
                   <div className="flex items-center">
@@ -48,7 +48,7 @@ function CourseFilterModal({ show, onClose, filters, onFilterChange }) {
                       checked={filters.general}
                       onChange={onFilterChange}
                     />
-                    <label htmlFor="general">หมวดรายวิชาทั่วไป</label>
+                    <label htmlFor="general">วิชาที่ลงทะเบียนแล้ว</label>
                   </div>
                   <div className="flex items-center">
                     <input
@@ -59,30 +59,10 @@ function CourseFilterModal({ show, onClose, filters, onFilterChange }) {
                       checked={filters.elective}
                       onChange={onFilterChange}
                     />
-                    <label htmlFor="elective">หมวดรายวิชาเลือก</label>
+                    <label htmlFor="elective">วิชาที่ยังไม่ลงทะเบียน</label>
                   </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="free"
-                      name="free"
-                      className="mr-2"
-                      checked={filters.free}
-                      onChange={onFilterChange}
-                    />
-                    <label htmlFor="free">หมวดรายวิชาเสรี</label>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="specialized"
-                      name="specialized"
-                      className="mr-2"
-                      checked={filters.specialized}
-                      onChange={onFilterChange}
-                    />
-                    <label htmlFor="specialized">หมวดรายวิชาเฉพาะ</label>
-                  </div>
+                  
+                  
                 </div>
               </div>
             </div>
