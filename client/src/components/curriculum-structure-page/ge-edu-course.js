@@ -1,7 +1,19 @@
 import { Accordion, Card } from "flowbite-react";
-import CourseList from "./course-list";
+import CourseObj from "./course-obj";
+import CoursePagination from "./course-pagination";
+import { useState } from "react";
+import CurriculumAccordionContent from "./curriculum-accordion.content";
 
 export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
+  const [subjGroup01Course, setSubjGroup01Course] = useState();
+  const [subjGroup02Course, setSubjGroup02Course] = useState();
+  const [subjGroup03Course, setSubjGroup03Course] = useState();
+  const [subjGroup04Course, setSubjGroup04Course] = useState();
+  const [subjGroup05Course, setSubjGroup05Course] = useState();
+  const [subjGroup06Course, setSubjGroup06Course] = useState();
+  const [subjGroup07Course, setSubjGroup07Course] = useState();
+  const [elecEduCourse, setElecEduCourse] = useState();
+
   return (
     <>
       <p className=" text-2xl">
@@ -17,8 +29,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup01?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup01}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup01}
               enrollList={studentGeEnroll?.subjGroup01?.registCourseIds}
             />
           </Accordion.Content>
@@ -30,8 +42,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup02?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup02}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup02}
               enrollList={studentGeEnroll?.subjGroup02?.registCourseIds}
             />
           </Accordion.Content>
@@ -43,8 +55,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup03?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup03}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup03}
               enrollList={studentGeEnroll?.subjGroup03?.registCourseIds}
             />
           </Accordion.Content>
@@ -56,8 +68,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup04?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup04}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup04}
               enrollList={studentGeEnroll?.subjGroup04?.registCourseIds}
             />
           </Accordion.Content>
@@ -69,8 +81,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup05?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup05}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup05}
               enrollList={studentGeEnroll?.subjGroup05?.registCourseIds}
             />
           </Accordion.Content>
@@ -82,8 +94,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup06?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup06}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup06}
               enrollList={studentGeEnroll?.subjGroup06?.registCourseIds}
             />
           </Accordion.Content>
@@ -95,8 +107,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.subjGroup07?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.subjGroup07}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.subjGroup07}
               enrollList={studentGeEnroll?.subjGroup07?.registCourseIds}
             />
           </Accordion.Content>
@@ -107,8 +119,8 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             {geEduCourse?.elecEduCourse?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={geEduCourse?.elecEduCourse}
+            <CurriculumAccordionContent
+              courseObj={geEduCourse?.elecEduCourse}
               enrollList={studentGeEnroll?.elecEduCourse?.registCourseIds}
             />
           </Accordion.Content>

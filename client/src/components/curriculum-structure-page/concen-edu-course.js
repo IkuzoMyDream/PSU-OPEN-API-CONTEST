@@ -1,5 +1,6 @@
 import { Accordion } from "flowbite-react";
-import CourseList from "./course-list";
+import CourseList from "./course-obj";
+import CurriculumAccordionContent from "./curriculum-accordion.content";
 
 export default function ConcenEduCourse({
   concentrationCourse,
@@ -20,8 +21,8 @@ export default function ConcenEduCourse({
             {concentrationCourse?.basicConcen?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={concentrationCourse?.basicConcen}
+            <CurriculumAccordionContent
+              courseObj={concentrationCourse?.basicConcen}
               enrollList={studentConcenEnroll?.basicConcen?.registCourseIds}
             />
           </Accordion.Content>
@@ -33,8 +34,8 @@ export default function ConcenEduCourse({
             {concentrationCourse?.advanceConcen?.totalCredit})
           </Accordion.Title>
           <Accordion.Content>
-            <CourseList
-              courseList={concentrationCourse?.advanceConcen}
+            <CurriculumAccordionContent
+              courseObj={concentrationCourse?.advanceConcen}
               enrollList={studentConcenEnroll?.advanceConcen?.registCourseIds}
             />
           </Accordion.Content>

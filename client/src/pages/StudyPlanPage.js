@@ -47,7 +47,7 @@ function StudyPlanPage() {
       const result = await axLOCAL(
         `${localConfig.getEnrollmentByStudId}/${studentDetail?.studentId}`
       );
-      setStudentEnroll(result.data)
+      setStudentEnroll(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -67,27 +67,38 @@ function StudyPlanPage() {
     }
   }, [studentDetail]);
 
-  useEffect(() => {
-  }, [studentEnroll]); 
+  useEffect(() => {}, [studentEnroll]);
 
   return (
-    <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
-      <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-1">
-          {profileImage && <img src={profileImage} />}
-          <StudentDetail studentDetail={studentDetail} />
-        </div>
-        <div className="col-span-3">
-          <div className="text-center">
-            <p className=" text-2xl">{curriculumStructure?.curriculumName}</p>
+    <>
+      {profileImage &&
+        studentDetail &&
+        studentEnroll &&
+        curriculumStructure && (
+          <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
+            <div className="grid grid-cols-4 gap-4">
+              <div className="col-span-1">
+                {profileImage && <img src={profileImage} />}
+                <StudentDetail studentDetail={studentDetail} />
+              </div>
+              <div className="col-span-3">
+                <div className="text-center">
+                  <p className=" text-2xl">
+                    {curriculumStructure?.curriculumName}
+                  </p>
+                </div>
+                <div>
+                  <CorriculumStructure
+                    studentEnroll={studentEnroll}
+                    curriculumStructure={curriculumStructure}
+                  />
+                </div>
+              </div>
+              <div className=""></div>
+            </div>
           </div>
-          <div>
-            <CorriculumStructure studentEnroll={studentEnroll} curriculumStructure={curriculumStructure} />
-          </div>
-        </div>
-        <div className=""></div>
-      </div>
-    </div>
+        )}
+    </>
   );
 }
 
