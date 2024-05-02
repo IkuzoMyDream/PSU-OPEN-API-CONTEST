@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Pagination } from "flowbite-react";
 import { NavBar } from "../components/navbar";
 import { axLOCAL, axPSU } from "../utils/config/ax";
 import { localConfig, psuConfig } from "../utils/config/main";
@@ -11,6 +12,7 @@ function CoursesPage() {
   const [coursesData,setCoursesData] = useState([]);
   const [categoriesHeader,setCategoriesHeader] = useState([]);
   const [studentEnrollment, setStudentEnrollment] = useState([]);
+  const [studentDetail, setStudentDetail] = useState([]);
   const [searchCode, setSearchCode] = useState("");
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [filters, setFilters] = useState({
@@ -20,6 +22,22 @@ function CoursesPage() {
   const [selectedCourses,setSelectedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [coursesPerPage] = useState(5); // Adjust as needed
+  const [allRegistData,setAllRegistData] = useState([]);
+
+
+
+
+  const fetchPsuStudentDetail = async () => {
+    try {
+      const result = await axPSU.get(psuConfig.getStudentDetail);
+      console.log("stdDetail = ", result.data)
+      setStudentDetail(result.data.studentId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -36,10 +54,21 @@ function CoursesPage() {
     }
   };
 
+  const fetchEnrollment = async () => {
+    try {
+      const result = await axLOCAL.get(`${localConfig.getEnrollmentByStudId}/${studentDetail}`);
+      console.log("enrroll = ",result)
+      setStudentEnrollment(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const fetchCourses = async () => {
     try {
       const result = await axLOCAL.get(localConfig.getAllcourses);
       setCoursesData(result.data);
+      setSelectedCourses(result.data)
     } catch (err) {
       console.log(err);
     }
@@ -47,14 +76,52 @@ function CoursesPage() {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
+      fetchPsuStudentDetail();
       fetchCategories();
       fetchCourses();
+  
     }
   }, [auth, auth.user]);
 
   useEffect(() => {
-    showcourse();
-  }, [selectedCategories, selectedSubCategories]); 
+    if (auth.isAuthenticated) {
+      showcourse();
+    }
+    if (studentDetail){
+      fetchEnrollment();
+    }
+  }, [selectedCategories, selectedSubCategories, currentPage,studentDetail]); 
+
+  useEffect(() => {
+    console.log("Student Enrollment:", studentEnrollment);
+    genEnrollcourseId();
+  }, [studentEnrollment]);
+  
+
+  const genEnrollcourseId = () => {
+    let allRegistData = [];
+    
+    for (const key in studentEnrollment) {
+      const group = studentEnrollment[key];
+      if (group && group.registCourseIds && Array.isArray(group.registCourseIds)) {
+        allRegistData.push(...group.registCourseIds);
+      } else if (group && typeof group === "object") {
+        for (const subKey in group) {
+          const subGroup = group[subKey];
+          if (subGroup && subGroup.registCourseIds && Array.isArray(subGroup.registCourseIds)) {
+            allRegistData.push(...subGroup.registCourseIds);
+          }
+        }
+      }
+    }
+    
+    setAllRegistData(allRegistData);
+    console.log("allregist =", allRegistData);
+  };
+  
+  
+  
+
 
   const handleSearch = () => {
     if (searchCode.length === 7) { 
@@ -71,8 +138,6 @@ function CoursesPage() {
       setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
     }
   };
-  
-  
 
   const handleFilterModalClose = () => setShowFilterModal(false);
 
@@ -83,6 +148,9 @@ function CoursesPage() {
       [name]: checked
     }));
   };
+
+  console.log("stdid = ", studentDetail)
+  console.log("stdenn = ", studentEnrollment)
 
   const showcourse = () => {
     if (categoriesHeader.length > 0) {
@@ -104,14 +172,11 @@ function CoursesPage() {
           });
         }
         
-        
-  
         setSelectedCourses(filteredCourses);
       }
     }
   };
-  
-  
+
   const handleFilterCategoriesChange = (e) => {
     const { id, checked } = e.target;
     let updatedCategories = [];
@@ -146,11 +211,11 @@ function CoursesPage() {
     setSelectedSubCategories(updatedSubCategories);
   };
 
-  console.log("subcate = ",coursesData )
-  console.log("seleccate = ",selectedCategories )
-  console.log("selectsubcate = ",selectedSubCategories )
-  console.log("categorihe = ",categoriesHeader )
-  
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = selectedCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
     <div className="grid grid-cols-4  gap-4 p-4">
@@ -202,10 +267,10 @@ function CoursesPage() {
 
 
         <div>
-          {selectedCourses.length === 0 &&  selectedSubCategories.length === 0 ? (
+          {currentCourses.length === 0 &&  selectedSubCategories.length === 0 ? (
             <div>
               {coursesData.map((item) => (
-                <div className="border rounded p-2 mb-2" key={item.id}>
+                <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                 </div>
@@ -213,8 +278,8 @@ function CoursesPage() {
             </div>
           ) : (
             <div>
-              {selectedCourses.map((item) => (
-                <div className="border rounded p-2 mb-2" key={item.id}>
+              {currentCourses.map((item) => (
+                <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                 </div>
@@ -222,6 +287,12 @@ function CoursesPage() {
             </div>
           )}
         </div>
+        <Pagination
+          totalPages={Math.ceil(selectedCourses?.length/ coursesPerPage)}
+          pageLimit={coursesPerPage}
+          currentPage={currentPage}
+          onPageChange={paginate}
+        />
       </div>
       <CourseFilterModal
         show={showFilterModal}
