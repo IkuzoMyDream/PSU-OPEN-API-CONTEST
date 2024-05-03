@@ -6,6 +6,7 @@ import { axLOCAL, axPSU } from "../utils/config/ax";
 import { localConfig, psuConfig } from "../utils/config/main";
 import { useAuth } from "react-oidc-context";
 import CourseFilterModal from "../components/course-page/CourseFilterModal";
+import { Link } from "react-router-dom";
 
 function CoursesPage() {
   const auth = useAuth();
@@ -280,6 +281,7 @@ function CoursesPage() {
             <div>
               {filterEnrolledCourses().map((item) => (
                 <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
+                  <Link to={`/course/${item.courseCode}`}>{item.courseCode}</Link>
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                   {checkisEnrolled(item.courseCode) ? (
