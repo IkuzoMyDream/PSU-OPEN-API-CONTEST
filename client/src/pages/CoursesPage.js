@@ -1,18 +1,17 @@
 // CoursesPage.js
 import React, { useEffect, useState } from "react";
 import { Pagination } from "flowbite-react";
-import { NavBar } from "../components/navbar";
 import { axLOCAL, axPSU } from "../utils/config/ax";
 import { localConfig, psuConfig } from "../utils/config/main";
 import { useAuth } from "react-oidc-context";
-import CourseFilterModal from "../components/course-page/CourseFilterModal";
 import { Link } from "react-router-dom";
+import CourseFilterModal from "../components/course-page/CourseFilterModal";
 
 function CoursesPage() {
   const auth = useAuth();
   
-  const [coursesData,setCoursesData] = useState([]);
-  const [categoriesHeader,setCategoriesHeader] = useState([]);
+  const [coursesData, setCoursesData] = useState([]);
+  const [categoriesHeader, setCategoriesHeader] = useState([]);
   const [studentEnrollment, setStudentEnrollment] = useState([]);
   const [studentDetail, setStudentDetail] = useState([]);
   const [searchCode, setSearchCode] = useState("");
@@ -21,17 +20,16 @@ function CoursesPage() {
     isnotEnrolled: false,
     Enrolled: false,
   });
-  const [selectedCourses,setSelectedCourses] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [coursesPerPage] = useState(6); // Adjust as needed
-  const [allRegistData,setAllRegistData] = useState([]);
+  const [allRegistData, setAllRegistData] = useState([]);
 
   const fetchPsuStudentDetail = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentDetail);
-      console.log("stdDetail = ", result.data)
       setStudentDetail(result.data.studentId);
     } catch (err) {
       console.log(err);
@@ -56,7 +54,6 @@ function CoursesPage() {
   const fetchEnrollment = async () => {
     try {
       const result = await axLOCAL.get(`${localConfig.getEnrollmentByStudId}/${studentDetail}`);
-      console.log("enrroll = ",result)
       setStudentEnrollment(result.data);
     } catch (err) {
       console.log(err);
@@ -78,7 +75,6 @@ function CoursesPage() {
       fetchPsuStudentDetail();
       fetchCategories();
       fetchCourses();
-  
     }
   }, [auth, auth.user]);
 
@@ -92,7 +88,6 @@ function CoursesPage() {
   }, [selectedCategories, selectedSubCategories, currentPage,studentDetail]); 
 
   useEffect(() => {
-    console.log("Student Enrollment:", studentEnrollment);
     genEnrollcourseId();
   }, [studentEnrollment]);
   
@@ -118,7 +113,6 @@ function CoursesPage() {
     }
     
     setAllRegistData(allRegistData);
-    console.log("allregist =", allRegistData);
   };
 
   const handleSearch = () => {
@@ -206,23 +200,23 @@ function CoursesPage() {
     setSelectedSubCategories(updatedSubCategories);
   };
 
-  const indexOfLastCourse = currentPage * coursesPerPage;
-  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const currentCourses = selectedCourses.slice(indexOfFirstCourse, indexOfLastCourse);
-
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const filterEnrolledCourses = () => {
-    if (!filters.isnotEnrolled && !filters.Enrolled) {
-      return selectedCourses;
-    } else if (filters.isnotEnrolled && !filters.Enrolled) {
-      return selectedCourses.filter(course => !checkisEnrolled(course.courseCode));
+    let filteredCourses = selectedCourses;
+
+    if (filters.isnotEnrolled && !filters.Enrolled) {
+      filteredCourses = filteredCourses.filter(course => !checkisEnrolled(course.courseCode));
     } else if (!filters.isnotEnrolled && filters.Enrolled) {
-      return selectedCourses.filter(course => checkisEnrolled(course.courseCode));
-    } else {
-      return [];
+      filteredCourses = filteredCourses.filter(course => checkisEnrolled(course.courseCode));
     }
+
+    return filteredCourses;
   };
+
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = filterEnrolledCourses().slice(indexOfFirstCourse, indexOfLastCourse);
 
   console.log("coursepage = ", coursesPerPage ,filterEnrolledCourses().length)
   console.log("seletedcourse",selectedCourses)
@@ -251,7 +245,7 @@ function CoursesPage() {
         ))}
       </div>
       <div className="flex flex-col col-span-3 justify-start p-2 rounded" >
-        <h2 className="text-lg font-bold mb-2">ค้นหารายวิชา</h2>
+        <h2 className="text-3xl font-bold mb-4">ค้นหารายวิชา</h2>
         <div className="flex justify-start items-center mb-4 gap-2">
           <input
             className="border rounded px-3 py-2 mr-2 w-1/2"
@@ -279,10 +273,10 @@ function CoursesPage() {
         <div>
            
             <div>
-              {filterEnrolledCourses().map((item) => (
-                  <Link to={`/course/${item.courseCode}`}>
+              {currentCourses.map((item) => (
+                  <Link to={`/course/${item.courseCode}`} key={item.id}>
 
-                <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
+                <div className="border rounded bg-pale-blue-gray p-2 mb-2">
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                   {checkisEnrolled(item.courseCode) ? (
