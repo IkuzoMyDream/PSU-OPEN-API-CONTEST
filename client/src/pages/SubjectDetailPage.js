@@ -1,40 +1,60 @@
 import { useState, useEffect } from 'react';
 import { NavBar } from "../components/navbar";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { axLOCAL } from '../utils/config/ax';
+import { localConfig } from '../utils/config/main';
+import { useAuth } from 'react-oidc-context';
+import { Button } from 'flowbite-react';
+import { HiOutlineArrowLeft, HiShoppingCart } from "react-icons/hi";
+
 
 function SubjectDetailPage() {
-  const [courses, setCourses] = useState([null]);
+  const [courses, setCourses] = useState([]);
   const { courseCode } = useParams();
-
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
+  const auth = useAuth();
+  
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://localhost:1337/local-api/courses');
-      if (!response.ok) {
-        throw new Error('Failed to fetch courses');
-      }
-      const data = await response.json();
-      setCourses(data);
-      console.log(data);
+      const response = await axLOCAL.get(`${localConfig.getSomecourse}/${courseCode}`);
+      setCourses(response.data);
+      console.log("data =",response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+
+    fetchCourses();
+  }, [courseCode]); 
+
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-blue-500 text-white p-4 rounded-md shadow-md" style={{ width: '800px', height: '370px' }}>
-      <h2>Subject Detail Page</h2>
-      <p>Course Code: {courseCode}</p>
-      {/* {courses.map(course => (
-            <li key={course.id}>
-              Course ID: {course.id}, Course Code: {course.courseCode}
-            </li>
-          ))} */}
-      </div>
+    <div >
+      <Link to={`/course`}>
+      <div className='mt-6 ml-4'>
+      <Button>
+    <HiOutlineArrowLeft className="ml-2 h-5 w-5" />
+    ย้อนกลับ
+      </Button>
+        </div>
+      </Link>
+        <div className='grid grid-cols-5 gap-4 '> 
+        <div className="col-start-2 col-end-6" >  
+          <div className=" bg-pale-blue-gray  p-4 rounded-md shadow-md w-9/12" >
+            <h2 className='font-bold text-2xl mb-2 '>{courses.courseCode} {courses.courseNameEng}</h2>
+            <p className='font-bold text-xl  mb-4' > {courses.courseNameThai} </p>
+            <p className='font-bold text-xl'> จำนวนหน่วยกิต : {courses.totalCredit} </p>
+            
+          </div>
+          <div className="bg-pale-blue-gray  p-4 rounded-md shadow-md w-9/12 mt-14">
+            <h2   className='font-bold text-2xl mb-4'>รายละเอียดวิชา</h2>
+            <p className='text-lg font-semibold'>ภาคการศึกษา : </p>   
+            <p className='text-lg font-semibold '>ภาควิชา : </p>
+            <p className='text-lg font-semibold'>คณะ :</p>
+            <p className='text-lg font-semibold'>วิทยาเขต :</p>         
+          </div >
+        </div>
+          </div>
     </div>
   );
 }

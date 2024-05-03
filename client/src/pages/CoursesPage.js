@@ -280,16 +280,18 @@ function CoursesPage() {
            
             <div>
               {filterEnrolledCourses().map((item) => (
+                  <Link to={`/course/${item.courseCode}`}>
+
                 <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
-                  <Link to={`/course/${item.courseCode}`}>{item.courseCode}</Link>
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                   {checkisEnrolled(item.courseCode) ? (
                     <p>ลงทะเบียนแล้ว</p>
-                  ) : (
-                    <p>ยังไม่ลงทะเบียน</p>
-                  )}
+                    ) : (
+                      <p>ยังไม่ลงทะเบียน</p>
+                      )}
                 </div>
+                      </Link>
               ))}
             </div>
           
