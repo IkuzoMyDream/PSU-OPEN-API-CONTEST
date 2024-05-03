@@ -1,3 +1,4 @@
+// CoursesPage.js
 import React, { useEffect, useState } from "react";
 import { Pagination } from "flowbite-react";
 import { NavBar } from "../components/navbar";
@@ -23,11 +24,8 @@ function CoursesPage() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage] = useState(5); // Adjust as needed
+  const [coursesPerPage] = useState(6); // Adjust as needed
   const [allRegistData,setAllRegistData] = useState([]);
-
-
-
 
   const fetchPsuStudentDetail = async () => {
     try {
@@ -97,7 +95,10 @@ function CoursesPage() {
     genEnrollcourseId();
   }, [studentEnrollment]);
   
-
+  const checkisEnrolled = (courseCode) => {
+    return allRegistData.includes(courseCode);
+  };
+  
   const genEnrollcourseId = () => {
     let allRegistData = [];
     
@@ -118,10 +119,6 @@ function CoursesPage() {
     setAllRegistData(allRegistData);
     console.log("allregist =", allRegistData);
   };
-  
-  
-  
-
 
   const handleSearch = () => {
     if (searchCode.length === 7) { 
@@ -148,9 +145,6 @@ function CoursesPage() {
       [name]: checked
     }));
   };
-
-  console.log("stdid = ", studentDetail)
-  console.log("stdenn = ", studentEnrollment)
 
   const showcourse = () => {
     if (categoriesHeader.length > 0) {
@@ -217,6 +211,21 @@ function CoursesPage() {
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
+  const filterEnrolledCourses = () => {
+    if (!filters.isnotEnrolled && !filters.Enrolled) {
+      return selectedCourses;
+    } else if (filters.isnotEnrolled && !filters.Enrolled) {
+      return selectedCourses.filter(course => !checkisEnrolled(course.courseCode));
+    } else if (!filters.isnotEnrolled && filters.Enrolled) {
+      return selectedCourses.filter(course => checkisEnrolled(course.courseCode));
+    } else {
+      return [];
+    }
+  };
+
+  console.log("coursepage = ", coursesPerPage ,filterEnrolledCourses().length)
+  console.log("seletedcourse",selectedCourses)
+
   return (
     <div className="grid grid-cols-4  gap-4 p-4">
       <div className="md:border border-gray-300 p-4 rounded">
@@ -267,28 +276,24 @@ function CoursesPage() {
 
 
         <div>
-          {currentCourses.length === 0 &&  selectedSubCategories.length === 0 ? (
+           
             <div>
-              {coursesData.map((item) => (
+              {filterEnrolledCourses().map((item) => (
                 <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
+                  {checkisEnrolled(item.courseCode) ? (
+                    <p>ลงทะเบียนแล้ว</p>
+                  ) : (
+                    <p>ยังไม่ลงทะเบียน</p>
+                  )}
                 </div>
               ))}
             </div>
-          ) : (
-            <div>
-              {currentCourses.map((item) => (
-                <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
-                  <h3 className="font-bold text-lg">{item.courseCode}</h3>
-                  <p>{item.courseNameEng}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          
         </div>
         <Pagination
-          totalPages={Math.ceil(selectedCourses?.length/ coursesPerPage)}
+          totalPages={Math.ceil(filterEnrolledCourses().length / coursesPerPage)}
           pageLimit={coursesPerPage}
           currentPage={currentPage}
           onPageChange={paginate}

@@ -19,3 +19,12 @@
 //     setSelectedCategories(prevSelected => prevSelected.filter(subcategory => subcategory.subCategoryName !== removedSubCategory.subCategoryName));
 //   }
 // };
+
+// </div>
+//         <Pagination
+//           totalPages={Math.ceil(selectedCourses?.length/ coursesPerPage)}
+//           pageLimit={coursesPerPage}
+//           currentPage={currentPage}
+//           onPageChange={paginate}
+//         />
+//       </div>
