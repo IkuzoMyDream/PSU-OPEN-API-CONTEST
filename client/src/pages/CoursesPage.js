@@ -6,6 +6,10 @@ import { localConfig, psuConfig } from "../utils/config/main";
 import { useAuth } from "react-oidc-context";
 import { Link } from "react-router-dom";
 import CourseFilterModal from "../components/course-page/CourseFilterModal";
+import { RiFilter2Line } from "react-icons/ri";
+import { FaSearch } from "react-icons/fa";
+
+
 
 function CoursesPage() {
   const auth = useAuth();
@@ -255,17 +259,17 @@ function CoursesPage() {
             onChange={(e) => setSearchCode(e.target.value)}
           />
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-dark-blue-gray hover:bg-blue-700 text-white font-bold py-3 px-6 rounded"
             onClick={handleSearch}
           >
-            ค้นหา
+            <FaSearch/>
           </button>
 
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-dark-blue-gray hover:bg-blue-700 text-white font-bold py-3 px-6 rounded"
             onClick={() => setShowFilterModal(true)}
           >
-            Filter
+            <RiFilter2Line/>
           </button>
         </div>
 

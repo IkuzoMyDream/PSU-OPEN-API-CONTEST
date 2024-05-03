@@ -5,7 +5,7 @@ import { axLOCAL } from '../utils/config/ax';
 import { localConfig } from '../utils/config/main';
 import { useAuth } from 'react-oidc-context';
 import { Button } from 'flowbite-react';
-import { HiOutlineArrowLeft, HiShoppingCart } from "react-icons/hi";
+import { HiOutlineArrowLeft,  } from "react-icons/hi";
 
 
 function SubjectDetailPage() {
