@@ -1,3 +1,4 @@
+// CourseFilterModal.js
 import React from "react";
 
 function CourseFilterModal({ show, onClose, filters, onFilterChange }) {
@@ -42,27 +43,25 @@ function CourseFilterModal({ show, onClose, filters, onFilterChange }) {
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      id="general"
-                      name="general"
+                      id="Enrolled"
+                      name="Enrolled"
                       className="mr-2"
-                      checked={filters.general}
+                      checked={filters.Enrolled}
                       onChange={onFilterChange}
                     />
-                    <label htmlFor="general">วิชาที่ลงทะเบียนแล้ว</label>
+                    <label htmlFor="Enrolled">วิชาที่ลงทะเบียนแล้ว</label>
                   </div>
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      id="elective"
-                      name="elective"
+                      id="isnotEnrolled"
+                      name="isnotEnrolled"
                       className="mr-2"
-                      checked={filters.elective}
+                      checked={filters.isnotEnrolled}
                       onChange={onFilterChange}
                     />
-                    <label htmlFor="elective">วิชาที่ยังไม่ลงทะเบียน</label>
+                    <label htmlFor="isnotEnrolled">วิชาที่ยังไม่ลงทะเบียน</label>
                   </div>
-                  
-                  
                 </div>
               </div>
             </div>

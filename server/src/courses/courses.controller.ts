@@ -20,9 +20,10 @@ export class CoursesController {
     return this.coursesService.findAll();
   } 
 
-  @Get('course/:id')
-  findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(+id);
+
+  @Get('course/:courseCode')
+  findOneByCourseCode(@Param('courseCode') courseCode: string) {
+    return this.coursesService.findOneByCourseCode(courseCode);
   }
 
 }
