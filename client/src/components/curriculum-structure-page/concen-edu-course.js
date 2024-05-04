@@ -5,6 +5,7 @@ import CurriculumAccordionContent from "./curriculum-accordion.content";
 export default function ConcenEduCourse({
   concentrationCourse,
   studentConcenEnroll,
+  filterCurriculumCourse,
 }) {
   return (
     <>
@@ -24,6 +25,7 @@ export default function ConcenEduCourse({
             <CurriculumAccordionContent
               courseObj={concentrationCourse?.basicConcen}
               enrollList={studentConcenEnroll?.basicConcen?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -37,6 +39,7 @@ export default function ConcenEduCourse({
             <CurriculumAccordionContent
               courseObj={concentrationCourse?.advanceConcen}
               enrollList={studentConcenEnroll?.advanceConcen?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>

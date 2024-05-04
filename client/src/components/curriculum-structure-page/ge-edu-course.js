@@ -1,19 +1,11 @@
 import { Accordion, Card } from "flowbite-react";
-import CourseObj from "./course-obj";
-import CoursePagination from "./course-pagination";
-import { useState } from "react";
 import CurriculumAccordionContent from "./curriculum-accordion.content";
 
-export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
-  const [subjGroup01Course, setSubjGroup01Course] = useState();
-  const [subjGroup02Course, setSubjGroup02Course] = useState();
-  const [subjGroup03Course, setSubjGroup03Course] = useState();
-  const [subjGroup04Course, setSubjGroup04Course] = useState();
-  const [subjGroup05Course, setSubjGroup05Course] = useState();
-  const [subjGroup06Course, setSubjGroup06Course] = useState();
-  const [subjGroup07Course, setSubjGroup07Course] = useState();
-  const [elecEduCourse, setElecEduCourse] = useState();
-
+export default function GeEduCourse({
+  geEduCourse,
+  studentGeEnroll,
+  filterCurriculumCourse,
+}) {
   return (
     <>
       <p className=" text-2xl">
@@ -32,6 +24,7 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup01}
               enrollList={studentGeEnroll?.subjGroup01?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -45,6 +38,7 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup02}
               enrollList={studentGeEnroll?.subjGroup02?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -58,6 +52,7 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup03}
               enrollList={studentGeEnroll?.subjGroup03?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -71,10 +66,11 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup04}
               enrollList={studentGeEnroll?.subjGroup04?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
-        <Accordion.Panel>
+        {/* <Accordion.Panel>
           <Accordion.Title>
             สาระที่ 5 การคิดเชิงระบบตรรกะและตัวเลข (
             {studentGeEnroll?.subjGroup05.registCreditAmount} /{" "}
@@ -84,6 +80,7 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup05}
               enrollList={studentGeEnroll?.subjGroup05?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -97,6 +94,7 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup06}
               enrollList={studentGeEnroll?.subjGroup06?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -110,6 +108,7 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.subjGroup07}
               enrollList={studentGeEnroll?.subjGroup07?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
         </Accordion.Panel>
@@ -122,9 +121,10 @@ export default function GeEduCourse({ geEduCourse, studentGeEnroll }) {
             <CurriculumAccordionContent
               courseObj={geEduCourse?.elecEduCourse}
               enrollList={studentGeEnroll?.elecEduCourse?.registCourseIds}
+              filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
-        </Accordion.Panel>
+        </Accordion.Panel> */}
       </Accordion>
     </>
   );

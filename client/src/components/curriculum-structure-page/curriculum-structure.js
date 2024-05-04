@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FreeElecCourse from "./free-elec-course";
 import ConcenEduCourse from "./concen-edu-course";
 import GeEduCourse from "./ge-edu-course";
+import { Dropdown } from "flowbite-react";
 
 export default function CorriculumStructure({
   curriculumStructure,
@@ -14,6 +15,9 @@ export default function CorriculumStructure({
   const [studentGeEnroll, setStudentGeEnroll] = useState(null);
   const [studentConcenEnroll, setStudentConcenEnroll] = useState(null);
   const [studentFreeElecEnroll, setStudentFreeElecEnroll] = useState(null);
+
+  const [filterCurriculumCourse, setFilterCurriculumCourse] =
+    useState(`แสดงรายวิชาทั้งหมด`);
 
   useEffect(() => {
     setGeEduCourse({
@@ -31,10 +35,6 @@ export default function CorriculumStructure({
   }, [curriculumStructure]);
 
   useEffect(() => {
-    // console.log(geEduCourse);
-  }, [geEduCourse, concentrationCourse, freeElecCourse]);
-
-  useEffect(() => {
     setStudentGeEnroll(studentEnroll?.geEduCourse);
     setStudentConcenEnroll(studentEnroll?.concentrationCourse);
     setStudentFreeElecEnroll(studentEnroll?.freeElecCourse);
@@ -43,26 +43,56 @@ export default function CorriculumStructure({
   return (
     <>
       <div>
-        <p className=" text-sm my-3">
-          หมายเหตุ *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น
-          จะต้องตรวจสอบอีกครั้ง*
-        </p>
+        <div className="grid grid-cols-2">
+          <div>
+            <p className=" text-sm my-3">
+              หมายเหตุ *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น
+              จะต้องตรวจสอบอีกครั้ง*
+            </p>
+          </div>
+          <div className="flex justify-end">
+            <Dropdown label={filterCurriculumCourse}>
+              <Dropdown.Item
+                onClick={() => setFilterCurriculumCourse(`แสดงรายวิชาทั้งหมด`)}
+              >
+                แสดงรายวิชาทั้งหมด
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() =>
+                  setFilterCurriculumCourse(`แสดงรายวิชาที่ลงทะเบียนแล้ว`)
+                }
+              >
+                แสดงรายวิชาที่ลงทะเบียนแล้ว
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() =>
+                  setFilterCurriculumCourse(`แสดงรายวิชาที่ยังไม่ลงทะเบียน`)
+                }
+              >
+                แสดงรายวิชาที่ยังไม่ลงทะเบียน
+              </Dropdown.Item>
+            </Dropdown>
+          </div>
+        </div>
         <div className=" my-3">
           <GeEduCourse
             studentGeEnroll={studentGeEnroll}
             geEduCourse={geEduCourse}
+            filterCurriculumCourse={filterCurriculumCourse}
           />
         </div>
         <div className=" my-3">
           <ConcenEduCourse
             studentConcenEnroll={studentConcenEnroll}
             concentrationCourse={concentrationCourse}
+            filterCurriculumCourse={filterCurriculumCourse}
           />
         </div>
         <div className=" my-3">
           <FreeElecCourse
             studentFreeElecEnroll={studentFreeElecEnroll}
             freeElecCourse={freeElecCourse}
+            filterCurriculumCourse={filterCurriculumCourse}
           />
         </div>
       </div>

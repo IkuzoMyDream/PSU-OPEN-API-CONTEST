@@ -8,9 +8,9 @@ import CourseFilterModal from "../components/course-page/CourseFilterModal";
 
 function CoursesPage() {
   const auth = useAuth();
-  
-  const [coursesData,setCoursesData] = useState([]);
-  const [categoriesHeader,setCategoriesHeader] = useState([]);
+
+  const [coursesData, setCoursesData] = useState([]);
+  const [categoriesHeader, setCategoriesHeader] = useState([]);
   const [studentEnrollment, setStudentEnrollment] = useState([]);
   const [studentDetail, setStudentDetail] = useState([]);
   const [searchCode, setSearchCode] = useState("");
@@ -19,20 +19,17 @@ function CoursesPage() {
     isnotEnrolled: false,
     Enrolled: false,
   });
-  const [selectedCourses,setSelectedCourses] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage] = useState(5); // Adjust as needed
-  const [allRegistData,setAllRegistData] = useState([]);
-
-
-
+  const [coursesPerPage] = useState(9); // Adjust as needed
+  const [allRegistData, setAllRegistData] = useState([]);
 
   const fetchPsuStudentDetail = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentDetail);
-      console.log("stdDetail = ", result.data)
+      console.log("stdDetail = ", result.data);
       setStudentDetail(result.data.studentId);
     } catch (err) {
       console.log(err);
@@ -46,7 +43,8 @@ function CoursesPage() {
         categoryId: item.categoryId,
         categoryNameEng: item.categoryType,
         categoryNameThai: item.subjectGroupName,
-        subCategory: item.subCategoryIds.length !== 0 ? item.subCategoryIds : null,
+        subCategory:
+          item.subCategoryIds.length !== 0 ? item.subCategoryIds : null,
       }));
       setCategoriesHeader(filterdHeader);
     } catch (err) {
@@ -56,8 +54,10 @@ function CoursesPage() {
 
   const fetchEnrollment = async () => {
     try {
-      const result = await axLOCAL.get(`${localConfig.getEnrollmentByStudId}/${studentDetail}`);
-      console.log("enrroll = ",result)
+      const result = await axLOCAL.get(
+        `${localConfig.getEnrollmentByStudId}/${studentDetail}`
+      );
+      console.log("enrroll = ", result);
       setStudentEnrollment(result.data);
     } catch (err) {
       console.log(err);
@@ -68,7 +68,7 @@ function CoursesPage() {
     try {
       const result = await axLOCAL.get(localConfig.getAllcourses);
       setCoursesData(result.data);
-      setSelectedCourses(result.data)
+      setSelectedCourses(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +79,6 @@ function CoursesPage() {
       fetchPsuStudentDetail();
       fetchCategories();
       fetchCourses();
-  
     }
   }, [auth, auth.user]);
 
@@ -87,48 +86,53 @@ function CoursesPage() {
     if (auth.isAuthenticated) {
       showcourse();
     }
-    if (studentDetail){
+    if (studentDetail) {
       fetchEnrollment();
     }
-  }, [selectedCategories, selectedSubCategories, currentPage,studentDetail]); 
+  }, [selectedCategories, selectedSubCategories, currentPage, studentDetail]);
 
   useEffect(() => {
     console.log("Student Enrollment:", studentEnrollment);
     genEnrollcourseId();
   }, [studentEnrollment]);
-  
 
   const genEnrollcourseId = () => {
     let allRegistData = [];
-    
+
     for (const key in studentEnrollment) {
       const group = studentEnrollment[key];
-      if (group && group.registCourseIds && Array.isArray(group.registCourseIds)) {
+      if ( 
+        group &&
+        group.registCourseIds &&
+        Array.isArray(group.registCourseIds)
+      ) {
         allRegistData.push(...group.registCourseIds);
       } else if (group && typeof group === "object") {
         for (const subKey in group) {
           const subGroup = group[subKey];
-          if (subGroup && subGroup.registCourseIds && Array.isArray(subGroup.registCourseIds)) {
+          if (
+            subGroup &&
+            subGroup.registCourseIds &&
+            Array.isArray(subGroup.registCourseIds)
+          ) {
             allRegistData.push(...subGroup.registCourseIds);
           }
         }
       }
     }
-    
+
     setAllRegistData(allRegistData);
     console.log("allregist =", allRegistData);
   };
-  
-  
-  
-
 
   const handleSearch = () => {
-    if (searchCode.length === 7) { 
-      const filteredCourses = coursesData.filter(item => {
+    if (searchCode.length === 7) {
+      const filteredCourses = coursesData.filter((item) => {
         const pattern = /^\d{3}-\d{3}$/;
-        return pattern.test(item.courseCode) && item.courseCode.includes(searchCode);
-      });  
+        return (
+          pattern.test(item.courseCode) && item.courseCode.includes(searchCode)
+        );
+      });
       if (filteredCourses.length === 0 && searchCode !== "") {
         setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
       } else {
@@ -145,33 +149,42 @@ function CoursesPage() {
     const { name, checked } = e.target;
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [name]: checked
+      [name]: checked,
     }));
   };
 
-  console.log("stdid = ", studentDetail)
-  console.log("stdenn = ", studentEnrollment)
+  console.log("stdid = ", studentDetail);
+  console.log("stdenn = ", studentEnrollment);
 
   const showcourse = () => {
     if (categoriesHeader.length > 0) {
-      if (selectedCategories.length === 0 && selectedSubCategories.length === 0) {
+      if (
+        selectedCategories.length === 0 &&
+        selectedSubCategories.length === 0
+      ) {
         setSelectedCourses(coursesData);
       } else {
         let filteredCourses = coursesData;
-  
+        
         if (selectedCategories.length > 0) {
-          filteredCourses = filteredCourses.filter(item => item.category && selectedCategories.includes(item.category.subjectGroupName));
+          filteredCourses = filteredCourses.filter(
+            (item) =>
+              item.category &&
+              selectedCategories.includes(item.category.subjectGroupName)
+          );
         }
-  
+
         if (selectedSubCategories.length > 0) {
-          filteredCourses = filteredCourses.filter(item => {
+          filteredCourses = filteredCourses.filter((item) => {
             if (item.subCategory && typeof item.subCategory === "object") {
-              return selectedSubCategories.includes(item.subCategory.subCategoryName);
-            } 
+              return selectedSubCategories.includes(
+                item.subCategory.subCategoryName
+              );
+            }
             return false;
           });
         }
-        
+
         setSelectedCourses(filteredCourses);
       }
     }
@@ -180,14 +193,23 @@ function CoursesPage() {
   const handleFilterCategoriesChange = (e) => {
     const { id, checked } = e.target;
     let updatedCategories = [];
-    showcourse(); 
+    showcourse();
 
     if (checked) {
-      const selectedCategory = categoriesHeader.find(item => `category-${item.categoryId}` === id);
-      updatedCategories = [...selectedCategories, selectedCategory.categoryNameThai];
+      const selectedCategory = categoriesHeader.find(
+        (item) => `category-${item.categoryId}` === id
+      );
+      updatedCategories = [
+        ...selectedCategories,
+        selectedCategory.categoryNameThai,
+      ];
     } else {
-      const removedCategory = categoriesHeader.find(item => `category-${item.categoryId}` === id);
-      updatedCategories = selectedCategories.filter(category => category !== removedCategory.categoryNameThai);
+      const removedCategory = categoriesHeader.find(
+        (item) => `category-${item.categoryId}` === id
+      );
+      updatedCategories = selectedCategories.filter(
+        (category) => category !== removedCategory.categoryNameThai
+      );
     }
 
     setSelectedCategories(updatedCategories);
@@ -196,51 +218,87 @@ function CoursesPage() {
   const handleFilterSubCategoriesChange = (e) => {
     const { id, checked } = e.target;
     let updatedSubCategories = [];
-    const selectedCategory = categoriesHeader.find(category => category.subCategory && category.subCategory.find(subItem => `subcategory-${subItem.subCategoryId}` === id));
-    
+    const selectedCategory = categoriesHeader.find(
+      (category) =>
+        category.subCategory &&
+        category.subCategory.find(
+          (subItem) => `subcategory-${subItem.subCategoryId}` === id
+        )
+    );
+
     if (checked) {
       if (selectedCategory) {
-        const selectedSubCategory = selectedCategory.subCategory.find(subItem => `subcategory-${subItem.subCategoryId}` === id);
-        updatedSubCategories = [...selectedSubCategories, selectedSubCategory.subCategoryName];
+        const selectedSubCategory = selectedCategory.subCategory.find(
+          (subItem) => `subcategory-${subItem.subCategoryId}` === id
+        );
+        updatedSubCategories = [
+          ...selectedSubCategories,
+          selectedSubCategory.subCategoryName,
+        ];
       }
     } else {
-      const removedsubCategory = selectedCategory.subCategory.find(subItem => `subcategory-${subItem.subCategoryId}` === id);
-      updatedSubCategories = selectedSubCategories.filter(subcategory => subcategory !== removedsubCategory.subCategoryName);
+      const removedsubCategory = selectedCategory.subCategory.find(
+        (subItem) => `subcategory-${subItem.subCategoryId}` === id
+      );
+      updatedSubCategories = selectedSubCategories.filter(
+        (subcategory) => subcategory !== removedsubCategory.subCategoryName
+      );
     }
-  
+
     setSelectedSubCategories(updatedSubCategories);
   };
 
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const currentCourses = selectedCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+  const currentCourses = selectedCourses.slice(
+    indexOfFirstCourse,
+    indexOfLastCourse
+  );
 
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="grid grid-cols-4  gap-4 p-4">
       <div className="md:border border-gray-300 p-4 rounded">
         <h2 className="text-lg font-bold mb-2">หมวดหมู่รายวิชา</h2>
-        {categoriesHeader.map((item)=>(
+        {categoriesHeader.map((item) => (
           <div className="indent-6 mb-4" key={item.categoryId}>
             <div className="flex items-center mb-3">
-              <input type="checkbox" id={`category-${item.categoryId}`} onChange={handleFilterCategoriesChange} className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-              <label htmlFor={`category-${item.categoryId}`} className="mr-2">{item.categoryNameThai}</label>
+              <input
+                type="checkbox"
+                id={`category-${item.categoryId}`}
+                onChange={handleFilterCategoriesChange}
+                className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label htmlFor={`category-${item.categoryId}`} className="mr-2">
+                {item.categoryNameThai}
+              </label>
             </div>
             <ul>
-              {item.subCategory && item.subCategory.map((subItem) => (
-                <div key={subItem.subCategoryId}>
-                  <li className="indent-16 mb-4 flex items-center">
-                    <input type="checkbox" id={`subcategory-${subItem.subCategoryId}`} onChange={handleFilterSubCategoriesChange} className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-                    <label htmlFor={`subcategory-${subItem.subCategoryId}`} className="mr-2">{subItem.subCategoryName}</label>
-                  </li>
-                </div>
-              ))}
+              {item.subCategory &&
+                item.subCategory.map((subItem) => (
+                  <div key={subItem.subCategoryId}>
+                    <li className="indent-16 mb-4 flex items-center">
+                      <input
+                        type="checkbox"
+                        id={`subcategory-${subItem.subCategoryId}`}
+                        onChange={handleFilterSubCategoriesChange}
+                        className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor={`subcategory-${subItem.subCategoryId}`}
+                        className="mr-2"
+                      >
+                        {subItem.subCategoryName}
+                      </label>
+                    </li>
+                  </div>
+                ))}
             </ul>
           </div>
         ))}
       </div>
-      <div className="flex flex-col col-span-3 justify-start p-2 rounded" >
+      <div className="flex flex-col col-span-3 justify-start p-2 rounded">
         <h2 className="text-lg font-bold mb-2">ค้นหารายวิชา</h2>
         <div className="flex justify-start items-center mb-4 gap-2">
           <input
@@ -265,12 +323,14 @@ function CoursesPage() {
           </button>
         </div>
 
-
         <div>
-          {currentCourses.length === 0 &&  selectedSubCategories.length === 0 ? (
+          {currentCourses.length === 0 && selectedSubCategories.length === 0 ? (
             <div>
               {coursesData.map((item) => (
-                <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
+                <div
+                  className="border rounded bg-pale-blue-gray p-2 mb-2"
+                  key={item.id}
+                >
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                 </div>
@@ -279,7 +339,10 @@ function CoursesPage() {
           ) : (
             <div>
               {currentCourses.map((item) => (
-                <div className="border rounded bg-pale-blue-gray p-2 mb-2" key={item.id}>
+                <div
+                  className="border rounded bg-pale-blue-gray p-2 mb-2"
+                  key={item.id}
+                >
                   <h3 className="font-bold text-lg">{item.courseCode}</h3>
                   <p>{item.courseNameEng}</p>
                 </div>
@@ -288,7 +351,7 @@ function CoursesPage() {
           )}
         </div>
         <Pagination
-          totalPages={Math.ceil(selectedCourses?.length/ coursesPerPage)}
+          totalPages={Math.ceil(selectedCourses?.length / coursesPerPage)}
           pageLimit={coursesPerPage}
           currentPage={currentPage}
           onPageChange={paginate}
