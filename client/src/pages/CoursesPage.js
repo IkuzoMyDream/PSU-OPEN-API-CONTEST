@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import CourseFilterModal from "../components/course-page/CourseFilterModal";
 import { RiFilter2Line } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
 
 
 
@@ -28,8 +29,9 @@ function CoursesPage() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage] = useState(6); // Adjust as needed
+  const [coursesPerPage] = useState(6);
   const [allRegistData, setAllRegistData] = useState([]);
+  
 
   const fetchPsuStudentDetail = async () => {
     try {
@@ -129,22 +131,35 @@ function CoursesPage() {
   };
 
   const handleSearch = () => {
-    if (searchCode.length === 7) {
-      const filteredCourses = coursesData.filter((item) => {
-        const pattern = /^\d{3}-\d{3}$/;
-        return (
-          pattern.test(item.courseCode) && item.courseCode.includes(searchCode)
-        );
-      });
-      if (filteredCourses.length === 0 && searchCode !== "") {
-        setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
-      } else {
-        setSelectedCourses(filteredCourses);
-      }
-    } else {
-      setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
+    let processedSearchCode;
+    
+    if (searchCode.length === 0){
+      showcourse();
     }
-  };
+    else{
+
+      if (/\d+$/.test(searchCode)&& searchCode.length === 3) {
+        processedSearchCode = searchCode + '-';
+      } else {
+        processedSearchCode = searchCode.replace(/[^\d-]/g, '');
+      }
+      
+      if (processedSearchCode.length >= 3) { 
+        const pattern = new RegExp(`^${processedSearchCode}\\d{0,3}$`);
+        const filteredCourses = coursesData.filter((item) => pattern.test(item.courseCode));
+        
+        if (filteredCourses.length === 0) {
+          setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
+        } else {
+          setSelectedCourses(filteredCourses);
+        }
+      } else {
+        setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
+      }
+    }
+      
+};
+
 
   const handleFilterModalClose = () => setShowFilterModal(false);
 
@@ -337,22 +352,55 @@ function CoursesPage() {
 
         <div>
            
-            <div>
-              {currentCourses.map((item) => (
-                  <Link to={`/course/${item.courseCode}`} key={item.id}>
+        <div className="grid grid-cols-1 gap-4">
+        <div className="flex items-center ">
+  <div className="w-10/12 border-t border-gray-300"></div>
+</div>
+          <p className="font-semibold text-xl">จำนวนรายวิชาทั้งหมด  {selectedCourses.length}</p>
+  {currentCourses.map((item) => (
+    
+    <Link to={`/course/${item.courseCode}`} key={item.id}>
+      {console.log("testgay",currentCourses)}
+      <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-10/12">
+        <h3 className="font-bold text-lg text-dark-slate-blue ml-2" >{item.courseCode} {item.courseNameEng}</h3>
+        <p className="font-semibold text-base text-dark-slate-blue ml-2 ">{item.courseNameThai}</p>
+        <p className="font-medium text-gray-400 mt-1 ml-2">{item.credit}</p>
+        <div className="absolute top-0 right-10 transform flex flex-wrap gap-2 ">
 
-                <div className="border rounded bg-pale-blue-gray p-2 mb-2">
-                  <h3 className="font-bold text-lg">{item.courseCode}</h3>
-                  <p>{item.courseNameEng}</p>
-                  {checkisEnrolled(item.courseCode) ? (
-                    <p>ลงทะเบียนแล้ว</p>
-                    ) : (
-                      <p>ยังไม่ลงทะเบียน</p>
-                      )}
-                </div>
-                      </Link>
-              ))}
+        {item.category?(
+
+          <div className=" w-17 h-6 rounded bg-green-300 border-4 border-white mt-2    ">
+          <p className="truncate ... scale-75 text-xs font-semibold items-center justify-center">
+            {item.category.subjectGroupName}
+            </p>
+          </div>
+            ):(<></>)
+        }
+        { item.subCategory?(
+
+      
+          <div className="w-17 h-6  rounded bg-green-300 border-4 border-white mt-2">
+          <p className="scale-75 text-xs font-semibold truncate ...  items-center justify-center">
+          {item.subCategory.subCategoryName}
+          </p>
+          </div>):(<></>)
+          
+          } 
+        </div>
+        {checkisEnrolled(item.courseCode) ? (
+          <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+            <div className="w-12 h-12 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
+              <FaCheck className="text-white" />
             </div>
+          </div>
+        ) : (
+         <p className="mb-2"></p>
+        )}
+      </div>
+    </Link>
+  ))}
+</div>
+
           
         </div>
         <Pagination

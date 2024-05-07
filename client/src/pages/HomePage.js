@@ -116,10 +116,10 @@ function HomePage() {
 
   const fetchPsuCourses = async () => {
     try {
-      // const result = await axPSU.get(
-      //   `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
-      // );
-      // console.log(result.data.data);
+      const result = await axPSU.get(
+        `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
+      );
+      console.log("courses",result.data.data);
       // await Promise.all(
       //   majors.map(async (major) => {
       //     const result = await axLOCAL.post(localConfig.postMajor, {
@@ -144,7 +144,7 @@ function HomePage() {
       fetchStudentProfileImage();
       fetchStudentGPA();
       fetchStudentGrade();
-      // fetchPsuCourses();
+      fetchPsuCourses();
     }
   }, [auth.user, auth]);
 

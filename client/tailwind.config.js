@@ -16,6 +16,11 @@ module.exports = {
         "red-2": "#E06146",
         "pale-blue-gray": "#E8F8F8",
         "dark-blue-gray":"#223C44",
+        "dark-slate-blue":"#2D505B",
+        "light-seagreen":"#7BCAFF",
+      },
+      backgroundImage: {
+        "bruteforce":"url('../src/images/bg.png')",
       },
     },
   },

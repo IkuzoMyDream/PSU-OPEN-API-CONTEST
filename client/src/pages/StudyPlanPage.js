@@ -87,7 +87,8 @@ function StudyPlanPage() {
                     {curriculumStructure?.curriculumName}
                   </p>
                 </div>
-                <div>
+                <div className="">
+                  
                   <CorriculumStructure
                     studentEnroll={studentEnroll}
                     curriculumStructure={curriculumStructure}
