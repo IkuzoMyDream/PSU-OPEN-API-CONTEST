@@ -11,7 +11,7 @@ export default function ConcenEduCourse({
     <>
       <p className=" text-2xl">
         หมวดวิชาเฉพาะ ({studentConcenEnroll?.registCreditAmount} /{" "}
-        {concentrationCourse?.totalCredit})
+        {concentrationCourse?.totalCredit}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
       <Accordion alwaysOpen collapseAll>
@@ -19,7 +19,7 @@ export default function ConcenEduCourse({
           <Accordion.Title>
             กลุ่มพื้นฐานวิชาชีพ (
             {studentConcenEnroll?.basicConcen?.registCreditAmount} /{" "}
-            {concentrationCourse?.basicConcen?.totalCredit})
+            {concentrationCourse?.basicConcen?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -33,7 +33,7 @@ export default function ConcenEduCourse({
           <Accordion.Title>
             กลุ่มวิชาชีพ (
             {studentConcenEnroll?.advanceConcen?.registCreditAmount} /{" "}
-            {concentrationCourse?.advanceConcen?.totalCredit})
+            {concentrationCourse?.advanceConcen?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent

@@ -10,7 +10,7 @@ export default function GeEduCourse({
     <>
       <p className=" text-2xl">
         หมวดวิชาศึกษาทั่วไป ({studentGeEnroll?.registCreditAmount} /{" "}
-        {geEduCourse?.totalCredit})
+        {geEduCourse?.totalCredit}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
       <Accordion alwaysOpen>
@@ -18,7 +18,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 1 ศาสตร์พระราชาและประโยชน์เพื่อนมนุษย์ (
             {studentGeEnroll?.subjGroup01.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup01?.totalCredit})
+            {geEduCourse?.subjGroup01?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -32,7 +32,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 2 ความเป็นพลเมืองและชีวิตที่สันติ (
             {studentGeEnroll?.subjGroup02.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup02?.totalCredit})
+            {geEduCourse?.subjGroup02?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -46,7 +46,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 3 การเป็นผู้ประกอบการ (
             {studentGeEnroll?.subjGroup03.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup03?.totalCredit})
+            {geEduCourse?.subjGroup03?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -60,7 +60,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 4 การอยู่อย่างรู้เท่าทัน และการรู้ดิจิทัล (
             {studentGeEnroll?.subjGroup04.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup04?.totalCredit})
+            {geEduCourse?.subjGroup04?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent

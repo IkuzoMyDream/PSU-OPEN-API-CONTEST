@@ -8,7 +8,7 @@ export default function FreeElecCourse({
     <>
       <p className=" text-2xl">
         หมวดวิชาเลือกเสรี ({studentFreeElecEnroll?.registCreditAmount} /{" "}
-        {freeElecCourse?.totalCredit})
+        {freeElecCourse?.totalCredit}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
       <div className=" indent-8">

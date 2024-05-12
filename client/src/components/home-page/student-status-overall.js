@@ -31,8 +31,7 @@ export default function StudentStatusOverall({
           <div class="max-w-sm p-6 bg-gradient-to-r from-green-1 to-green-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="text-white">
               เกรดเฉลี่ย{" "}
-              {studentStatusOverall.cumGpa ? studentStatusOverall.cumGpa : 0} /
-              4.00
+              {studentStatusOverall.cumGpa ? studentStatusOverall.cumGpa : 0}
             </div>
           </div>
         </div>
