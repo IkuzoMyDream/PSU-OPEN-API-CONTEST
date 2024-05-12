@@ -10,7 +10,7 @@ import backgroundImage from "./images/bg2.png";
 
 function App() {
   return (
-    <div className=" bg-cover bg-center h-full"
+    <div className=" bg-cover bg-center h-full bg-fixed bg-cover "
     style={{ backgroundImage: `url(${backgroundImage})` }}>
       <Router>
         <NavBar />

@@ -26,7 +26,7 @@ export class CoursesService {
   }
 
   async findAll() {
-    return await this.courseRepository.find({ relations: ["category", "subCategory"] });
+    return await this.courseRepository.find({ relations: ["category", "subCategory","facId"] });
   }
 
   findOne(id: number) {
