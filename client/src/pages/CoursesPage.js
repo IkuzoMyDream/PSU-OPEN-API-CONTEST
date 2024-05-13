@@ -10,8 +10,6 @@ import { RiFilter2Line } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 
-
-
 function CoursesPage() {
   const auth = useAuth();
   
@@ -31,7 +29,6 @@ function CoursesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [coursesPerPage] = useState(6);
   const [allRegistData, setAllRegistData] = useState([]);
-  
 
   const fetchPsuStudentDetail = async () => {
     try {
@@ -45,10 +42,13 @@ function CoursesPage() {
   const fetchCategories = async () => {
     try {
       const result = await axLOCAL.get(localConfig.getCategories);
+      console.log("all cata gayyyyyyyyy",result)
       const filterdHeader = result.data.map((item) => ({
         categoryId: item.categoryId,
         categoryNameEng: item.categoryType,
         categoryNameThai: item.subjectGroupName,
+        generalType:item.generalType,
+        categoryNumber:item.subjectGroupNumber,
         subCategory:
           item.subCategoryIds.length !== 0 ? item.subCategoryIds : null,
       }));
@@ -208,6 +208,7 @@ function CoursesPage() {
   const handleFilterCategoriesChange = (e) => {
     const { id, checked } = e.target;
     let updatedCategories = [];
+    let updatedSubCategories = [];
     showcourse();
 
     if (checked) {
@@ -218,6 +219,13 @@ function CoursesPage() {
         ...selectedCategories,
         selectedCategory.categoryNameThai,
       ];
+
+      // Add subcategories of the selected category
+      if (selectedCategory.subCategory) {
+        selectedCategory.subCategory.forEach((subItem) => {
+          updatedSubCategories.push(subItem.subCategoryName);
+        });
+      }
     } else {
       const removedCategory = categoriesHeader.find(
         (item) => `category-${item.categoryId}` === id
@@ -225,9 +233,15 @@ function CoursesPage() {
       updatedCategories = selectedCategories.filter(
         (category) => category !== removedCategory.categoryNameThai
       );
+
+      // Remove subcategories of the unselected category
+      updatedSubCategories = selectedSubCategories.filter(
+        (subcategory) => !removedCategory.subCategory || !removedCategory.subCategory.some((subItem) => subItem.subCategoryName === subcategory)
+      );
     }
 
     setSelectedCategories(updatedCategories);
+    setSelectedSubCategories(updatedSubCategories);
   };
 
   const handleFilterSubCategoriesChange = (e) => {
@@ -286,44 +300,48 @@ function CoursesPage() {
 
   return (
     <div className="grid grid-cols-4  gap-4 p-4">
-      <div className="md:border border-gray-300 p-4 rounded">
+      <div className="md:border border-gray-300 p-2 rounded">
         <h2 className="text-lg font-bold mb-2">หมวดหมู่รายวิชา</h2>
         {categoriesHeader.map((item) => (
-          <div className="indent-6 mb-4" key={item.categoryId}>
-            <div className="flex items-center mb-3">
+  <div className="indent-6 mb-4" key={item.categoryId}>
+    <div className="flex items-center mb-3">
+      <input
+        type="checkbox"
+        id={`category-${item.categoryId}`}
+        onChange={handleFilterCategoriesChange}
+        className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+      />
+      {item.generalType === "Required"?(<label htmlFor={`category-${item.categoryId}`} className="truncate ...">
+        สาระ {item.categoryNumber} {item.categoryNameThai}
+      </label>):(<label htmlFor={`category-${item.categoryId}`} className="truncate ...">
+        {item.categoryNameThai}
+      </label>)}
+    </div>
+    <ul>
+      {item.subCategory &&
+        item.subCategory.map((subItem) => (
+          <div key={subItem.subCategoryId}>
+            <li className="indent-16 mb-4 flex items-center">
               <input
                 type="checkbox"
-                id={`category-${item.categoryId}`}
-                onChange={handleFilterCategoriesChange}
+                id={`subcategory-${subItem.subCategoryId}`}
+                checked={selectedSubCategories.includes(subItem.subCategoryName)}
+                onChange={handleFilterSubCategoriesChange}
                 className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor={`category-${item.categoryId}`} className="mr-2">
-                {item.categoryNameThai}
+              <label
+                htmlFor={`subcategory-${subItem.subCategoryId}`}
+                className="mr-2"
+              >
+                {subItem.subCategoryName}
               </label>
-            </div>
-            <ul>
-              {item.subCategory &&
-                item.subCategory.map((subItem) => (
-                  <div key={subItem.subCategoryId}>
-                    <li className="indent-16 mb-4 flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`subcategory-${subItem.subCategoryId}`}
-                        onChange={handleFilterSubCategoriesChange}
-                        className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor={`subcategory-${subItem.subCategoryId}`}
-                        className="mr-2"
-                      >
-                        {subItem.subCategoryName}
-                      </label>
-                    </li>
-                  </div>
-                ))}
-            </ul>
+            </li>
           </div>
         ))}
+    </ul>
+  </div>
+))}
+
       </div>
       <div className="flex flex-col col-span-3 justify-start p-2 rounded" >
         <h2 className="text-3xl font-bold mb-4">ค้นหารายวิชา</h2>
@@ -361,7 +379,7 @@ function CoursesPage() {
     
     <Link to={`/course/${item.courseCode}`} key={item.id}>
       {console.log("testgay",currentCourses)}
-      <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-10/12">
+      <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-12/12">
         <h3 className="font-bold text-lg text-dark-slate-blue ml-2" >{item.courseCode} {item.courseNameEng}</h3>
         <p className="font-semibold text-base text-dark-slate-blue ml-2 ">{item.courseNameThai}</p>
         <p className="font-medium text-gray-400 mt-1 ml-2">{item.credit}</p>
@@ -404,10 +422,12 @@ function CoursesPage() {
           
         </div>
         <Pagination
+          layout="table"
           totalPages={Math.ceil(filterEnrolledCourses().length / coursesPerPage)}
           pageLimit={coursesPerPage}
           currentPage={currentPage}
           onPageChange={paginate}
+          showIcons
         />
       </div>
       <CourseFilterModal
