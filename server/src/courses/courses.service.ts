@@ -34,7 +34,7 @@ export class CoursesService {
   }
 
   async findOneByCourseCode(courseCode: string) {
-    const course = await this.courseRepository.findOne({ where: { courseCode },relations: ["category", "subCategory"] });
+    const course = await this.courseRepository.findOne({ where: { courseCode },relations: ["category", "subCategory", "facId", "deptId", "majorId", "enrollmentIds"] });
     if (!course) {
       throw new NotFoundException(`Course with courseCode ${courseCode} not found`);
     }
