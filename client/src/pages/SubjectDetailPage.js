@@ -29,7 +29,7 @@ function SubjectDetailPage() {
   }, [courseCode]);
 
   return (
-    <div >
+    <div  >
       <Link to={`/course`}>
         <div className='mt-6 ml-4'>
           <Button>
@@ -54,6 +54,9 @@ function SubjectDetailPage() {
             <p className='text-lg font-semibold'>คณะ : {courses.facId ? courses.facId.facNameThai : 'กำลังโหลด...'}</p>
             <p className='text-lg font-semibold'>วิทยาเขต : หาดใหญ่</p>
           </div >
+          <div className='mt-64'>
+
+          </div>
         </div>
       </div>
     </div>

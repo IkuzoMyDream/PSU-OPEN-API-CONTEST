@@ -5,7 +5,7 @@ export function NavBar() {
     <nav className="bg-pale-blue-gray border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <NavLink
-          to="/"
+          to="/home"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img src="PSU Logo-01.png" className="h-8" alt="PSU Logo" />
