@@ -330,7 +330,9 @@ function CoursesPage() {
                   สาระ {item.categoryNumber} {item.categoryNameThai}
                 </label>
               ) : (
-                <label htmlFor={`category-${item.categoryId}`}>
+                <label
+                  htmlFor={`category-${item.categoryId}`}
+                >
                   {item.categoryNameThai}
                 </label>
               )}

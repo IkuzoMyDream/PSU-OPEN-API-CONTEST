@@ -1,6 +1,7 @@
 import { Card } from "flowbite-react";
 import CoursePagination from "./course-pagination";
 import { useEffect, useState } from "react";
+import { FaCheck } from "react-icons/fa6";
 
 export default function CourseObj({ courseObj, enrollList }) {
   const [courseList, setCourseList] = useState(null);
@@ -55,13 +56,29 @@ export default function CourseObj({ courseObj, enrollList }) {
         ) : courseObj.courses ? (
           <>
             {currentCourses?.map((course) => (
-              <Card className=" my-3 bg-pale-blue-gray">
-                <p>
-                  {course.courseCode} {course.courseNameThai} {course.credit}{" "}
-                  {isEnrolled(course.courseCode, enrollList)
-                    ? "เรียนแล้ว"
-                    : "ยังไม่เรียน"}
-                </p>
+              <Card className=" my-3 bg-pale-blue-gray relative">
+                <div className=" grid grid-cols-2">
+                  <div>
+                    {course.courseCode} {course.courseNameThai} {course.credit}{" "}
+                  </div>
+                  <div className=" flex justify-end">
+                    {isEnrolled(course.courseCode, enrollList) ? (
+                      <>
+                        <p>
+                          ผลการเรียน :{" "}
+                          {["A", "B+", "B"][Math.floor(Math.random() * 3)]}
+                        </p>
+                        <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+                          <div className="w-8 h-8 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
+                            <FaCheck className="text-white" />
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      "ยังไม่ได้ลงทะเบียน"
+                    )}
+                  </div>
+                </div>
               </Card>
             ))}
             <CoursePagination
@@ -79,17 +96,31 @@ export default function CourseObj({ courseObj, enrollList }) {
             <>
               <p>{item.name}</p>
               {item?.courses?.map((course) => (
-                <ul>
-                  <Card className=" my-3">
-                    <li className=" indent-12">
+                <Card className=" my-3 bg-pale-blue-gray relative">
+                  <div className=" grid grid-cols-2">
+                    <div>
                       {course.courseCode} {course.courseNameThai}{" "}
                       {course.credit}{" "}
-                      {isEnrolled(course.courseCode, enrollList)
-                        ? "เรียนแล้ว"
-                        : "ยังไม่เรียน"}
-                    </li>
-                  </Card>
-                </ul>
+                    </div>
+                    <div className=" flex justify-end">
+                      {isEnrolled(course.courseCode, enrollList) ? (
+                        <>
+                          <p>
+                            ผลการเรียน :{" "}
+                            {["A", "B+", "B"][Math.floor(Math.random() * 3)]}
+                          </p>
+                          <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+                            <div className="w-8 h-8 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
+                              <FaCheck className="text-white" />
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        "ยังไม่ได้ลงทะเบียน"
+                      )}
+                    </div>
+                  </div>
+                </Card>
               ))}
               <CoursePagination
                 courseList={item?.courses}
