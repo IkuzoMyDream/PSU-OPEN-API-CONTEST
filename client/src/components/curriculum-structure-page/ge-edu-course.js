@@ -13,7 +13,7 @@ export default function GeEduCourse({
         {geEduCourse?.totalCredit}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
-      <Accordion alwaysOpen style={{backgroundColor: "white"}}>
+      <Accordion alwaysOpen style={{ backgroundColor: "white" }}>
         <Accordion.Panel>
           <Accordion.Title>
             สาระที่ 1 ศาสตร์พระราชาและประโยชน์เพื่อนมนุษย์ (
@@ -70,7 +70,7 @@ export default function GeEduCourse({
             />
           </Accordion.Content>
         </Accordion.Panel>
-        {/* <Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title>
             สาระที่ 5 การคิดเชิงระบบตรรกะและตัวเลข (
             {studentGeEnroll?.subjGroup05.registCreditAmount} /{" "}
@@ -124,7 +124,7 @@ export default function GeEduCourse({
               filterCurriculumCourse={filterCurriculumCourse}
             />
           </Accordion.Content>
-        </Accordion.Panel> */}
+        </Accordion.Panel>
       </Accordion>
     </>
   );
