@@ -12,7 +12,7 @@ import { FaCheck } from "react-icons/fa6";
 
 function CoursesPage() {
   const auth = useAuth();
-  
+
   const [coursesData, setCoursesData] = useState([]);
   const [categoriesHeader, setCategoriesHeader] = useState([]);
   const [studentEnrollment, setStudentEnrollment] = useState([]);
@@ -42,13 +42,13 @@ function CoursesPage() {
   const fetchCategories = async () => {
     try {
       const result = await axLOCAL.get(localConfig.getCategories);
-      console.log("all cata gayyyyyyyyy",result)
+      console.log("all cata gayyyyyyyyy", result);
       const filterdHeader = result.data.map((item) => ({
         categoryId: item.categoryId,
         categoryNameEng: item.categoryType,
         categoryNameThai: item.subjectGroupName,
-        generalType:item.generalType,
-        categoryNumber:item.subjectGroupNumber,
+        generalType: item.generalType,
+        categoryNumber: item.subjectGroupNumber,
         subCategory:
           item.subCategoryIds.length !== 0 ? item.subCategoryIds : null,
       }));
@@ -60,7 +60,9 @@ function CoursesPage() {
 
   const fetchEnrollment = async () => {
     try {
-      const result = await axLOCAL.get(`${localConfig.getEnrollmentByStudId}/${studentDetail}`);
+      const result = await axLOCAL.get(
+        `${localConfig.getEnrollmentByStudId}/${studentDetail}`
+      );
       setStudentEnrollment(result.data);
     } catch (err) {
       console.log(err);
@@ -97,17 +99,17 @@ function CoursesPage() {
   useEffect(() => {
     genEnrollcourseId();
   }, [studentEnrollment]);
-  
+
   const checkisEnrolled = (courseCode) => {
     return allRegistData.includes(courseCode);
   };
-  
+
   const genEnrollcourseId = () => {
     let allRegistData = [];
 
     for (const key in studentEnrollment) {
       const group = studentEnrollment[key];
-      if ( 
+      if (
         group &&
         group.registCourseIds &&
         Array.isArray(group.registCourseIds)
@@ -132,22 +134,22 @@ function CoursesPage() {
 
   const handleSearch = () => {
     let processedSearchCode;
-    
-    if (searchCode.length === 0){
-      showcourse();
-    }
-    else{
 
-      if (/\d+$/.test(searchCode)&& searchCode.length === 3) {
-        processedSearchCode = searchCode + '-';
+    if (searchCode.length === 0) {
+      showcourse();
+    } else {
+      if (/\d+$/.test(searchCode) && searchCode.length === 3) {
+        processedSearchCode = searchCode + "-";
       } else {
-        processedSearchCode = searchCode.replace(/[^\d-]/g, '');
+        processedSearchCode = searchCode.replace(/[^\d-]/g, "");
       }
-      
-      if (processedSearchCode.length >= 3) { 
+
+      if (processedSearchCode.length >= 3) {
         const pattern = new RegExp(`^${processedSearchCode}\\d{0,3}$`);
-        const filteredCourses = coursesData.filter((item) => pattern.test(item.courseCode));
-        
+        const filteredCourses = coursesData.filter((item) =>
+          pattern.test(item.courseCode)
+        );
+
         if (filteredCourses.length === 0) {
           setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
         } else {
@@ -157,9 +159,7 @@ function CoursesPage() {
         setSelectedCourses([{ courseCode: "ไม่มีรายวิชานี้อยู่" }]);
       }
     }
-      
-};
-
+  };
 
   const handleFilterModalClose = () => setShowFilterModal(false);
 
@@ -180,7 +180,7 @@ function CoursesPage() {
         setSelectedCourses(coursesData);
       } else {
         let filteredCourses = coursesData;
-        
+
         if (selectedCategories.length > 0) {
           filteredCourses = filteredCourses.filter(
             (item) =>
@@ -236,7 +236,11 @@ function CoursesPage() {
 
       // Remove subcategories of the unselected category
       updatedSubCategories = selectedSubCategories.filter(
-        (subcategory) => !removedCategory.subCategory || !removedCategory.subCategory.some((subItem) => subItem.subCategoryName === subcategory)
+        (subcategory) =>
+          !removedCategory.subCategory ||
+          !removedCategory.subCategory.some(
+            (subItem) => subItem.subCategoryName === subcategory
+          )
       );
     }
 
@@ -277,15 +281,19 @@ function CoursesPage() {
     setSelectedSubCategories(updatedSubCategories);
   };
 
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const filterEnrolledCourses = () => {
     let filteredCourses = selectedCourses;
 
     if (filters.isnotEnrolled && !filters.Enrolled) {
-      filteredCourses = filteredCourses.filter(course => !checkisEnrolled(course.courseCode));
+      filteredCourses = filteredCourses.filter(
+        (course) => !checkisEnrolled(course.courseCode)
+      );
     } else if (!filters.isnotEnrolled && filters.Enrolled) {
-      filteredCourses = filteredCourses.filter(course => checkisEnrolled(course.courseCode));
+      filteredCourses = filteredCourses.filter((course) =>
+        checkisEnrolled(course.courseCode)
+      );
     }
 
     return filteredCourses;
@@ -293,57 +301,65 @@ function CoursesPage() {
 
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const currentCourses = filterEnrolledCourses().slice(indexOfFirstCourse, indexOfLastCourse);
+  const currentCourses = filterEnrolledCourses().slice(
+    indexOfFirstCourse,
+    indexOfLastCourse
+  );
 
-  console.log("coursepage = ", coursesPerPage ,filterEnrolledCourses().length)
-  console.log("seletedcourse",selectedCourses)
+  // console.log("coursepage = ", coursesPerPage, filterEnrolledCourses().length);
+  // console.log("seletedcourse", selectedCourses);
 
   return (
-    <div className="grid grid-cols-4  gap-4 p-4">
+    <div className="font-noto_sans_thai grid grid-cols-4  gap-4 p-4">
       <div className="md:border border-gray-300 p-2 rounded">
         <h2 className="text-lg font-bold mb-2">หมวดหมู่รายวิชา</h2>
         {categoriesHeader.map((item) => (
-  <div className="indent-6 mb-4" key={item.categoryId}>
-    <div className="flex items-center mb-3">
-      <input
-        type="checkbox"
-        id={`category-${item.categoryId}`}
-        onChange={handleFilterCategoriesChange}
-        className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-      />
-      {item.generalType === "Required"?(<label htmlFor={`category-${item.categoryId}`} className="truncate ...">
-        สาระ {item.categoryNumber} {item.categoryNameThai}
-      </label>):(<label htmlFor={`category-${item.categoryId}`} className="truncate ...">
-        {item.categoryNameThai}
-      </label>)}
-    </div>
-    <ul>
-      {item.subCategory &&
-        item.subCategory.map((subItem) => (
-          <div key={subItem.subCategoryId}>
-            <li className="indent-16 mb-4 flex items-center">
+          <div className="mb-4" key={item.categoryId}>
+            <div className="flex items-center mb-3 w-10/12 border-b border-gray-300">
               <input
                 type="checkbox"
-                id={`subcategory-${subItem.subCategoryId}`}
-                checked={selectedSubCategories.includes(subItem.subCategoryName)}
-                onChange={handleFilterSubCategoriesChange}
+                id={`category-${item.categoryId}`}
+                onChange={handleFilterCategoriesChange}
                 className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label
-                htmlFor={`subcategory-${subItem.subCategoryId}`}
-                className="mr-2"
-              >
-                {subItem.subCategoryName}
-              </label>
-            </li>
+              {item.generalType === "Required" ? (
+                <label
+                  htmlFor={`category-${item.categoryId}`}
+                  className="truncate ..."
+                >
+                  สาระ {item.categoryNumber} {item.categoryNameThai}
+                </label>
+              ) : (
+                <label htmlFor={`category-${item.categoryId}`}>
+                  {item.categoryNameThai}
+                </label>
+              )}
+            </div>
+            <ul>
+              {item.subCategory &&
+                item.subCategory.map((subItem) => (
+                  <div key={subItem.subCategoryId}>
+                    <li className=" ml-10 indent-1 mb-4 flex items-center w-10/12 border-b border-gray-300">
+                      <input
+                        type="checkbox"
+                        id={`subcategory-${subItem.subCategoryId}`}
+                        checked={selectedSubCategories.includes(
+                          subItem.subCategoryName
+                        )}
+                        onChange={handleFilterSubCategoriesChange}
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor={`subcategory-${subItem.subCategoryId}`}>
+                        {subItem.subCategoryName}
+                      </label>
+                    </li>
+                  </div>
+                ))}
+            </ul>
           </div>
         ))}
-    </ul>
-  </div>
-))}
-
       </div>
-      <div className="flex flex-col col-span-3 justify-start p-2 rounded" >
+      <div className="flex flex-col col-span-3 justify-start p-2 rounded">
         <h2 className="text-3xl font-bold mb-4">ค้นหารายวิชา</h2>
         <div className="flex justify-start items-center mb-4 gap-2">
           <input
@@ -357,73 +373,77 @@ function CoursesPage() {
             className="bg-dark-blue-gray hover:bg-blue-700 text-white font-bold py-3 px-6 rounded"
             onClick={handleSearch}
           >
-            <FaSearch/>
+            <FaSearch />
           </button>
 
           <button
             className="bg-dark-blue-gray hover:bg-blue-700 text-white font-bold py-3 px-6 rounded"
             onClick={() => setShowFilterModal(true)}
           >
-            <RiFilter2Line/>
+            <RiFilter2Line />
           </button>
         </div>
 
         <div>
-           
-        <div className="grid grid-cols-1 gap-4">
-        <div className="flex items-center ">
-  <div className="w-10/12 border-t border-gray-300"></div>
-</div>
-          <p className="font-semibold text-xl">จำนวนรายวิชาทั้งหมด  {selectedCourses.length}</p>
-  {currentCourses.map((item) => (
-    
-    <Link to={`/course/${item.courseCode}`} key={item.id}>
-      {console.log("testgay",currentCourses)}
-      <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-12/12">
-        <h3 className="font-bold text-lg text-dark-slate-blue ml-2" >{item.courseCode} {item.courseNameEng}</h3>
-        <p className="font-semibold text-base text-dark-slate-blue ml-2 ">{item.courseNameThai}</p>
-        <p className="font-medium text-gray-400 mt-1 ml-2">{item.credit}</p>
-        <div className="absolute top-0 right-10 transform flex flex-wrap gap-2 ">
-
-        {item.category?(
-
-          <div className=" w-17 h-6 rounded bg-green-300 border-4 border-white mt-2    ">
-          <p className="truncate ... scale-75 text-xs font-semibold items-center justify-center">
-            {item.category.subjectGroupName}
-            </p>
-          </div>
-            ):(<></>)
-        }
-        { item.subCategory?(
-
-      
-          <div className="w-17 h-6  rounded bg-green-300 border-4 border-white mt-2">
-          <p className="scale-75 text-xs font-semibold truncate ...  items-center justify-center">
-          {item.subCategory.subCategoryName}
-          </p>
-          </div>):(<></>)
-          
-          } 
-        </div>
-        {checkisEnrolled(item.courseCode) ? (
-          <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
-            <div className="w-12 h-12 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
-              <FaCheck className="text-white" />
+          <div className="grid grid-cols-1 gap-4">
+            <div className="flex items-center ">
+              <div className="w-10/12 border-t border-gray-300"></div>
             </div>
+            <p className="font-semibold text-xl">
+              จำนวนรายวิชาทั้งหมด {selectedCourses.length}
+            </p>
+            {currentCourses.map((item) => (
+              <Link to={`/course/${item.courseCode}`} key={item.id}>
+                {console.log("testgay", currentCourses)}
+                <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-12/12">
+                  <h3 className="font-bold text-lg text-dark-slate-blue ml-2">
+                    {item.courseCode} {item.courseNameEng}
+                  </h3>
+                  <p className="font-semibold text-base text-dark-slate-blue ml-2 ">
+                    {item.courseNameThai}
+                  </p>
+                  <p className="font-medium text-gray-400 mt-1 ml-2">
+                    {item.credit}
+                  </p>
+                  <div className="absolute top-0 right-10 transform flex flex-wrap gap-2 ">
+                    {item.category ? (
+                      <div className=" w-17 h-6 rounded bg-green-300 border-4 border-white mt-2    ">
+                        <p className="truncate ... scale-75 text-xs font-semibold items-center justify-center">
+                          {item.category.subjectGroupName}
+                        </p>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    {item.subCategory ? (
+                      <div className="w-17 h-6  rounded bg-green-300 border-4 border-white mt-2">
+                        <p className="scale-75 text-xs font-semibold truncate ...  items-center justify-center">
+                          {item.subCategory.subCategoryName}
+                        </p>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  {checkisEnrolled(item.courseCode) ? (
+                    <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+                      <div className="w-12 h-12 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
+                        <FaCheck className="text-white" />
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="mb-2"></p>
+                  )}
+                </div>
+              </Link>
+            ))}
           </div>
-        ) : (
-         <p className="mb-2"></p>
-        )}
-      </div>
-    </Link>
-  ))}
-</div>
-
-          
         </div>
         <Pagination
           layout="table"
-          totalPages={Math.ceil(filterEnrolledCourses().length / coursesPerPage)}
+          totalPages={Math.ceil(
+            filterEnrolledCourses().length / coursesPerPage
+          )}
           pageLimit={coursesPerPage}
           currentPage={currentPage}
           onPageChange={paginate}
@@ -441,4 +461,3 @@ function CoursesPage() {
 }
 
 export default CoursesPage;
-

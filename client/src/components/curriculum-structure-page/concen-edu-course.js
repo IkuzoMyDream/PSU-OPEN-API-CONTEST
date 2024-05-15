@@ -14,7 +14,7 @@ export default function ConcenEduCourse({
         {concentrationCourse?.totalCredit}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
-      <Accordion alwaysOpen collapseAll>
+      <Accordion alwaysOpen collapseAll style={{ backgroundColor: "white" }}>
         <Accordion.Panel>
           <Accordion.Title>
             กลุ่มพื้นฐานวิชาชีพ (

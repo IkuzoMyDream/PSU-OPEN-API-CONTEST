@@ -10,7 +10,6 @@ import React from "react";
 import StudentStatusOverall from "../components/home-page/student-status-overall";
 import StudentStatusChart from "../components/home-page/student-status-chart";
 
-
 function HomePage() {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -119,7 +118,7 @@ function HomePage() {
       const result = await axPSU.get(
         `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
       );
-      console.log("courses",result.data.data);
+      console.log("courses", result.data.data);
       // await Promise.all(
       //   majors.map(async (major) => {
       //     const result = await axLOCAL.post(localConfig.postMajor, {
@@ -158,7 +157,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
+      <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-10">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-1">
             {profileImage && <img src={profileImage} />}

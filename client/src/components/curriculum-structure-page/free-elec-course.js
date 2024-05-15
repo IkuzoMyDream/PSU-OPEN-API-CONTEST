@@ -6,7 +6,7 @@ export default function FreeElecCourse({
 }) {
   return (
     <>
-      <p className=" text-2xl">
+      <p className=" text-2xl" style={{ backgroundColor: "white" }}>
         หมวดวิชาเลือกเสรี ({studentFreeElecEnroll?.registCreditAmount} /{" "}
         {freeElecCourse?.totalCredit}) หน่วยกิต
       </p>

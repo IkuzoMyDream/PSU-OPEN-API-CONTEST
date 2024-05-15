@@ -75,7 +75,7 @@ function StudyPlanPage() {
         studentDetail &&
         studentEnroll &&
         curriculumStructure && (
-          <div className="container mx-auto sm-auto md-auto lg-auto px-20 py-10">
+          <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-10">
             <div className="grid grid-cols-4 gap-4">
               <div className="col-span-1">
                 {profileImage && <img src={profileImage} />}
@@ -88,7 +88,6 @@ function StudyPlanPage() {
                   </p>
                 </div>
                 <div className="">
-                  
                   <CorriculumStructure
                     studentEnroll={studentEnroll}
                     curriculumStructure={curriculumStructure}

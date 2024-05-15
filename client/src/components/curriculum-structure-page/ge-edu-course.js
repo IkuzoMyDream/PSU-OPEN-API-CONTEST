@@ -13,7 +13,7 @@ export default function GeEduCourse({
         {geEduCourse?.totalCredit}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
-      <Accordion alwaysOpen>
+      <Accordion alwaysOpen style={{backgroundColor: "white"}}>
         <Accordion.Panel>
           <Accordion.Title>
             สาระที่ 1 ศาสตร์พระราชาและประโยชน์เพื่อนมนุษย์ (

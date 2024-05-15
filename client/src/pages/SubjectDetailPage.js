@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { NavBar } from "../components/navbar";
-import { Link, useParams } from 'react-router-dom';
-import { axLOCAL } from '../utils/config/ax';
-import { localConfig } from '../utils/config/main';
-import { useAuth } from 'react-oidc-context';
-import { Button } from 'flowbite-react';
-import { HiOutlineArrowLeft, } from "react-icons/hi";
-
+import { Link, useParams } from "react-router-dom";
+import { axLOCAL } from "../utils/config/ax";
+import { localConfig } from "../utils/config/main";
+import { useAuth } from "react-oidc-context";
+import { Button } from "flowbite-react";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 
 function SubjectDetailPage() {
   const [courses, setCourses] = useState([]);
@@ -15,7 +14,9 @@ function SubjectDetailPage() {
 
   const fetchCourses = async () => {
     try {
-      const response = await axLOCAL.get(`${localConfig.getSomecourse}/${courseCode}`);
+      const response = await axLOCAL.get(
+        `${localConfig.getSomecourse}/${courseCode}`
+      );
       setCourses(response.data);
       console.log("data =", response.data);
     } catch (error) {
@@ -24,39 +25,62 @@ function SubjectDetailPage() {
   };
 
   useEffect(() => {
-
     fetchCourses();
   }, [courseCode]);
 
   return (
-    <div  >
+    <div className="font-noto_sans_thai">
       <Link to={`/course`}>
-        <div className='mt-6 ml-4'>
+        <div className="mt-6 ml-4">
           <Button>
             <HiOutlineArrowLeft className="ml-2 h-5 w-5" />
             ย้อนกลับ
           </Button>
         </div>
       </Link>
-      <div className='grid grid-cols-5 gap-4 '>
-        <div className="col-start-2 col-end-6" >
-          <div className=" bg-pale-blue-gray  p-4 rounded-md shadow-md w-9/12" >
-            <h2 className='font-bold text-2xl mb-2 '>{courses.courseCode} {courses.courseNameEng}</h2>
-            <p className='font-bold text-xl' > {courses.courseNameThai} </p>
-            <p className='font-bold text-xl' > จำนวนหน่วยกิต : {courses.credit} </p>
-
+      <div className="grid grid-cols-5 gap-4 ">
+        <div className="col-start-2 col-end-6">
+          <div className=" bg-pale-blue-gray  p-4 rounded-md shadow-md w-9/12">
+            <h2 className="font-bold text-2xl mb-2 ">
+              {courses.courseCode} {courses.courseNameEng}
+            </h2>
+            <p className="font-bold text-xl"> {courses.courseNameThai} </p>
+            <p className="font-bold text-xl">
+              {" "}
+              จำนวนหน่วยกิต : {courses.credit}{" "}
+            </p>
           </div>
           <div className="bg-pale-blue-gray  p-4 rounded-md shadow-md w-9/12 mt-14">
-            <h2 className='font-bold text-2xl mb-4'>รายละเอียดวิชา</h2>
-            <p className='font-bold text-xl'> ประเภท : {courses.subCategory ? courses.subCategory.subCategoryName : 'กำลังโหลด...'}</p>
-            <p className='text-lg font-semibold'> {courses.enrollmentIds ? (<ul>{courses.enrollmentIds.map((enrollment, index) => (<li key={index}>ภาคการศึกษา : {enrollment.enrollmentId}</li>))}</ul>) : ('กำลังโหลด...')}</p>
-            <p className='text-lg font-semibold '>ภาควิชา : {courses.deptId ? courses.deptId.deptNameThai : 'กำลังโหลด...'}</p>
-            <p className='text-lg font-semibold'>คณะ : {courses.facId ? courses.facId.facNameThai : 'กำลังโหลด...'}</p>
-            <p className='text-lg font-semibold'>วิทยาเขต : หาดใหญ่</p>
-          </div >
-          <div className='mt-64'>
-
+            <h2 className="font-bold text-2xl mb-4">รายละเอียดวิชา</h2>
+            <p className="font-bold text-xl">
+              {" "}
+              ประเภท :{" "}
+              {courses.subCategory
+                ? courses.subCategory.subCategoryName
+                : "กำลังโหลด..."}
+            </p>
+            <p className="text-lg font-semibold">
+              {" "}
+              {courses.enrollmentIds ? (
+                <ul>
+                  {courses.enrollmentIds.map((enrollment, index) => (
+                    <li key={index}>ภาคการศึกษา : {enrollment.enrollmentId}</li>
+                  ))}
+                </ul>
+              ) : (
+                "กำลังโหลด..."
+              )}
+            </p>
+            <p className="text-lg font-semibold ">
+              ภาควิชา :{" "}
+              {courses.deptId ? courses.deptId.deptNameThai : "กำลังโหลด..."}
+            </p>
+            <p className="text-lg font-semibold">
+              คณะ : {courses.facId ? courses.facId.facNameThai : "กำลังโหลด..."}
+            </p>
+            <p className="text-lg font-semibold">วิทยาเขต : หาดใหญ่</p>
           </div>
+          <div className="mt-64"></div>
         </div>
       </div>
     </div>
