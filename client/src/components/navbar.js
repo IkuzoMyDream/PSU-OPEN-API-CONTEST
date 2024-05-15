@@ -1,4 +1,10 @@
 import { NavLink, useLocation } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import { GiArchiveResearch } from "react-icons/gi";
+import { IoNewspaperSharp } from "react-icons/io5";
+import { MdLogout } from "react-icons/md";
+
+
 
 export function NavBar() {
   const { pathname } = useLocation();
@@ -28,10 +34,11 @@ export function NavBar() {
                 to="/home"
                 className={
                   pathname === "/home"
-                    ? "block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  ? "flex items-center block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                  : "flex items-center block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 }
-              >
+                >
+                <FaHome className="mr-2"/>
                 Home
               </NavLink>
             </li>
@@ -40,10 +47,11 @@ export function NavBar() {
                 to="/course"
                 className={
                   pathname === "/course"
-                    ? "block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    ? "flex items-center block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                    : "flex items-center block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 }
               >
+                <GiArchiveResearch className="mr-2" />
                 ค้นหาวิชาเรียน
               </NavLink>
             </li>
@@ -52,10 +60,11 @@ export function NavBar() {
                 to="/my-study-plan"
                 className={
                   pathname === "/my-study-plan"
-                    ? "block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    ? "flex items-center block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                    : "flex items-center block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 }
               >
+                <IoNewspaperSharp className="mr-2"/>
                 หลักสูตรของฉัน
               </NavLink>
             </li>
@@ -63,8 +72,9 @@ export function NavBar() {
               <NavLink
                 to="/logout"
                 activeclassname="bg-blue-700 text-white"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                className="flex items-center block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
+                <MdLogout className="mr-2"/>
                 ออกจากระบบ
               </NavLink>
             </li>

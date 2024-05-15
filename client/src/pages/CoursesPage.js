@@ -311,11 +311,11 @@ function CoursesPage() {
 
   return (
     <div className="font-noto_sans_thai grid grid-cols-4  gap-4 p-4">
-      <div className="md:border border-gray-300 p-2 rounded">
+      <div className="md:border border-gray-300 p-5   rounded">
         <h2 className="text-lg font-bold mb-2">หมวดหมู่รายวิชา</h2>
         {categoriesHeader.map((item) => (
           <div className="mb-4" key={item.categoryId}>
-            <div className="flex items-center mb-3 w-10/12 border-b border-gray-300">
+            <div className="flex items-center mb-3 ">
               <input
                 type="checkbox"
                 id={`category-${item.categoryId}`}
@@ -334,12 +334,15 @@ function CoursesPage() {
                   {item.categoryNameThai}
                 </label>
               )}
+              
             </div>
+            <div className="w-full  border-b border-gray-150"></div>
+                  
             <ul>
               {item.subCategory &&
                 item.subCategory.map((subItem) => (
                   <div key={subItem.subCategoryId}>
-                    <li className=" ml-10 indent-1 mb-4 flex items-center w-10/12 border-b border-gray-300">
+                    <li className=" ml-10 indent-1 mb-2 mt-2 flex items-center">
                       <input
                         type="checkbox"
                         id={`subcategory-${subItem.subCategoryId}`}
@@ -353,6 +356,7 @@ function CoursesPage() {
                         {subItem.subCategoryName}
                       </label>
                     </li>
+                    <div className="w-full border-b border-gray-150"></div>
                   </div>
                 ))}
             </ul>
