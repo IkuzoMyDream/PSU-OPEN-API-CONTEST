@@ -54,7 +54,7 @@ export default function StudentStatusChart() {
     <>
       <div className="grid grid-cols-2 gap-3 my-3">
         <Card>
-          <h1>หน่วยกิตสะสม</h1>
+          <h1>หน่วยกิตสะสม (%)</h1>
           <Radar
             options={{
               plugins: {
@@ -97,7 +97,7 @@ export default function StudentStatusChart() {
           />
         </Card>
         <Card>
-          <h1>คะแนนอิง</h1>
+          <h1>คะแนน PSU-EST</h1>
           <Doughnut
             options={{
               hover: { mode: null },
