@@ -25,18 +25,22 @@ export default function CurriculumAccordionContent({
           });
           break;
         case `แสดงรายวิชาที่ลงทะเบียนแล้ว`:
-          filteredCourses = courseObj.courses.filter((course) =>
-            enrollList.includes(course.courseCode)
-          );
+          if (courseObj?.courses) {
+            filteredCourses = courseObj.courses.filter((course) =>
+              enrollList.includes(course.courseCode)
+            );
+          }
           setFilteredCourseObj({
             ...courseObj,
             courses: filteredCourses,
           });
           break;
         case `แสดงรายวิชาที่ยังไม่ลงทะเบียน`:
-          filteredCourses = courseObj.courses.filter(
-            (course) => !enrollList.includes(course.courseCode)
-          );
+          if (courseObj?.courses) {
+            filteredCourses = courseObj.courses.filter(
+              (course) => !enrollList.includes(course.courseCode)
+            );
+          }
           setFilteredCourseObj({
             ...courseObj,
             courses: filteredCourses,
@@ -53,9 +57,11 @@ export default function CurriculumAccordionContent({
           filteredCourseGroups = courseObj.groups.map((group) => {
             return {
               ...group,
-              courses: group.courses.filter((coure) =>
-                enrollList.includes(coure.courseCode)
-              ),
+              courses: group.courses
+                ? group.courses.filter((coure) =>
+                    enrollList.includes(coure.courseCode)
+                  )
+                : [],
             };
           });
           setFilteredCourseObj({
@@ -67,9 +73,11 @@ export default function CurriculumAccordionContent({
           filteredCourseGroups = courseObj.groups.map((group) => {
             return {
               ...group,
-              courses: group.courses.filter(
-                (coure) => !enrollList.includes(coure.courseCode)
-              ),
+              courses: group.courses
+                ? group.courses.filter(
+                    (coure) => !enrollList.includes(coure.courseCode)
+                  )
+                : [],
             };
           });
           setFilteredCourseObj({
