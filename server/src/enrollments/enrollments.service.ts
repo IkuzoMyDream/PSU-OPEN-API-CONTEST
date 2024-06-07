@@ -26,7 +26,7 @@ export class EnrollmentsService {
 
   findAll() {
     return `This action returns all enrollments`;
-  }
+  } 
 
   async getStudentEnrollment(studentId: Student) {
     return await this.enrollmentRepository

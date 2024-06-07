@@ -17,7 +17,7 @@ export function NavBar() {
         >
           <img src="PSU Logo-01.png" className="h-8" alt="PSU Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            ระบบตรวจสถานะนักศึกษา
+            PSU BUDDY
           </span>
         </NavLink>
 
@@ -51,6 +51,19 @@ export function NavBar() {
               >
                 <IoNewspaperSharp className="mr-2" />
                 หลักสูตรของฉัน
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/study-result"
+                className={
+                  pathname === "/study-result"
+                    ? "flex items-center block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                    : "flex items-center block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                }
+              >
+                <IoNewspaperSharp className="mr-2" />
+                วิเคราะห์ผลการเรียน
               </NavLink>
             </li>
             <li>

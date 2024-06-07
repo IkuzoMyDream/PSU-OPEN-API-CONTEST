@@ -23,7 +23,7 @@ function HomePage() {
     cumActHour: "",
     cumCredit: "",
   });
-
+   
   const [studentStatusChart, setStudentStatusChart] = useState({
     credits: {
       subjGroup1: "",

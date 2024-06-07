@@ -9,7 +9,7 @@ import CourseFilterModal from "../components/course-page/CourseFilterModal";
 import { RiFilter2Line } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-
+  
 function CoursesPage() {
   const auth = useAuth();
 

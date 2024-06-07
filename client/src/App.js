@@ -7,11 +7,14 @@ import SubjectDetailPage from "./pages/SubjectDetailPage";
 import { NavBar } from "./components/navbar";
 import StudyPlanPage from "./pages/StudyPlanPage";
 import backgroundImage from "./images/bg2.png";
+import StudyResultPage from "./pages/StudyResultPage";
 
 function App() {
   return (
-    <div className=" bg-cover bg-center h-full bg-fixed  min-h-full "
-    style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div
+      className=" bg-cover bg-center h-full bg-fixed  min-h-full "
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <Router>
         <NavBar />
         <Routes>
@@ -21,6 +24,7 @@ function App() {
           <Route path="/course" element={<CoursesPage />} />
           <Route path="/course/:courseCode" element={<SubjectDetailPage />} />
           <Route path="/my-study-plan" element={<StudyPlanPage />} />
+          <Route path="/study-result" element={<StudyResultPage />} />
         </Routes>
       </Router>
     </div>
