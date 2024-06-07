@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { axPSU } from "../utils/config/ax";
-import { psuConfig } from "../utils/config/main";
+import { axLOCAL, axPSU } from "../utils/config/ax";
+import { localConfig, psuConfig } from "../utils/config/main";
 import { useAuth } from "react-oidc-context";
 
 import SimulatingStudyResult from "../components/study-/simulating-study-result";
@@ -10,22 +10,65 @@ function StudyResultPage() {
   const auth = useAuth();
 
   const [studentDetail, setStudentDetail] = useState(null);
-  const [studentEnroll, setStudentEnroll] = useState(null);
+  const [studentEnrolls, setStudentEnrolls] = useState(null);
+  const [studentGrades, setStudentGrades] = useState(null);
+
+  const [courses, setCourses] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const fetchPsuStudentDetail = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentDetail);
+      // console.log(result.data);
       setStudentDetail(result.data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const fetchStudentEnrollment = async () => {
+  const fetchStudentEnrollments = async () => {
     try {
       const result = await axPSU.get(psuConfig.getAllRegistData);
-      setStudentEnroll(result.data);
+      setStudentEnrolls(result.data);
       console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchPsuStudentGrade = async () => {
+    try {
+      const result = await axPSU.get(psuConfig.getStudentGrade);
+      setStudentGrades(result.data);
+      // console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchCourses = async () => {
+    try {
+      const result = await axLOCAL.get(localConfig.getAllcourses);
+      setCourses(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const result = await axLOCAL.get(localConfig.getCategories);
+      console.log("all cata", result);
+      const filterdHeader = result.data.map((item) => ({
+        categoryId: item.categoryId,
+        categoryNameEng: item.categoryType,
+        categoryNameThai: item.subjectGroupName,
+        generalType: item.generalType,
+        categoryNumber: item.subjectGroupNumber,
+        subCategory:
+          item.subCategoryIds.length !== 0 ? item.subCategoryIds : null,
+      }));
+      setCategories(filterdHeader);
     } catch (err) {
       console.log(err);
     }
@@ -34,12 +77,15 @@ function StudyResultPage() {
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchPsuStudentDetail();
+      fetchPsuStudentGrade();
     }
+    fetchCategories();
+    fetchCourses();
   }, [auth.user, auth]);
 
   useEffect(() => {
     if (studentDetail?.studentId) {
-      fetchStudentEnrollment();
+      fetchStudentEnrollments();
     }
   }, [studentDetail]);
 
@@ -49,7 +95,12 @@ function StudyResultPage() {
         <StudyResultCumChart />
       </div>
       <div className="font-noto_sans_thai container mx-auto sm-auth md-auth lg-auto px-20 py-10">
-        <SimulatingStudyResult studentEnroll={studentEnroll} />
+        <SimulatingStudyResult
+          studentEnrolls={studentEnrolls}
+          studentGrades={studentGrades}
+          courses={courses}
+          categories={categories}
+        />
       </div>
     </>
   );

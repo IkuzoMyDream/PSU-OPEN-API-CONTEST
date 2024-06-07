@@ -39,7 +39,7 @@ export default function StudyResultCumChart() {
       <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">
         กราฟแสดงxxx
       </h5>
-      <div className="grid grid-cols-2 gap-3 my-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-3">
         <div>
           <Card>
             <h1>เกรด</h1>

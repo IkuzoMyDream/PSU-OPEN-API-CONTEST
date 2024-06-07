@@ -25,7 +25,7 @@ function HomePage() {
     cumActHour: "",
     cumCredit: "",
   });
-   
+
   const [studentStatusChart, setStudentStatusChart] = useState({
     credits: {
       subjGroup1: "",
@@ -161,8 +161,6 @@ function HomePage() {
     fetchLocalStudentDetail();
   }, [studentDetail]);
 
-
-
   // useEffect(() => {
   //   console.log(curriculumStructure);
   // }, [curriculumStructure]);
@@ -172,10 +170,10 @@ function HomePage() {
       <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-10">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-1">
-          <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
-            {profileImage && <img src={profileImage} />}
-            <br/>
-            <StudentDetail studentDetail={studentDetail} />
+            <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
+              {profileImage && <img src={profileImage} />}
+              <br />
+              <StudentDetail studentDetail={studentDetail} />
             </div>
           </div>
           <div className="col-span-3">

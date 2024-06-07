@@ -6,7 +6,7 @@ import { MdLogout } from "react-icons/md";
 
 export function NavBar() {
   const { pathname } = useLocation();
-  console.log(pathname);
+  // console.log(pathname);
 
   return (
     <nav className="font-noto_sans_thai bg-pale-blue-gray border-gray-200 dark:bg-gray-900">

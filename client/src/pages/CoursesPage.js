@@ -9,7 +9,7 @@ import CourseFilterModal from "../components/course-page/CourseFilterModal";
 import { RiFilter2Line } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-  
+
 function CoursesPage() {
   const auth = useAuth();
 
@@ -311,7 +311,7 @@ function CoursesPage() {
 
   return (
     <div className="font-noto_sans_thai grid grid-cols-4  gap-4 p-4">
-      <div className="md:border border-gray-300 p-5   rounded">
+      <div className="md:border border-gray-300 p-5 rounded">
         <h2 className="text-lg font-bold mb-2">หมวดหมู่รายวิชา</h2>
         {categoriesHeader.map((item) => (
           <div className="mb-4" key={item.categoryId}>
@@ -330,16 +330,13 @@ function CoursesPage() {
                   สาระ {item.categoryNumber} {item.categoryNameThai}
                 </label>
               ) : (
-                <label
-                  htmlFor={`category-${item.categoryId}`}
-                >
+                <label htmlFor={`category-${item.categoryId}`}>
                   {item.categoryNameThai}
                 </label>
               )}
-              
             </div>
             <div className="w-full  border-b border-gray-150"></div>
-                  
+
             <ul>
               {item.subCategory &&
                 item.subCategory.map((subItem) => (
@@ -399,15 +396,15 @@ function CoursesPage() {
               จำนวนรายวิชาทั้งหมด {selectedCourses.length}
             </p>
             {currentCourses.map((item) => (
-              
               <Link
-      to={{
-        pathname: `/course/${item.courseCode}`,
-        
-      }}
-      state={{state: { isEnrolled:checkisEnrolled(item.courseCode)}}}
-      key={item.id}
-  >
+                to={{
+                  pathname: `/course/${item.courseCode}`,
+                }}
+                state={{
+                  state: { isEnrolled: checkisEnrolled(item.courseCode) },
+                }}
+                key={item.id}
+              >
                 {console.log("testgay", currentCourses)}
                 <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-12/12">
                   <h3 className="font-bold text-lg text-dark-slate-blue ml-2">
