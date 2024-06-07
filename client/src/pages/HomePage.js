@@ -19,6 +19,8 @@ function HomePage() {
 
   const [studentEnroll, setStudentEnroll] = useState(null);
 
+  const [AllcumCredit,setAllcumCredit] = useState([]);
+
   const [studentStatusOverall, setStudentStatusOverall] = useState({
     cumGpa: "",
     estScore: "",
@@ -64,6 +66,7 @@ function HomePage() {
     try {
       const result = await axLOCAL.get(`/student/${studentDetail?.studentId}`);
       // console.log(result);
+      console.log("gay1",result)
       setStudentStatusOverall((prevState) => ({
         ...prevState,
         estScore: result.data.estScore,
@@ -80,8 +83,16 @@ function HomePage() {
       const result = await axLOCAL(
         `${localConfig.getEnrollmentByStudId}/${studentDetail?.studentId}`
       );
-      console.log(result.data);
-      setStudentEnroll(result.data);
+      if (result.data && typeof result.data === 'object') {
+        const filterCredit = {
+          concenAllCredit: result.data.concentrationCourse?.registCreditAmount || 0,
+          freeAllCredit: result.data.freeElecCourse?.registCreditAmount || 0,
+          geAllCredit: result.data.geEduCourse?.registCreditAmount || 0,
+        };
+      setStudentEnroll(filterCredit);
+    } else {
+      console.error("Expected result.data to be an object, but got:", result.data);
+    }
     } catch (err) {
       console.log(err);
     }
@@ -101,6 +112,7 @@ function HomePage() {
   const fetchStudentGPA = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentGPA);
+      setAllcumCredit(result.data)
       setStudentStatusOverall((prevState) => ({
         ...prevState,
         cumGpa: result.data[result.data.length - 1].cumGpa,
@@ -164,22 +176,26 @@ function HomePage() {
   // useEffect(() => {
   //   console.log(curriculumStructure);
   // }, [curriculumStructure]);
+  console.log("studentStatusOverall = ",studentStatusOverall)
+  console.log("curriculum = ",curriculumStructure)
+
 
   return (
     <>
       <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-10">
-        <div className="grid grid-cols-4 gap-4">
-          <div className="col-span-1">
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-start-1 col-end-4">
             <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
               {profileImage && <img src={profileImage} />}
               <br />
               <StudentDetail studentDetail={studentDetail} />
             </div>
           </div>
-          <div className="col-span-3">
+          <div className="col-start-5 col-end-13">
             <StudentStatusOverall
               studentStatusOverall={studentStatusOverall}
               curriculumStructure={curriculumStructure}
+              studentEnrollment={studentEnroll}
             />
             {/* <StudentStatusChart /> */}
           </div>

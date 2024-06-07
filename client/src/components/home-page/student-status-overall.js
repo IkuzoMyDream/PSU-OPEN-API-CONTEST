@@ -1,12 +1,14 @@
 // import { useState, useEffect } from "react";
 // import { axLOCAL, axPSU } from "../utils/config/ax";
 // import { localConfig } from "../../utils/config/main";
-
+import { Progress, Typography } from "@material-tailwind/react";
 
 
 export default function StudentStatusOverall({
   studentStatusOverall,
   curriculumStructure,
+  studentEnrollment,
+  
 }) 
 {
   // const [studentEnroll, setStudentEnroll] = useState(null);
@@ -15,7 +17,7 @@ export default function StudentStatusOverall({
   //   cumGpa: "",
   //   estScore: "",
   //   cumActHour: "",
-  //   cumCredit: "",
+  //   cumC redit: "",
   // });
 
 
@@ -52,11 +54,18 @@ export default function StudentStatusOverall({
   //   fetchLocalStudentDetail();
   // }, [studentDetail]);
 
+
+  console.log("gaymannnnn =",studentEnrollment)
+  console.log("gaysdsdkmbsd = ",curriculumStructure)
   return (
     <>
       <div className="grid gap-3">
+
+
+        
         <div>
-          <div class="max-w-sm p-6 bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
+        <div className="grid grid-col-2 gap-1">
+          <div class="max-w-full p-6 bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
             <div>
               หน่วยกิตสะสม{" "}
               {studentStatusOverall.cumCredit
@@ -65,78 +74,99 @@ export default function StudentStatusOverall({
               / {curriculumStructure?.totalCredit}
             </div>
             <br/>
-            <div class="max-w-sm p-6 bg-white rounded-lg shadow ">
-            <div > 
+           
+            <div class="max-w-full p-6 bg-white rounded-lg shadow " > 
               หมวดศึกษาทั่วไป {" "}
-              {studentStatusOverall.cumCredit
-                ? studentStatusOverall.cumCredit
+              {studentEnrollment?.geAllCredit
+                ? studentEnrollment?.geAllCredit
                 : 0}{" "}
-              / {curriculumStructure?.totalCredit}
+              / {parseInt(curriculumStructure?.geEduCourse.elecEduCourse.totalCredit) + parseInt(curriculumStructure?.geEduCourse.requiredEduCourse.totalCredit)}
             </div>
-            <div> 
+            <div class="max-w-full p-6 bg-white rounded-lg shadow mt-2 "> 
               หมวดวิชาเฉพาะ {" "}
-              {studentStatusOverall.cumCredit
-                ? studentStatusOverall.cumCredit
+              {studentEnrollment?.concenAllCredit
+                ? studentEnrollment?.concenAllCredit
                 : 0}{" "}
-              / {curriculumStructure?.totalCredit}
+              / {curriculumStructure?.concentrationCourse.totalCredit}
             </div>
-            <div> 
+            <div class="max-w-full p-6 bg-white rounded-lg shadow mt-2"> 
               หมวดวิชาเลือกเสรี{" "}
-              {studentStatusOverall.cumCredit
-                ? studentStatusOverall.cumCredit
+              {studentEnrollment?.freeAllCredit
+                ? studentEnrollment?.freeAllCredit
                 : 0}{" "}
-              / {curriculumStructure?.totalCredit}
+              / {curriculumStructure?.freeElecCourse.totalCredit }
             </div>
+          
           </div>
-          </div>
-        </div>
-        <div>
-          <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          {/* f */}
+        <div className="col-start-2">
+        <div class="max-w-full ml-2 px-5 py-16 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div >
-              GPA {" "}
+            ผลการเรียนเฉลี่ยสะสม {" "}
               {studentStatusOverall.cumGpa ? studentStatusOverall.cumGpa : 0}
-            </div>
-          </div>
         </div>
-        <div>
-          <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        {/* f */}
+        
+            </div>
+            <div>
+          <div class="max-w-full ml-2 mt-8 px-5 py-16 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div >
-              est-score{" "}
+            PSU English Skills Test{" "}
+            <p>
               {studentStatusOverall.estScore
                 ? studentStatusOverall.estScore
                 : 0}{" "}
               / 100
+                </p>
             </div>
           </div>
         </div>
+          </div>
+        </div>
+        </div>
         <div>
-          <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          
+        </div>
+        
+        <div>
+          <div class="max-w-full p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div >
+            <Typography variant="h6">
+
               ชั่วโมงกิจกรรม{" "}
               {studentStatusOverall.cumActHour
                 ? studentStatusOverall.cumActHour
                 : 0}{" "}
               / 100
+                </Typography>
             </div>
             <br/>
-            <div class="max-w-sm p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div>
-              กิจกรรมเสริมสร้างสมรรถนะ{" "}
-              {studentStatusOverall.cumActHour
-                ? studentStatusOverall.cumActHour
-                : 0}{" "}
-              / 100
-            </div>
+            <div class="max-w-f p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full">
+      <div className="mb-2 flex items-center justify-between gap-4">
+        <Typography color="blue-gray" variant="h6">
+        กิจกรรมเสริมสร้างสมรรถนะ
+        </Typography>
+        <Typography color="blue-gray" variant="h6">
+          32/50
+        </Typography>
+      </div>
+      <Progress value={32*2} className="bg-gray-300" />
+    </div>
           </div>
           <br/>
-          <div class="max-w-sm p-6 bg-white  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div >
-              กิจกรรมเข้าร่วมตามความสนใจ{" "}
-              {studentStatusOverall.cumActHour
-                ? studentStatusOverall.cumActHour
-                : 0}{" "}
-              / 100
-            </div>
+          <div class="max-w-full p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full">
+      <div className="mb-2 flex items-center justify-between gap-4">
+        <Typography color="blue-gray" variant="h6">
+        กิจกรรมเข้าร่วมตามความสนใจ
+        </Typography>
+        <Typography color="blue-gray" variant="h6">
+          36/50
+        </Typography>
+      </div>
+      <Progress value={36*2} className="bg-gray-300" />
+    </div>
           </div>
           </div>
         </div> 
