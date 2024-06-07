@@ -17,6 +17,8 @@ function HomePage() {
   const [studentDetail, setStudentDetail] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
 
+  const [studentEnroll, setStudentEnroll] = useState(null);
+
   const [studentStatusOverall, setStudentStatusOverall] = useState({
     cumGpa: "",
     estScore: "",
@@ -72,9 +74,14 @@ function HomePage() {
     }
   };
 
+  //fetch ซ้ำกับหน้า overall
   const fetchStudentEnrollment = async () => {
     try {
-      const result = await axPSU.get(psuConfig.getAllRegistData);
+      const result = await axLOCAL(
+        `${localConfig.getEnrollmentByStudId}/${studentDetail?.studentId}`
+      );
+      console.log(result.data);
+      setStudentEnroll(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -148,8 +155,13 @@ function HomePage() {
   }, [auth.user, auth]);
 
   useEffect(() => {
+    if (studentDetail?.studentId) {
+      fetchStudentEnrollment();
+    }
     fetchLocalStudentDetail();
   }, [studentDetail]);
+
+
 
   // useEffect(() => {
   //   console.log(curriculumStructure);
@@ -160,15 +172,18 @@ function HomePage() {
       <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-10">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-1">
+          <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
             {profileImage && <img src={profileImage} />}
+            <br/>
             <StudentDetail studentDetail={studentDetail} />
+            </div>
           </div>
           <div className="col-span-3">
             <StudentStatusOverall
               studentStatusOverall={studentStatusOverall}
               curriculumStructure={curriculumStructure}
             />
-            <StudentStatusChart />
+            {/* <StudentStatusChart /> */}
           </div>
         </div>
       </div>

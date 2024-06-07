@@ -11,9 +11,8 @@ import StudyResultPage from "./pages/StudyResultPage";
 
 function App() {
   return (
-    <div
-      className=" bg-cover bg-center h-full bg-fixed  min-h-full "
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+    <div className=" bg-cover bg-center h-full bg-fixed  min-h-full "
+    // style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <Router>
         <NavBar />

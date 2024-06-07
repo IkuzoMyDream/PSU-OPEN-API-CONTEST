@@ -42,7 +42,7 @@ function CoursesPage() {
   const fetchCategories = async () => {
     try {
       const result = await axLOCAL.get(localConfig.getCategories);
-      console.log("all cata gayyyyyyyyy", result);
+      console.log("all cata", result);
       const filterdHeader = result.data.map((item) => ({
         categoryId: item.categoryId,
         categoryNameEng: item.categoryType,
@@ -399,7 +399,15 @@ function CoursesPage() {
               จำนวนรายวิชาทั้งหมด {selectedCourses.length}
             </p>
             {currentCourses.map((item) => (
-              <Link to={`/course/${item.courseCode}`} key={item.id}>
+              
+              <Link
+      to={{
+        pathname: `/course/${item.courseCode}`,
+        
+      }}
+      state={{state: { isEnrolled:checkisEnrolled(item.courseCode)}}}
+      key={item.id}
+  >
                 {console.log("testgay", currentCourses)}
                 <div className="relative border rounded bg-pale-blue-gray p-2 py-3 mb-2 w-12/12">
                   <h3 className="font-bold text-lg text-dark-slate-blue ml-2">
