@@ -55,8 +55,6 @@ export default function StudentStatusOverall({
   // }, [studentDetail]);
 
 
-  console.log("gaymannnnn =",studentEnrollment)
-  console.log("gaysdsdkmbsd = ",curriculumStructure)
   return (
     <>
       <div className="grid gap-3">
