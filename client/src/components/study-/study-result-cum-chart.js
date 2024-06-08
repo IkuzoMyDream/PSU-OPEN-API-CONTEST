@@ -74,7 +74,7 @@ export default function StudyResultCumChart() {
                 ดัชนีการเปลี่ยนแปลง (%){" "}
               </h5>
               <SentimentDissatisfiedIcon
-                className="mb-2"
+                className="mb-1"
                 style={{ fontSize: "64px", color: "#DE7A6C" }}
               />
               <div className="flex justify-center mb-2">
@@ -82,16 +82,39 @@ export default function StudyResultCumChart() {
                   −20.76%
                 </Button>
               </div>
-              <p className="mb-2">
+              <p className="mb-1 text-sm text-gray-800">
                 ดัชนีการเปลี่ยนแปลงของท่านอยู่ในเกณฑ์ที่ควรปรับปรุง
               </p>
             </div>
             <h5 className="text-2xl font-semibold text-gray-900 dark:text-white">
               สรุปสะสม (Cumulative){" "}
             </h5>
-            <p>หน่วยกิตที่ลงทะเบียน 85</p>
-            <p>จำนวนหน่วยจุด 301.5</p>
-            <p>ผลการเรียนเฉลี่ย 3.54</p>
+            <div>
+              <div className=" grid grid-cols-2">
+                <div className=" flex justify-start ml-6 font-light">
+                  <p>หน่วยกิตที่ลงทะเบียน</p>
+                </div>
+                <div className=" flex justify-end mr-6 font-light">
+                  <p>85</p>
+                </div>
+              </div>
+              <div className=" grid grid-cols-2">
+                <div className=" flex justify-start ml-6">
+                  <p className=" font-light">จำนวนหน่วยจุด</p>
+                </div>
+                <div className=" flex justify-end mr-6 font-light">
+                  <p>301.5</p>
+                </div>
+              </div>
+              <div className=" grid grid-cols-2">
+                <div className=" flex justify-start ml-6">
+                  <p className=" font-bold">ผลการเรียนเฉลี่ย</p>
+                </div>
+                <div className=" flex justify-end mr-6">
+                  <p className=" font-bold">3.54</p>
+                </div>
+              </div>
+            </div>
           </Card>
         </div>
       </div>

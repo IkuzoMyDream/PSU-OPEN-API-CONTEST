@@ -1,4 +1,12 @@
-import { Alert, Button, Card, Dropdown, Select, Table } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Card,
+  Dropdown,
+  Select,
+  Spinner,
+  Table,
+} from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiInformationCircle, HiOutlineArrowRight } from "react-icons/hi";
 import { SimulatingStudyModal } from "./simulating-study-modal";
@@ -81,6 +89,8 @@ export default function SimulatingStudyResult({
     semGpa: 0,
   });
 
+  const [loading, setLoading] = useState(false);
+
   const getNextEdutermAndEduYear = (currentEduTerm, currentEduYear) => {
     return {
       eduTerm: currentEduTerm != 3 ? currentEduTerm + 1 : 1,
@@ -95,129 +105,136 @@ export default function SimulatingStudyResult({
   }
 
   const calcSimulatingGrade = () => {
-    const gradeMap = {
-      A: 4,
-      "B+": 3.5,
-      B: 3,
-      "C+": 2.5,
-      C: 2,
-      "D+": 1.5,
-      D: 1,
-      E: 0,
-    };
+    setLoading(true);
+    setIsStartSim(true);
 
-    const ParseFloat = (str, val) => {
-      str = str.toString();
-      str = str.slice(0, str.indexOf(".") + val + 1);
-      return Number(str);
-    };
+    setTimeout(() => {
+      const gradeMap = {
+        A: 4,
+        "B+": 3.5,
+        B: 3,
+        "C+": 2.5,
+        C: 2,
+        "D+": 1.5,
+        D: 1,
+        E: 0,
+      };
 
-    const totalCumCredit = [...studentGrades, ...selectedSimCourses].reduce(
-      (total, item) => {
+      const ParseFloat = (str, val) => {
+        str = str.toString();
+        str = str.slice(0, str.indexOf(".") + val + 1);
+        return Number(str);
+      };
+
+      const totalCumCredit = [...studentGrades, ...selectedSimCourses].reduce(
+        (total, item) => {
+          const credit = !isNaN(item.credit)
+            ? item.credit
+            : parseFloat(item.credit[0]);
+          return !["P", "W", "I", "S", "U", "W"].includes(item.grade)
+            ? total + credit
+            : total + 0;
+        },
+        0
+      );
+
+      const totalCumGradePointAvgCredit = [
+        ...studentGrades,
+        ...selectedSimCourses,
+      ].reduce((total, item) => {
         const credit = !isNaN(item.credit)
           ? item.credit
           : parseFloat(item.credit[0]);
+        const gradeValue = gradeMap[item.grade];
         return !["P", "W", "I", "S", "U", "W"].includes(item.grade)
-          ? total + credit
+          ? total + credit * gradeValue
           : total + 0;
-      },
-      0
-    );
+      }, 0);
 
-    const totalCumGradePointAvgCredit = [
-      ...studentGrades,
-      ...selectedSimCourses,
-    ].reduce((total, item) => {
-      const credit = !isNaN(item.credit)
-        ? item.credit
-        : parseFloat(item.credit[0]);
-      const gradeValue = gradeMap[item.grade];
-      return !["P", "W", "I", "S", "U", "W"].includes(item.grade)
-        ? total + credit * gradeValue
-        : total + 0;
-    }, 0);
-
-    const semGpa = ParseFloat(totalCumGradePointAvgCredit / totalCumCredit, 2);
-
-    setSimCumResult({
-      totalCumCredit: totalCumCredit,
-      totalCumGradePointAvgCredit: totalCumGradePointAvgCredit,
-      semGpa: semGpa,
-    });
-
-    const simSemArr = dropdownList.map((item) => {
-      return {
-        eduTerm: item.eduTerm,
-        eduYear: item.eduYear,
-        totalCumCredit: 0,
-        totalCumGradePointAvgCredit: 0,
-        semGpa: 0,
-        cumGpa: 0,
-      };
-    });
-
-    // Compute totals for each semester
-    [...studentGrades, ...selectedSimCourses].forEach((course) => {
-      const index = simSemArr.findIndex(
-        (item) =>
-          parseInt(item.eduTerm) == parseInt(course.eduTerm) &&
-          parseInt(item.eduYear) == parseInt(course.eduYear)
+      const semGpa = ParseFloat(
+        totalCumGradePointAvgCredit / totalCumCredit,
+        2
       );
 
-      if (index !== -1) {
-        const credit = !isNaN(course.credit)
-          ? course.credit
-          : parseFloat(course.credit[0]);
-        const gradeValue = gradeMap[course.grade];
+      setSimCumResult({
+        totalCumCredit: totalCumCredit,
+        totalCumGradePointAvgCredit: totalCumGradePointAvgCredit,
+        semGpa: semGpa,
+      });
 
-        simSemArr[index].totalCumCredit += ![
-          "P",
-          "W",
-          "I",
-          "S",
-          "U",
-          "W",
-        ].includes(course.grade)
-          ? credit
-          : 0;
-        simSemArr[index].totalCumGradePointAvgCredit += ![
-          "P",
-          "W",
-          "I",
-          "S",
-          "U",
-          "W",
-        ].includes(course.grade)
-          ? credit * gradeValue
-          : 0;
-        simSemArr[index].semGpa = ParseFloat(
-          simSemArr[index].totalCumGradePointAvgCredit /
-            simSemArr[index].totalCumCredit,
-          2
+      const simSemArr = dropdownList.map((item) => {
+        return {
+          eduTerm: item.eduTerm,
+          eduYear: item.eduYear,
+          totalCumCredit: 0,
+          totalCumGradePointAvgCredit: 0,
+          semGpa: 0,
+          cumGpa: 0,
+        };
+      });
+
+      [...studentGrades, ...selectedSimCourses].forEach((course) => {
+        const index = simSemArr.findIndex(
+          (item) =>
+            parseInt(item.eduTerm) == parseInt(course.eduTerm) &&
+            parseInt(item.eduYear) == parseInt(course.eduYear)
         );
-      }
-    });
 
-    // Calculate cumulative GPA for each semester
-    let cumulativeCredits = 0;
-    let cumulativeGradePoints = 0;
+        if (index !== -1) {
+          const credit = !isNaN(course.credit)
+            ? course.credit
+            : parseFloat(course.credit[0]);
+          const gradeValue = gradeMap[course.grade];
 
-    simSemArr.forEach((semester, index) => {
-      cumulativeCredits += semester.totalCumCredit;
-      cumulativeGradePoints += semester.totalCumGradePointAvgCredit;
+          simSemArr[index].totalCumCredit += ![
+            "P",
+            "W",
+            "I",
+            "S",
+            "U",
+            "W",
+          ].includes(course.grade)
+            ? credit
+            : 0;
+          simSemArr[index].totalCumGradePointAvgCredit += ![
+            "P",
+            "W",
+            "I",
+            "S",
+            "U",
+            "W",
+          ].includes(course.grade)
+            ? credit * gradeValue
+            : 0;
+          simSemArr[index].semGpa = ParseFloat(
+            simSemArr[index].totalCumGradePointAvgCredit /
+              simSemArr[index].totalCumCredit,
+            2
+          );
+        }
+      });
 
-      if (cumulativeCredits > 0) {
-        semester.cumGpa = ParseFloat(
-          cumulativeGradePoints / cumulativeCredits,
-          2
-        );
-      } else {
-        semester.cumGpa = 0;
-      }
-    });
+      let cumulativeCredits = 0;
+      let cumulativeGradePoints = 0;
 
-    setSimSemResult(simSemArr);
-    setIsStartSim(true);
+      simSemArr.forEach((semester, index) => {
+        cumulativeCredits += semester.totalCumCredit;
+        cumulativeGradePoints += semester.totalCumGradePointAvgCredit;
+
+        if (cumulativeCredits > 0) {
+          semester.cumGpa = ParseFloat(
+            cumulativeGradePoints / cumulativeCredits,
+            2
+          );
+        } else {
+          semester.cumGpa = 0;
+        }
+      });
+
+      setSimSemResult(simSemArr);
+      setLoading(false);
+      console.log(loading);
+    }, 2000);
   };
 
   const getPercentage = (currGpa, prevCumGpa) => {
@@ -489,12 +506,12 @@ export default function SimulatingStudyResult({
               </div>
             </>
           )}
-          {isStartSim && (
+          {isStartSim && !loading ? (
             <>
               <div className=" grid grid-cols-2 my-3 gap-3">
                 <div>
                   <Card>
-                    <h1>เกรด</h1>
+                    <h1 className=" font-semibold">เกรด</h1>
                     <Line
                       options={{
                         plugins: {
@@ -524,7 +541,7 @@ export default function SimulatingStudyResult({
                 <div>
                   <Card style={{ height: "100%" }} className=" text-center">
                     <div className="border-b">
-                      <h5 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+                      <h5 className="text-2xl font-semibold text-gray-900 dark:text-white mb-1">
                         ดัชนีการเปลี่ยนแปลง (%)
                       </h5>
 
@@ -533,7 +550,7 @@ export default function SimulatingStudyResult({
                         simSemResult[simSemResult.length - 2].cumGpa
                       ) >= 3 && (
                         <SentimentSatisfiedAltIcon
-                          className="mb-2"
+                          className="mb-1"
                           style={{ fontSize: "64px", color: "#3EA37E" }}
                         />
                       )}
@@ -546,7 +563,7 @@ export default function SimulatingStudyResult({
                           simSemResult[simSemResult.length - 2].cumGpa
                         ) >= -10 && (
                           <SentimentSatisfiedIcon
-                            className="mb-2"
+                            className="mb-1"
                             style={{
                               fontSize: "64px",
                               color: "rgb(250 202 21)",
@@ -558,12 +575,12 @@ export default function SimulatingStudyResult({
                         simSemResult[simSemResult.length - 2].cumGpa
                       ) < -10 && (
                         <SentimentDissatisfiedIcon
-                          className="mb-2"
+                          className="mb-1"
                           style={{ fontSize: "64px", color: "#DE7A6C" }}
                         />
                       )}
 
-                      <div className="flex justify-center mb-2">
+                      <div className="flex justify-center mb-1">
                         <Button
                           className={
                             getDachanee(
@@ -589,7 +606,7 @@ export default function SimulatingStudyResult({
                           )}
                         </Button>
                       </div>
-                      <p className="mb-2">
+                      <p className="mb-1 text-sm text-gray-800">
                         {getDachanee(
                           simSemResult[simSemResult.length - 1].semGpa,
                           simSemResult[simSemResult.length - 2].cumGpa
@@ -613,15 +630,55 @@ export default function SimulatingStudyResult({
                     <h5 className="text-2xl font-semibold text-gray-900 dark:text-white">
                       สรุปสะสม (Cumulative){" "}
                     </h5>
-                    <p>หน่วยกิตที่ลงทะเบียน {simCumResult.totalCumCredit}</p>
-                    <p>
-                      จำนวนหน่วยจุด {simCumResult.totalCumGradePointAvgCredit}
-                    </p>
-                    <p>ผลการเรียนเฉลี่ย {simCumResult.semGpa}</p>
+                    <div>
+                      <div className=" grid grid-cols-2">
+                        <div className=" flex justify-start ml-6 font-light">
+                          <p>หน่วยกิตที่ลงทะเบียน</p>
+                        </div>
+                        <div className=" flex justify-end mr-6 font-light">
+                          <p>{simCumResult.totalCumCredit}</p>
+                        </div>
+                      </div>
+                      <div className=" grid grid-cols-2">
+                        <div className=" flex justify-start ml-6">
+                          <p className=" font-light">จำนวนหน่วยจุด</p>
+                        </div>
+                        <div className=" flex justify-end mr-6 font-light">
+                          <p>{simCumResult.totalCumGradePointAvgCredit}</p>
+                        </div>
+                      </div>
+                      <div className=" grid grid-cols-2">
+                        <div className=" flex justify-start ml-6">
+                          <p className=" font-bold">ผลการเรียนเฉลี่ย</p>
+                        </div>
+                        <div className=" flex justify-end mr-6">
+                          <p className=" font-bold">{simCumResult.semGpa}</p>
+                        </div>
+                      </div>
+                    </div>
                   </Card>
                 </div>
               </div>
+              {/* <div className=" grid grid-cols-4">
+                <div className=" col-start-2 col-span-2">
+                  <Card>
+                    <div>
+                      <h5 className=" font-semibold">
+                        สรุประดับภาคการศึกษา (Semester)
+                      </h5>
+                    </div>
+                  </Card>
+                </div>
+              </div> */}
             </>
+          ) : (
+            isStartSim && (
+              <>
+                <div className=" mt-3 items-center flex justify-center">
+                  <Spinner size="xl" />
+                </div>
+              </>
+            )
           )}
         </>
       )}
