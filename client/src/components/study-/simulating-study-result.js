@@ -1,5 +1,5 @@
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import { Alert, Button, Dropdown, Table } from "flowbite-react";
+import { Alert, Button, Dropdown, Select, Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiInformationCircle } from "react-icons/hi";
 import { SimulatingStudyModal } from "./simulating-study-modal";
@@ -34,6 +34,12 @@ export default function SimulatingStudyResult({
   });
 
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedSimCourses, setSelectedSimCourses] = useState([]);
+
+  const [currentSimTermYear, setCurrentSimTermYear] = useState({
+    eduTerm: 2,
+    eduYear: 2564,
+  });
 
   const getNextEdutermAndEduYear = (currentEduTerm, currentEduYear) => {
     return {
@@ -41,6 +47,35 @@ export default function SimulatingStudyResult({
       eduYear: currentEduTerm != 3 ? currentEduYear : currentEduYear + 1,
     };
   };
+
+  useEffect(() => {
+    if (
+      selectedSimCourses
+        .map((course) => {
+          return { eduTerm: course?.eduTerm, eduYear: course?.eduYear };
+        })
+        .some(
+          (course) =>
+            course.eduTerm == currentSimTermYear.eduTerm &&
+            course.eduYear == currentSimTermYear.eduYear
+        )
+    ) {
+      setDropdownList((prevState) => [
+        ...prevState,
+        {
+          eduTerm: getNextEdutermAndEduYear(
+            dropdownList[dropdownList.length - 1].eduTerm,
+            dropdownList[dropdownList.length - 1].eduYear
+          ).eduTerm,
+          eduYear: getNextEdutermAndEduYear(
+            dropdownList[dropdownList.length - 1].eduTerm,
+            dropdownList[dropdownList.length - 1].eduYear
+          ).eduYear,
+          isSim: true,
+        },
+      ]);
+    }
+  }, [selectedSimCourses]);
 
   return (
     <>
@@ -57,7 +92,7 @@ export default function SimulatingStudyResult({
               color="light"
               label={`${filterEnrollments.eduTerm}/${filterEnrollments.eduYear}`}
             >
-              {/* enrolled */}
+              {/* already enrolled */}
               {dropdownList.map((item) => (
                 <Dropdown.Item
                   color="dark"
@@ -74,15 +109,17 @@ export default function SimulatingStudyResult({
                     })
                   }
                 >
-                  {item.eduTerm}/{item.eduYear}
+                  {!item.isSim
+                    ? `${item.eduTerm}/${item.eduYear}`
+                    : `${item.eduTerm}/${item.eduYear} (จำลอง)`}
                 </Dropdown.Item>
               ))}
 
               {/* simulating */}
               <Dropdown.Divider />
               <Dropdown.Item
-                onClick={() =>
-                  setFilterEnrollments({
+                onClick={() => {
+                  const currentSimTermYearx = {
                     eduTerm: getNextEdutermAndEduYear(
                       dropdownList[dropdownList.length - 1].eduTerm,
                       dropdownList[dropdownList.length - 1].eduYear
@@ -91,8 +128,10 @@ export default function SimulatingStudyResult({
                       dropdownList[dropdownList.length - 1].eduTerm,
                       dropdownList[dropdownList.length - 1].eduYear
                     ).eduYear,
-                  })
-                }
+                  };
+                  setFilterEnrollments(currentSimTermYearx);
+                  setCurrentSimTermYear(currentSimTermYearx);
+                }}
               >
                 <div>
                   <p className=" font-semibold">(จำลองเทอมต่อไป)</p>
@@ -169,7 +208,34 @@ export default function SimulatingStudyResult({
                   <Table.HeadCell>หน่วยกิต</Table.HeadCell>
                   <Table.HeadCell>ระดับขั้น</Table.HeadCell>
                 </Table.Head>
-                <Table.Body>
+                <Table.Body className="divide-y">
+                  {selectedSimCourses
+                    .filter(
+                      (item) =>
+                        item.eduTerm == filterEnrollments.eduTerm &&
+                        item.eduYear == filterEnrollments.eduYear
+                    )
+                    .map((item) => (
+                      <>
+                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                          <Table.Cell>{item.courseCode}</Table.Cell>
+                          <Table.Cell>{item.courseNameThai}</Table.Cell>
+                          <Table.Cell>{item.credit}</Table.Cell>
+                          <Table.Cell>
+                            <Select>
+                              <option>A</option>
+                              <option>B+</option>
+                              <option>B</option>
+                              <option>C+</option>
+                              <option>C</option>
+                              <option>D+</option>
+                              <option>D</option>
+                              <option>E</option>
+                            </Select>
+                          </Table.Cell>
+                        </Table.Row>
+                      </>
+                    ))}
                   <Table.Row>
                     <Table.Cell colSpan={4}>
                       <Button
@@ -187,6 +253,9 @@ export default function SimulatingStudyResult({
                 setIsOpenModal={setIsOpenModal}
                 courses={courses}
                 categories={categories}
+                selectedSimCourses={selectedSimCourses}
+                setSelectedSimCourses={setSelectedSimCourses}
+                currentSimTermYear={currentSimTermYear}
               />
             </>
           )}

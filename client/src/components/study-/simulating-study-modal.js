@@ -2,7 +2,6 @@ import { Button, Modal, Sidebar } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 import { SimulatingStudyCartModal } from "./simulation-study-cart-modal";
 
 export function SimulatingStudyModal({
@@ -10,16 +9,20 @@ export function SimulatingStudyModal({
   setIsOpenModal,
   courses,
   categories,
+  selectedSimCourses,
+  setSelectedSimCourses,
+  currentSimTermYear,
 }) {
   const [searchCode, setSearchCode] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [allRegistData, setAllRegistData] = useState([]);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+
   const [studentEnrollment, setStudentEnrollment] = useState([]);
 
-  const [selectedCourses, setSelectedCourses] = useState([]);
-  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [selectedModalSimCourses, setSelectedModalSimCourses] = useState([]);
 
   const genEnrollcourseId = () => {
     let allRegistData = [];
@@ -204,14 +207,20 @@ export function SimulatingStudyModal({
     showcourse();
   }, [selectedCategories, selectedSubCategories]);
 
-  useEffect(() => {}, [selectedCourses]);
+  useEffect(() => {
+    if (selectedSimCourses.length && !selectedModalSimCourses.length) {
+      setSelectedModalSimCourses(selectedSimCourses);
+    }
+    console.log(selectedModalSimCourses);
+  }, [selectedModalSimCourses, selectedSimCourses]);
 
   return (
     <>
       <SimulatingStudyCartModal
         isCartModalOpen={isCartModalOpen}
         setIsCartModalOpen={setIsCartModalOpen}
-        selectedCourses={selectedCourses}
+        selectedModalSimCourses={selectedModalSimCourses}
+        setSelectedModalSimCourses={setSelectedModalSimCourses}
       />
       <Modal
         className=" font-noto_sans_thai"
@@ -248,7 +257,6 @@ export function SimulatingStudyModal({
                       )}
                     </div>
                     <div className="w-full  border-b border-gray-150"></div>
-
                     <ul>
                       {item.subCategory &&
                         item.subCategory.map((subItem) => (
@@ -305,7 +313,7 @@ export function SimulatingStudyModal({
                     <div className=" absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
                       <div className="w-6 h-6 rounded-full bg-yellow-300 flex items-center justify-center">
                         <p className=" text-black text-sm">
-                          {selectedCourses.length}
+                          {selectedModalSimCourses.length}
                         </p>
                       </div>
                     </div>
@@ -335,42 +343,72 @@ export function SimulatingStudyModal({
                       </p>
                       <div className=" absolute bottom-2 right-2 transform flex flex-wrap gap-2">
                         <Button
+                          color={
+                            selectedModalSimCourses
+                              .map((course) => course.courseCode)
+                              .includes(item.courseCode)
+                              ? "light"
+                              : "dark"
+                          }
                           onClick={() => {
-                            setSelectedCourses((prevState) => [
-                              ...prevState,
-                              item,
-                            ]);
-                            setFilteredCourses((prevState) =>
-                              [...prevState].filter((course) => course != item)
-                            );
+                            selectedModalSimCourses
+                              .map((course) => course.courseCode)
+                              .includes(item.courseCode)
+                              ? setSelectedModalSimCourses((prevState) =>
+                                  [...prevState].filter(
+                                    (prev) => prev.courseCode != item.courseCode
+                                  )
+                                )
+                              : setSelectedModalSimCourses((prevState) => [
+                                  ...prevState,
+                                  { ...item, ...currentSimTermYear },
+                                ]);
                           }}
                         >
                           <span className=" mr-2">
-                            <svg
-                              stroke="currentColor"
-                              fill="currentColor"
-                              stroke-width="0"
-                              viewBox="0 0 24 24"
-                              height="1.5em"
-                              width="1.5em"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path fill="none" d="M0 0h24v24H0z"></path>
-                              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
-                            </svg>
+                            {selectedModalSimCourses
+                              .map((course) => course.courseCode)
+                              .includes(item.courseCode) ? (
+                              <>
+                                <svg
+                                  fill="#2D505B"
+                                  stroke-width="0"
+                                  viewBox="0 0 24 24"
+                                  height="1.5em"
+                                  width="1.5em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path fill="none" d="M0 0h24v24H0z"></path>
+                                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                                </svg>
+                              </>
+                            ) : (
+                              <>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="1.5em"
+                                  height="1.5em"
+                                  viewBox="0 0 24 24"
+                                  fill="#E8F8F8"
+                                >
+                                  <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+                                </svg>
+                              </>
+                            )}
                           </span>
-                          <p>เลือก</p>
+                          <p
+                            className={
+                              selectedModalSimCourses
+                                .map((course) => course.courseCode)
+                                .includes(item.courseCode)
+                                ? "text-dark-slate-blue"
+                                : " text-bg-pale-blue-gray"
+                            }
+                          >
+                            เลือก
+                          </p>
                         </Button>
                       </div>
-                      {/* {checkisEnrolled(item.courseCode) ? (
-                      <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
-                        <div className="w-12 h-12 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
-                          <FaCheck className="text-white" />
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="mb-2"></p>
-                    )} */}
                     </div>
                   </div>
                 ))}
@@ -382,7 +420,10 @@ export function SimulatingStudyModal({
           <div className="flex justify-center w-full">
             <Button
               className="bg-gradient-to-r from-green-1 to-green-2 mr-2"
-              onClick={() => setIsOpenModal(false)}
+              onClick={() => {
+                setSelectedSimCourses(selectedModalSimCourses);
+                setIsOpenModal(false);
+              }}
             >
               เพิ่มรายวิชา
             </Button>

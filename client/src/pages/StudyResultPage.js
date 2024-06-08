@@ -30,7 +30,7 @@ function StudyResultPage() {
     try {
       const result = await axPSU.get(psuConfig.getAllRegistData);
       setStudentEnrolls(result.data);
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       console.log(err);
     }
@@ -58,7 +58,7 @@ function StudyResultPage() {
   const fetchCategories = async () => {
     try {
       const result = await axLOCAL.get(localConfig.getCategories);
-      console.log("all cata", result);
+      // console.log("all cata", result);
       const filterdHeader = result.data.map((item) => ({
         categoryId: item.categoryId,
         categoryNameEng: item.categoryType,
