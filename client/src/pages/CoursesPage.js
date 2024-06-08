@@ -414,7 +414,7 @@ function CoursesPage() {
                     {item.courseNameThai}
                   </p>
                   <p className="font-medium text-gray-400 mt-1 ml-2">
-                    {item.credit}
+                  {item.credit ? item.credit : "x(y-y-y)"}
                   </p>
                   <div className="absolute top-0 right-10 transform flex flex-wrap gap-2 ">
                     {item.category ? (
