@@ -18,6 +18,8 @@ module.exports = {
         "dark-blue-gray": "#223C44",
         "dark-slate-blue": "#2D505B",
         "light-seagreen": "#7BCAFF",
+        "blue-green2": "#35606E",
+        "blue-green1": "#417687",
       },
       backgroundImage: {
         bruteforce: "url('../src/images/bg.png')",

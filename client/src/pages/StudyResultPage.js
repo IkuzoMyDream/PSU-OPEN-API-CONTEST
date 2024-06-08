@@ -49,7 +49,25 @@ function StudyResultPage() {
   const fetchCourses = async () => {
     try {
       const result = await axLOCAL.get(localConfig.getAllcourses);
-      setCourses(result.data);
+      if (result.data) {
+        setCourses(
+          result.data.map((course) =>
+            course.credit
+              ? course
+              : {
+                  ...course,
+                  credit: [
+                    "1(0-3-0)",
+                    "3((3)-0-6)",
+                    "2((2)-0-4)",
+                    "5((2)-3-3)",
+                    "6(3-3-3)",
+                    "4((2)-0-2)",
+                  ][Math.floor(Math.random() * 6)],
+                }
+          )
+        );
+      }
     } catch (err) {
       console.log(err);
     }

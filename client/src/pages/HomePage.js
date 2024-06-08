@@ -66,7 +66,6 @@ function HomePage() {
     try {
       const result = await axLOCAL.get(`/student/${studentDetail?.studentId}`);
       // console.log(result);
-      console.log("gay1",result)
       setStudentStatusOverall((prevState) => ({
         ...prevState,
         estScore: result.data.estScore,
@@ -112,6 +111,7 @@ function HomePage() {
   const fetchStudentGPA = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentGPA);
+      console.log(result.data)
       setAllcumCredit(result.data)
       setStudentStatusOverall((prevState) => ({
         ...prevState,
@@ -137,7 +137,6 @@ function HomePage() {
       const result = await axPSU.get(
         `${psuConfig.getSubjectOffer}/${`1`}/${`2562`}`
       );
-      console.log("courses", result.data.data);
       // await Promise.all(
       //   majors.map(async (major) => {
       //     const result = await axLOCAL.post(localConfig.postMajor, {
@@ -176,8 +175,6 @@ function HomePage() {
   // useEffect(() => {
   //   console.log(curriculumStructure);
   // }, [curriculumStructure]);
-  console.log("studentStatusOverall = ",studentStatusOverall)
-  console.log("curriculum = ",curriculumStructure)
 
 
   return (

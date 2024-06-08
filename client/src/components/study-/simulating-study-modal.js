@@ -211,7 +211,7 @@ export function SimulatingStudyModal({
     if (selectedSimCourses.length && !selectedModalSimCourses.length) {
       setSelectedModalSimCourses(selectedSimCourses);
     }
-    console.log(selectedModalSimCourses);
+    // console.log(selectedModalSimCourses);
   }, [selectedModalSimCourses, selectedSimCourses]);
 
   return (
@@ -339,7 +339,7 @@ export function SimulatingStudyModal({
                         {item.courseNameThai}
                       </p>
                       <p className="font-medium text-gray-400 mt-1 ml-2">
-                        {item.credit ? item.credit : `x(y-y-y)`}
+                        {item.credit.length !== 1 ? item.credit : `x(y-y-y)`}
                       </p>
                       <div className=" absolute bottom-2 right-2 transform flex flex-wrap gap-2">
                         <Button
@@ -361,7 +361,11 @@ export function SimulatingStudyModal({
                                 )
                               : setSelectedModalSimCourses((prevState) => [
                                   ...prevState,
-                                  { ...item, ...currentSimTermYear },
+                                  {
+                                    ...item,
+                                    ...currentSimTermYear,
+                                    grade: "A",
+                                  },
                                 ]);
                           }}
                         >

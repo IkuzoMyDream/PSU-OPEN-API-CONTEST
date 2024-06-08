@@ -1,7 +1,7 @@
 import { Button, Card } from "flowbite-react";
 import { Line } from "react-chartjs-2";
 
-import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 
 import React from "react";
 import {
@@ -55,11 +55,11 @@ export default function StudyResultCumChart() {
                 },
               }}
               data={{
-                labels: ["ปี1 เทอม1", `ปี1 เทอม2`, `จำลอง1`, `จำลอง2`],
+                labels: [`1/2563`, `2/2563`, `1/2564`],
                 datasets: [
                   {
-                    label: "my score",
-                    data: [3.46, 3.77, 4, 3.9],
+                    label: "GPA",
+                    data: [3.97, 3.92, 3.13],
                     backgroundColor: "#5FBE97",
                   },
                 ],
@@ -73,23 +73,25 @@ export default function StudyResultCumChart() {
               <h5 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
                 ดัชนีการเปลี่ยนแปลง (%){" "}
               </h5>
-              <SentimentSatisfiedAltIcon
+              <SentimentDissatisfiedIcon
                 className="mb-2"
-                style={{ fontSize: "64px", color: "#3EA37E" }}
+                style={{ fontSize: "64px", color: "#DE7A6C" }}
               />
               <div className="flex justify-center mb-2">
-                <Button className="bg-gradient-to-r from-green-1 to-green-2 size">
-                  +5.71%
+                <Button className="bg-gradient-to-r from-red-1 to-red-2 size">
+                  −20.76%
                 </Button>
               </div>
-              <p className="mb-2">ดัชนีการเปลี่ยนแปลงของท่านอยู่ในเกณฑ์ที่ดี</p>
+              <p className="mb-2">
+                ดัชนีการเปลี่ยนแปลงของท่านอยู่ในเกณฑ์ที่ควรปรับปรุง
+              </p>
             </div>
             <h5 className="text-2xl font-semibold text-gray-900 dark:text-white">
               สรุปสะสม (Cumulative){" "}
             </h5>
-            <p>หน่วยกิตที่ลงทะเบียน 49</p>
-            <p>จำนวนหน่วยจุด 177.00</p>
-            <p>ผลการเรียนเฉลี่ย 3.61</p>
+            <p>หน่วยกิตที่ลงทะเบียน 85</p>
+            <p>จำนวนหน่วยจุด 301.5</p>
+            <p>ผลการเรียนเฉลี่ย 3.54</p>
           </Card>
         </div>
       </div>
