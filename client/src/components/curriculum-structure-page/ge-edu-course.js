@@ -5,12 +5,15 @@ export default function GeEduCourse({
   geEduCourse,
   studentGeEnroll,
   filterCurriculumCourse,
-}) {
+}) 
+{
+  console.log("studen = ",studentGeEnroll)
+  console.log("teajkfnajf = ",geEduCourse)
   return (
     <>
       <p className=" text-2xl">
         หมวดวิชาศึกษาทั่วไป ({studentGeEnroll?.registCreditAmount} /{" "}
-        {geEduCourse?.totalCredit}) หน่วยกิต
+        {parseInt(geEduCourse?.totalCredit)+parseInt(geEduCourse?.elecEduCourse.totalCredit)}) หน่วยกิต
       </p>
       <div className=" indent-8 my-3"></div>
       <Accordion alwaysOpen style={{ backgroundColor: "white" }}>
@@ -74,7 +77,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 5 การคิดเชิงระบบตรรกะและตัวเลข (
             {studentGeEnroll?.subjGroup05.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup05?.totalCredit})
+            {geEduCourse?.subjGroup05?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -88,7 +91,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 6 ภาษาและการสื่อสาร (
             {studentGeEnroll?.subjGroup06.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup06?.totalCredit})
+            {geEduCourse?.subjGroup06?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -102,7 +105,7 @@ export default function GeEduCourse({
           <Accordion.Title>
             สาระที่ 7 สุนทรียศาสตร์และกีฬา (
             {studentGeEnroll?.subjGroup07.registCreditAmount} /{" "}
-            {geEduCourse?.subjGroup07?.totalCredit})
+            {geEduCourse?.subjGroup07?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent
@@ -115,7 +118,7 @@ export default function GeEduCourse({
         <Accordion.Panel>
           <Accordion.Title>
             วิชาเลือก ({studentGeEnroll?.elecEduCourse.registCreditAmount} /{" "}
-            {geEduCourse?.elecEduCourse?.totalCredit})
+            {geEduCourse?.elecEduCourse?.totalCredit}) หน่วยกิต
           </Accordion.Title>
           <Accordion.Content>
             <CurriculumAccordionContent

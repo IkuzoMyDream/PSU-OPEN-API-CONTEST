@@ -3,10 +3,13 @@ import FreeElecCourse from "./free-elec-course";
 import ConcenEduCourse from "./concen-edu-course";
 import GeEduCourse from "./ge-edu-course";
 import { Dropdown } from "flowbite-react";
+import { HiInformationCircle, HiOutlineArrowRight } from "react-icons/hi";
+import { Alert } from "flowbite-react";
 
 export default function CorriculumStructure({
   curriculumStructure,
   studentEnroll,
+  freeCourse,
 }) {
   const [geEduCourse, setGeEduCourse] = useState(null);
   const [concentrationCourse, setConcentrationCourse] = useState(null);
@@ -44,13 +47,15 @@ export default function CorriculumStructure({
     <>
       <div>
         <div className="grid grid-cols-2">
-          <div>
-            <p className=" text-sm my-3">
-              หมายเหตุ *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น
-              จะต้องตรวจสอบอีกครั้ง*
-            </p>
-          </div>
-          <div className="flex justify-end">
+          <Alert 
+                 
+                 color="info"
+                 icon={HiInformationCircle}
+                 >
+                 *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น จะต้องตรวจสอบอีกครั้ง*
+                 
+               </Alert>
+              <div className="flex justify-end">
             <Dropdown label={filterCurriculumCourse}>
               <Dropdown.Item
                 onClick={() => setFilterCurriculumCourse(`แสดงรายวิชาทั้งหมด`)}
@@ -93,6 +98,7 @@ export default function CorriculumStructure({
             studentFreeElecEnroll={studentFreeElecEnroll}
             freeElecCourse={freeElecCourse}
             filterCurriculumCourse={filterCurriculumCourse}
+            freecourse={freeCourse}
           />
         </div>
       </div>

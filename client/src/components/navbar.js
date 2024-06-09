@@ -37,7 +37,7 @@ export function NavBar() {
                 }
               >
                 <FaHome className="mr-2" />
-                Home
+                หน้าแรก
               </NavLink>
             </li>
             <li>

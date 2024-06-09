@@ -311,8 +311,8 @@ function CoursesPage() {
 
   return (
     <div className="font-noto_sans_thai grid grid-cols-4  gap-4 p-4">
-      <div className="md:border border-gray-300 p-5 rounded">
-        <h2 className="text-lg font-bold mb-2">หมวดหมู่รายวิชา</h2>
+      <div className="bg-pale-blue-gray md:border border-gray-300 p-5 rounded">
+        <h2 className="text-2xl font-bold mb-6">หมวดหมู่รายวิชา</h2>
         {categoriesHeader.map((item) => (
           <div className="mb-4" key={item.categoryId}>
             <div className="flex items-center mb-3 ">
@@ -390,7 +390,7 @@ function CoursesPage() {
         <div>
           <div className="grid grid-cols-1 gap-4">
             <div className="flex items-center ">
-              <div className="w-10/12 border-t border-gray-300"></div>
+              <div className="w-full border-t border-gray-300"></div>
             </div>
             <p className="font-semibold text-xl">
               จำนวนรายวิชาทั้งหมด {selectedCourses.length}
@@ -418,8 +418,15 @@ function CoursesPage() {
                   </p>
                   <div className="absolute top-0 right-10 transform flex flex-wrap gap-2 ">
                     {item.category ? (
-                      <div className=" w-17 h-6 rounded bg-green-300 border-4 border-white mt-2    ">
-                        <p className="truncate ... scale-75 text-xs font-semibold items-center justify-center">
+                      <div className=" w-17 h-7 rounded-lg bg-pale-blue-gray  border border-dark-blue-gray mt-2    ">
+                        <p className="truncate ... scale-75 text-lg font-medium items-center justify-center"
+                        style={{
+                          maxWidth: "15ch",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                        }}
+                        >
                           {item.category.subjectGroupName}
                         </p>
                       </div>
@@ -427,8 +434,15 @@ function CoursesPage() {
                       <></>
                     )}
                     {item.subCategory ? (
-                      <div className="w-17 h-6  rounded bg-green-300 border-4 border-white mt-2">
-                        <p className="scale-75 text-xs font-semibold truncate ...  items-center justify-center">
+                      <div className="w-17 h-7  rounded-lg bg-pale-blue-gray border border-dark-blue-gray mt-2">
+                        <p className="scale-75 text-lg font-medium  truncate ...  items-center justify-center"
+                        style={{
+                          maxWidth: "15ch",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                        }}
+                        >
                           {item.subCategory.subCategoryName}
                         </p>
                       </div>
@@ -438,7 +452,7 @@ function CoursesPage() {
                   </div>
                   {checkisEnrolled(item.courseCode) ? (
                     <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
-                      <div className="w-12 h-12 rounded-full bg-green-300 border-4 border-white flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-green-300 border flex items-center justify-center shadow">
                         <FaCheck className="text-white" />
                       </div>
                     </div>
