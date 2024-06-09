@@ -340,7 +340,13 @@ export default function SimulatingStudyResult({
       {studentEnrolls && studentGrades && (
         <>
           {semesterType === "ลงทะเบียนแล้ว" ? (
-            <>
+            <div
+              className=" rounded mt-3"
+              style={{
+                backgroundColor: "#DDF7F8",
+                padding: "15px 15px 15px 15px",
+              }}
+            >
               <Table>
                 <Table.Head>
                   <Table.HeadCell>รหัสวิชา</Table.HeadCell>
@@ -371,7 +377,7 @@ export default function SimulatingStudyResult({
                     ))}
                 </Table.Body>
               </Table>
-            </>
+            </div>
           ) : (
             <>
               <div className=" grid grid-cols-4 gap-3">
@@ -429,22 +435,28 @@ export default function SimulatingStudyResult({
                   <></>
                 )}
               </div>
-              <Table>
-                <Table.Head>
-                  <Table.HeadCell>รหัสวิชา</Table.HeadCell>
-                  <Table.HeadCell>ชื่อวิชา</Table.HeadCell>
-                  <Table.HeadCell>หน่วยกิต</Table.HeadCell>
-                  <Table.HeadCell>ระดับขั้น</Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y">
-                  {selectedSimCourses
-                    .filter(
-                      (item) =>
-                        item.eduTerm == filterEnrollments.eduTerm &&
-                        item.eduYear == filterEnrollments.eduYear
-                    )
-                    .map((item) => (
-                      <>
+              <div
+                className=" rounded mt-3"
+                style={{
+                  backgroundColor: "#DDF7F8",
+                  padding: "15px 15px 15px 15px",
+                }}
+              >
+                <Table>
+                  <Table.Head>
+                    <Table.HeadCell>รหัสวิชา</Table.HeadCell>
+                    <Table.HeadCell>ชื่อวิชา</Table.HeadCell>
+                    <Table.HeadCell>หน่วยกิต</Table.HeadCell>
+                    <Table.HeadCell>ระดับขั้น</Table.HeadCell>
+                  </Table.Head>
+                  <Table.Body className="divide-y">
+                    {selectedSimCourses
+                      .filter(
+                        (item) =>
+                          item.eduTerm == filterEnrollments.eduTerm &&
+                          item.eduYear == filterEnrollments.eduYear
+                      )
+                      .map((item) => (
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                           <Table.Cell>{item.courseCode}</Table.Cell>
                           <Table.Cell>{item.courseNameThai}</Table.Cell>
@@ -477,20 +489,24 @@ export default function SimulatingStudyResult({
                             </Select>
                           </Table.Cell>
                         </Table.Row>
-                      </>
-                    ))}
-                  <Table.Row>
-                    <Table.Cell colSpan={1}>
-                      <Button
-                        className=" bg-green-2"
-                        onClick={() => setIsOpenModal(true)}
-                      >
-                        เพิ่มรายวิชา+
-                      </Button>
-                    </Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
+                      ))}
+                    <Table.Row className=" bg-white">
+                      <Table.Cell>
+                        <Button
+                          className=" bg-green-2"
+                          onClick={() => setIsOpenModal(true)}
+                        >
+                          เพิ่มรายวิชา+
+                        </Button>
+                      </Table.Cell>
+                      <Table.Cell></Table.Cell>
+                      <Table.Cell></Table.Cell>
+                      <Table.Cell></Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table>
+              </div>
+
               <div className=" grid grid-cols-1">
                 <div>
                   <Button
@@ -507,7 +523,13 @@ export default function SimulatingStudyResult({
             </>
           )}
           {isStartSim && !loading ? (
-            <>
+            <div
+              className=" rounded mt-3"
+              style={{
+                backgroundColor: "#DDF7F8",
+                padding: "10px 15px 10px 15px",
+              }}
+            >
               <div className=" grid grid-cols-2 my-3 gap-3">
                 <div>
                   <Card>
@@ -659,18 +681,7 @@ export default function SimulatingStudyResult({
                   </Card>
                 </div>
               </div>
-              {/* <div className=" grid grid-cols-4">
-                <div className=" col-start-2 col-span-2">
-                  <Card>
-                    <div>
-                      <h5 className=" font-semibold">
-                        สรุประดับภาคการศึกษา (Semester)
-                      </h5>
-                    </div>
-                  </Card>
-                </div>
-              </div> */}
-            </>
+            </div>
           ) : (
             isStartSim && (
               <>

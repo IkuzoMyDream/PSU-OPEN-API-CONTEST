@@ -13,7 +13,7 @@ export default function FreeElecCourse({
 
   return (
     <>
-      <p className=" text-2xl" style={{ backgroundColor: "white" }}>
+      <p className=" text-xl">
         หมวดวิชาเลือกเสรี ({studentFreeElecEnroll?.registCreditAmount} /{" "}
         {freeElecCourse?.totalCredit}) หน่วยกิต
       </p>
@@ -29,13 +29,20 @@ export default function FreeElecCourse({
           </Accordion.Title>
           <Accordion.Content>
             {Object.values(freecourse).map((course) => (
-              <Card className="my-3 bg-pale-blue-gray relative" key={course.courseCode}>
+              <Card
+                className="my-3 bg-pale-blue-gray relative"
+                key={course.courseCode}
+              >
                 <div className="grid grid-cols-2">
                   <div>
-                    {course.courseCode} {course.courseNameThai} {course.credit?course.credit:"x(y-y-y)"}{" "}
+                    {course.courseCode} {course.courseNameThai}{" "}
+                    {course.credit ? course.credit : "x(y-y-y)"}{" "}
                   </div>
                   <div className="flex justify-end">
-                    {isEnrolled(course.courseCode, studentFreeElecEnroll?.registCourseIds) ? (
+                    {isEnrolled(
+                      course.courseCode,
+                      studentFreeElecEnroll?.registCourseIds
+                    ) ? (
                       <>
                         <p>
                           ผลการเรียน :{" "}

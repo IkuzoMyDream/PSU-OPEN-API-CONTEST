@@ -46,16 +46,12 @@ export default function CorriculumStructure({
   return (
     <>
       <div>
-        <div className="grid grid-cols-2">
-          <Alert 
-                 
-                 color="info"
-                 icon={HiInformationCircle}
-                 >
-                 *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น จะต้องตรวจสอบอีกครั้ง*
-                 
-               </Alert>
-              <div className="flex justify-end">
+        {/* <div className="grid grid-cols-2"> */}
+        {/* <Alert color="info" icon={HiInformationCircle}>
+            *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น จะต้องตรวจสอบอีกครั้ง*
+          </Alert> */}
+        {/* <div></div> */}
+        {/* <div className="flex justify-end">
             <Dropdown label={filterCurriculumCourse}>
               <Dropdown.Item
                 onClick={() => setFilterCurriculumCourse(`แสดงรายวิชาทั้งหมด`)}
@@ -77,23 +73,24 @@ export default function CorriculumStructure({
                 แสดงรายวิชาที่ยังไม่ลงทะเบียน
               </Dropdown.Item>
             </Dropdown>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
         <div className=" my-3">
           <GeEduCourse
             studentGeEnroll={studentGeEnroll}
             geEduCourse={geEduCourse}
             filterCurriculumCourse={filterCurriculumCourse}
+            setFilterCurriculumCourse={setFilterCurriculumCourse}
           />
         </div>
-        <div className=" my-3">
+        <div className=" my-12">
           <ConcenEduCourse
             studentConcenEnroll={studentConcenEnroll}
             concentrationCourse={concentrationCourse}
             filterCurriculumCourse={filterCurriculumCourse}
           />
         </div>
-        <div className=" my-3">
+        <div className=" my-12">
           <FreeElecCourse
             studentFreeElecEnroll={studentFreeElecEnroll}
             freeElecCourse={freeElecCourse}

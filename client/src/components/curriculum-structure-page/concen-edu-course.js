@@ -9,7 +9,7 @@ export default function ConcenEduCourse({
 }) {
   return (
     <>
-      <p className=" text-2xl">
+      <p className=" text-xl">
         หมวดวิชาเฉพาะ ({studentConcenEnroll?.registCreditAmount} /{" "}
         {concentrationCourse?.totalCredit}) หน่วยกิต
       </p>

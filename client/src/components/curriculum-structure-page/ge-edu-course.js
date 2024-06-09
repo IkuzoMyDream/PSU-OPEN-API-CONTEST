@@ -1,20 +1,47 @@
-import { Accordion, Card } from "flowbite-react";
+import { Accordion, Card, Dropdown } from "flowbite-react";
 import CurriculumAccordionContent from "./curriculum-accordion.content";
 
 export default function GeEduCourse({
   geEduCourse,
   studentGeEnroll,
   filterCurriculumCourse,
-}) 
-{
-  console.log("studen = ",studentGeEnroll)
-  console.log("teajkfnajf = ",geEduCourse)
+  setFilterCurriculumCourse,
+}) {
+  console.log("studen = ", studentGeEnroll);
+  console.log("teajkfnajf = ", geEduCourse);
   return (
     <>
-      <p className=" text-2xl">
-        หมวดวิชาศึกษาทั่วไป ({studentGeEnroll?.registCreditAmount} /{" "}
-        {parseInt(geEduCourse?.totalCredit)+parseInt(geEduCourse?.elecEduCourse.totalCredit)}) หน่วยกิต
-      </p>
+      <div className=" grid grid-cols-2">
+        <p className=" text-xl">
+          หมวดวิชาศึกษาทั่วไป ({studentGeEnroll?.registCreditAmount} /{" "}
+          {parseInt(geEduCourse?.totalCredit) +
+            parseInt(geEduCourse?.elecEduCourse.totalCredit)}
+          ) หน่วยกิต
+        </p>
+        <div className=" flex justify-end">
+          <Dropdown label={filterCurriculumCourse}>
+            <Dropdown.Item
+              onClick={() => setFilterCurriculumCourse(`แสดงรายวิชาทั้งหมด`)}
+            >
+              แสดงรายวิชาทั้งหมด
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() =>
+                setFilterCurriculumCourse(`แสดงรายวิชาที่ลงทะเบียนแล้ว`)
+              }
+            >
+              แสดงรายวิชาที่ลงทะเบียนแล้ว
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() =>
+                setFilterCurriculumCourse(`แสดงรายวิชาที่ยังไม่ลงทะเบียน`)
+              }
+            >
+              แสดงรายวิชาที่ยังไม่ลงทะเบียน
+            </Dropdown.Item>
+          </Dropdown>
+        </div>
+      </div>
       <div className=" indent-8 my-3"></div>
       <Accordion alwaysOpen style={{ backgroundColor: "white" }}>
         <Accordion.Panel>

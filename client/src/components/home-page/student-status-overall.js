@@ -61,7 +61,7 @@ export default function StudentStatusOverall({
           <div className="row-span-2 col-span-1" style={{ height: "100%" }}>
             <Card style={{ backgroundColor: "#DDF7F8" }}>
               <div style={{ width: "100%", height: "100%" }}>
-                <h5 className=" text-xl ">หน่วยกิตสะสม</h5>
+                <h5 className=" text-xl">หน่วยกิตสะสม</h5>
                 <div
                   className=" flex flex-col justify-center gap-y-7 mt-3"
                   style={{ width: "100%", height: "100%" }}
@@ -187,7 +187,7 @@ export default function StudentStatusOverall({
                   className=" flex items-center justify-center"
                   style={{ width: "100%", height: "100%" }}
                 >
-                  <h1 className=" text-center text-7xl">3.54</h1>
+                  <h1 className=" text-center text-7xl ">3.54</h1>
                 </div>
               </div>
             </Card>

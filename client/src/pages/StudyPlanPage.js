@@ -67,13 +67,18 @@ function StudyPlanPage() {
   };
 
   const filterEnrolledFreeccourse = () => {
-    const freeCourses = studentEnroll?.freeElecCourse?.registCourseIds?.reduce((acc, courseId) => {
-      const filteredCourse = coursesData.find((item) => item.courseCode === courseId);
-      if (filteredCourse) {
-        acc[courseId] = filteredCourse;
-      }
-      return acc;
-    }, {});
+    const freeCourses = studentEnroll?.freeElecCourse?.registCourseIds?.reduce(
+      (acc, courseId) => {
+        const filteredCourse = coursesData.find(
+          (item) => item.courseCode === courseId
+        );
+        if (filteredCourse) {
+          acc[courseId] = filteredCourse;
+        }
+        return acc;
+      },
+      {}
+    );
     setFreecourse(freeCourses);
   };
 
@@ -108,29 +113,24 @@ function StudyPlanPage() {
         studentDetail &&
         studentEnroll &&
         curriculumStructure && (
-          
           <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-4">
             <div className="mb-4">
-            <Alert 
-                 
-                 color="info"
-                 icon={HiInformationCircle}
-                 >
-                 *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น จะต้องตรวจสอบอีกครั้ง*
-                 สามารถค้นหาข้อมูลเพิ่มเติมได้ที่ https://sis.psu.ac.th/
-               </Alert>
-                 </div>
-            <div className="grid grid-cols-12 gap-4">
+              <Alert color="info" icon={HiInformationCircle}>
+                *ข้อมูลต่อไปนี้เป็นข้อมูลประมาณเท่านั้น จะต้องตรวจสอบอีกครั้ง*
+                สามารถค้นหาข้อมูลเพิ่มเติมได้ที่ https://sis.psu.ac.th/
+              </Alert>
+            </div>
+            <div className="grid grid-cols-16 gap-4">
               <div className="col-start-1 col-end-4">
                 <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
                   {profileImage && <img src={profileImage} />}
                   <StudentDetail studentDetail={studentDetail} />
                 </div>
               </div>
-              <div className="col-start-5 col-end-13">
+              <div className="col-start-6 col-end-17">
                 <div class="max-w-full p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
-                  <div className="text-center">
-                    <p className=" text-2xl">
+                  <div className="text-center mb-10">
+                    <p className=" text-3xl font-medium ">
                       {curriculumStructure?.curriculumName}
                     </p>
                   </div>
