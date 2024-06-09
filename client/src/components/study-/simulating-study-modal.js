@@ -343,12 +343,15 @@ export function SimulatingStudyModal({
                       </p>
                       <div className=" absolute bottom-2 right-2 transform flex flex-wrap gap-2">
                         <Button
-                          color={
+                          style={
                             selectedModalSimCourses
                               .map((course) => course.courseCode)
                               .includes(item.courseCode)
-                              ? "light"
-                              : "dark"
+                              ? {
+                                  backgroundColor: "#E8F8F8",
+                                  border: "solid black 0.5px",
+                                }
+                              : { backgroundColor: "#223C44" }
                           }
                           onClick={() => {
                             selectedModalSimCourses
@@ -375,7 +378,7 @@ export function SimulatingStudyModal({
                               .includes(item.courseCode) ? (
                               <>
                                 <svg
-                                  fill="#2D505B"
+                                  fill="#223C44"
                                   stroke-width="0"
                                   viewBox="0 0 24 24"
                                   height="1.5em"

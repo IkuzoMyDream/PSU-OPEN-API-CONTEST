@@ -19,7 +19,7 @@ function HomePage() {
 
   const [studentEnroll, setStudentEnroll] = useState(null);
 
-  const [AllcumCredit,setAllcumCredit] = useState([]);
+  const [AllcumCredit, setAllcumCredit] = useState([]);
 
   const [studentStatusOverall, setStudentStatusOverall] = useState({
     cumGpa: "",
@@ -82,16 +82,20 @@ function HomePage() {
       const result = await axLOCAL(
         `${localConfig.getEnrollmentByStudId}/${studentDetail?.studentId}`
       );
-      if (result.data && typeof result.data === 'object') {
+      if (result.data && typeof result.data === "object") {
         const filterCredit = {
-          concenAllCredit: result.data.concentrationCourse?.registCreditAmount || 0,
+          concenAllCredit:
+            result.data.concentrationCourse?.registCreditAmount || 0,
           freeAllCredit: result.data.freeElecCourse?.registCreditAmount || 0,
           geAllCredit: result.data.geEduCourse?.registCreditAmount || 0,
         };
-      setStudentEnroll(filterCredit);
-    } else {
-      console.error("Expected result.data to be an object, but got:", result.data);
-    }
+        setStudentEnroll(filterCredit);
+      } else {
+        console.error(
+          "Expected result.data to be an object, but got:",
+          result.data
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -111,8 +115,8 @@ function HomePage() {
   const fetchStudentGPA = async () => {
     try {
       const result = await axPSU.get(psuConfig.getStudentGPA);
-      console.log(result.data)
-      setAllcumCredit(result.data)
+      console.log(result.data);
+      setAllcumCredit(result.data);
       setStudentStatusOverall((prevState) => ({
         ...prevState,
         cumGpa: result.data[result.data.length - 1].cumGpa,
@@ -175,7 +179,6 @@ function HomePage() {
   // useEffect(() => {
   //   console.log(curriculumStructure);
   // }, [curriculumStructure]);
-
 
   return (
     <>

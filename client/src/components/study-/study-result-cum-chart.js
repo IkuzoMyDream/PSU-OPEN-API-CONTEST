@@ -37,7 +37,7 @@ export default function StudyResultCumChart() {
   return (
     <>
       <h5 className="text-3xl font-semibold text-gray-900 dark:text-white">
-        กราฟแสดงxxx
+        สรุปผลการเรียน
       </h5>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-3">
         <div>

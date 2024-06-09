@@ -495,7 +495,7 @@ export default function SimulatingStudyResult({
                 <div>
                   <Button
                     onClick={calcSimulatingGrade}
-                    // disabled={!selectedSimCourses.length}
+                    disabled={!selectedSimCourses.length}
                     className=" bg-blue-green1 hover:bg-blue-green2 my-5 flex justify-center items-center text-center"
                     style={{ width: "100%", height: "70%" }}
                   >
