@@ -2,7 +2,8 @@
 // import { axLOCAL, axPSU } from "../utils/config/ax";
 // import { localConfig } from "../../utils/config/main";
 import { Progress, Typography } from "@material-tailwind/react";
-import { Card } from "flowbite-react";
+import filled from "@material-tailwind/react/theme/components/timeline/timelineIconColors/filled";
+import { Button, Card } from "flowbite-react";
 
 export default function StudentStatusOverall({
   studentStatusOverall,
@@ -56,21 +57,19 @@ export default function StudentStatusOverall({
   return (
     <>
       <>
-        <div className="grid grid-rows-3 grid-cols-2 gap-4">
+        <div className="grid  gap-4 grid-flow-row-dense">
           <div className="row-span-2 col-span-1" style={{ height: "100%" }}>
-            <Card style={{ height: "100%" }}>
+            <Card style={{ backgroundColor: "#DDF7F8" }}>
               <div style={{ width: "100%", height: "100%" }}>
                 <h5 className=" text-xl ">หน่วยกิตสะสม</h5>
                 <div
-                  className=" flex flex-col justify-center gap-y-10"
+                  className=" flex flex-col justify-center gap-y-7 mt-3"
                   style={{ width: "100%", height: "100%" }}
-                > 
+                >
                   <div>
                     <Card>
                       <div className="mb-2 flex items-center justify-between gap-4">
-                        {/* <Typography color="blue-gray" variant="h1"> */}
                         <p>หมวดศึกษาทั่วไป</p>
-                        {/* </Typography> */}
                         <p className=" text-blue-gray">
                           {studentEnrollment?.geAllCredit
                             ? studentEnrollment?.geAllCredit
@@ -87,7 +86,8 @@ export default function StudentStatusOverall({
                         </p>
                       </div>
                       <Progress
-                        className="bg-gray-300"
+                        color="blue"
+                        className=" bg-gray-200"
                         value={
                           (parseInt(studentEnrollment?.geAllCredit) *
                             parseInt(100)) /
@@ -118,7 +118,8 @@ export default function StudentStatusOverall({
                         </p>
                       </div>
                       <Progress
-                        className="bg-gray-300"
+                        color="blue"
+                        className="bg-gray-200"
                         value={
                           (parseInt(studentEnrollment?.concenAllCredit) *
                             parseInt(100)) /
@@ -144,7 +145,8 @@ export default function StudentStatusOverall({
                           </p>
                         </div>
                         <Progress
-                          className="bg-gray-300"
+                          color="blue"
+                          className="bg-gray-200"
                           value={
                             (parseInt(studentEnrollment?.freeAllCredit) *
                               parseInt(100)) /
@@ -169,34 +171,49 @@ export default function StudentStatusOverall({
             <Card
               style={{
                 height: "100%",
+                backgroundColor: "#DDF7F8",
               }}
             >
               <div style={{ width: "100%", height: "100%" }}>
-                <h5 className=" text-xl">ผลการเรียนเฉลี่ยสะสม</h5>
+                <div className=" relative">
+                  <h5 className=" text-xl">ผลการเรียนเฉลี่ยสะสม</h5>
+                  <div className=" absolute right-0 top-0">
+                    <div className=" rounded-md bg-gradient-to-r from-green-1 to-green-2">
+                      <p className=" text-sm text-white py-2 px-2">Pass</p>
+                    </div>
+                  </div>
+                </div>
                 <div
                   className=" flex items-center justify-center"
                   style={{ width: "100%", height: "100%" }}
                 >
-                  <h1 className=" text-center text-8xl">3.54</h1>
+                  <h1 className=" text-center text-7xl">3.54</h1>
                 </div>
               </div>
             </Card>
           </div>
           <div className="col-span-1" style={{ height: "100%" }}>
-            <Card style={{ height: "100%" }}>
+            <Card style={{ height: "100%", backgroundColor: "#DDF7F8" }}>
               <div style={{ width: "100%", height: "100%" }}>
-                <h5 className=" text-xl">PSU English Skills Test</h5>
+                <div className=" relative">
+                  <h5 className=" text-xl">PSU English Skills Test</h5>
+                  <div className=" absolute right-0 top-0">
+                    <div className=" rounded-md bg-gradient-to-r from-green-1 to-green-2">
+                      <p className=" text-sm text-white py-2 px-2">Pass</p>
+                    </div>
+                  </div>
+                </div>
                 <div
                   className=" flex items-center justify-center"
                   style={{ width: "100%", height: "100%" }}
                 >
-                  <h1 className=" text-center text-8xl">76</h1>
+                  <h1 className=" text-center text-7xl">76</h1>
                 </div>
               </div>
             </Card>
           </div>
           <div className="col-span-2">
-            <Card>
+            <Card style={{ backgroundColor: "#DDF7F8" }}>
               <h5 className=" text-xl ">ชั่วโมงกิจกรรม</h5>
               <div>
                 <Card>
@@ -209,7 +226,11 @@ export default function StudentStatusOverall({
                         32/50
                       </p>
                     </div>
-                    <Progress value={32 * 2} className="bg-gray-300" />
+                    <Progress
+                      color="blue"
+                      value={32 * 2}
+                      className="bg-gray-200"
+                    />
                   </div>
                 </Card>
               </div>
@@ -224,7 +245,11 @@ export default function StudentStatusOverall({
                         32/50
                       </p>
                     </div>
-                    <Progress value={32 * 2} className="bg-gray-300" />
+                    <Progress
+                      color="blue"
+                      value={32 * 2}
+                      className="bg-gray-200"
+                    />
                   </div>
                 </Card>
               </div>

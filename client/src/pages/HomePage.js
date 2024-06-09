@@ -185,7 +185,10 @@ function HomePage() {
       <div className="font-noto_sans_thai container mx-auto sm-auto md-auto lg-auto px-20 py-10">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-start-1 col-end-4">
-            <div class="max-w-sm p-6 bg-gradient-to-r bg-pale-blue-gray border-gray-200 dark:bg-gray-900 rounded-lg shadow ">
+            <div
+              style={{ backgroundColor: "#DDF7F8" }}
+              class="max-w-sm p-6 bg-gradient-to-r  border-gray-200 dark:bg-gray-900 rounded-lg shadow "
+            >
               {profileImage && <img src={profileImage} />}
               <br />
               <StudentDetail studentDetail={studentDetail} />
